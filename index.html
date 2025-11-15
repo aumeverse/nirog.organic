@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nirog Organic - Pure. Fresh. Healthy.</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    
+    <!-- Swiper.js CDN (FOR CAROUSELS) -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    
+    <!-- Google Font (Inter) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Base font */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F9F7F3; /* Earthy, light beige background */
+            transition: background-color 0.5s ease;
+        }
+
+        /* Page Transition Animations */
+        .page {
+            display: none;
+            animation: fadeIn 0.7s ease-in-out;
+        }
+        .page.active {
+            display: block;
+        }
+        .page.is-exiting {
+            animation: fadeOut 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+        
+        /* Custom class for the farm-image background on testimonials */
+        .testimonial-card {
+            background-image: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('https://placehold.co/400x300/659D32/FFFFFF?text=Smiling+Family+on+Farm');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Animation for add-to-cart feedback */
+        @keyframes pulse-cart {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        .pulse-cart-animation {
+            animation: pulse-cart 0.5s ease-in-out;
+        }
+
+        /* Custom scrollbar (optional but nice) */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F9F7F3;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #659D32; /* Main brand green */
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4B7F52; /* Darker green */
+        }
+
+        /* Swiper Carousel Styles */
+        .swiper-container {
+            width: 100%;
+            padding-bottom: 50px; /* Space for pagination */
+        }
+        .swiper-button-next, .swiper-button-prev {
+            color: #659D32; /* Main brand green */
+        }
+        .swiper-pagination-bullet-active {
+            background: #659D32;
+        }
+
+        /* Product Card Hover Zoom */
+        .product-image-container {
+            overflow: hidden;
+        }
+        .product-image-container img {
+            transition: transform 0.4s ease-in-out;
+        }
+        .product-card:hover .product-image-container img {
+            transform: scale(1.1);
+        }
+
+        /* Animated Product Badge */
+        .product-badge {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background-color: #FACC15; /* Bright yellow */
+            color: #854D0E; /* Brown */
+            padding: 4px 12px;
+            border-radius: 99px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            animation: pulse-badge 2s infinite;
+        }
+        @keyframes pulse-badge {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(250, 204, 21, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(250, 204, 21, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(250, 204, 21, 0); }
+        }
+
+        /* Custom Modal (replaces alert()) */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 24px;
+            width: 90%;
+            max-width: 450px;
+            text-align: center;
+            transform: scale(0.9);
+            transition: all 0.3s ease;
+        }
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+        
+        /* Delivery Animation for Modal */
+        @keyframes drive {
+            0% { transform: translateX(-150px); }
+            100% { transform: translateX(150px); }
+        }
+        .delivery-truck-animation {
+            animation: drive 2s ease-in-out infinite alternate;
+        }
+
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Header / Navigation -->
+    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-lg shadow-sm">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#" class="font-extrabold text-3xl text-green-700" onclick="showPage('page-home')">
+                Nirog Organic
+            </a>
+            
+            <!-- Navigation & CTAs -->
+            <div class="flex items-center space-x-4">
+                <a href="#" class="hidden md:inline text-gray-600 hover:text-green-700 font-medium" onclick="showPage('page-home')">Home</a>
+                <a href="#" class="hidden md:inline text-gray-600 hover:text-green-700 font-medium" onclick="showPage('page-products')">Products</a>
+                
+                <!-- Direct Call -->
+                <a href="tel:+911234567890" class="hidden sm:flex items-center px-4 py-2 bg-green-100 text-green-700 rounded-full hover:bg-green-200 transition-all">
+                    <i data-lucide="phone" class="w-4 h-4 mr-2"></i>
+                    Call Us
+                </a>
+                
+                <!-- Cart Button -->
+                <button onclick="showPage('page-cart')" class="relative flex items-center px-4 py-2 bg-green-600 text-white rounded-full hover:bg-green-700 transition-all shadow-md hover:shadow-lg">
+                    <i data-lucide="shopping-cart" class="w-5 h-5"></i>
+                    <span class="ml-2 hidden sm:inline">Cart</span>
+                    <!-- Cart count badge -->
+                    <span id="cart-count-badge" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">0</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content Area -->
+    <main>
+        
+        <!-- ====================== -->
+        <!--      HOMEPAGE          -->
+        <!-- ====================== -->
+        <div id="page-home" class="page active">
+            <!-- Hero Section -->
+            <section class="container mx-auto px-4 py-16 sm:py-24 grid md:grid-cols-2 gap-12 items-center overflow-hidden">
+                <!-- Hero Text -->
+                <div class="animate-fade-in-right">
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight">
+                        Pure. Fresh. Healthy.
+                    </h1>
+                    <p class="mt-4 text-xl sm:text-2xl text-green-800 font-medium">
+                        Delivered Direct From Our Farms.
+                    </p>
+                    <p class="mt-6 text-lg text-gray-600">
+                        Experience the true taste of nature with Nirog Organic. We bring you the finest, 100% organic produce, cultivated with care by Indian farmers.
+                    </p>
+                    <div class="mt-10 flex flex-col sm:flex-row gap-4">
+                        <button onclick="showPage('page-products')" class="px-8 py-3 bg-green-600 text-white font-semibold rounded-full shadow-lg hover:bg-green-700 transition-all text-lg transform hover:scale-105">
+                            Shop All Products
+                        </button>
+                        <a href="https://wa.me/911234567890?text=Hi%20Nirog%20Organic!%20I'm%20interested%20in%20your%20products." target="_blank" class="flex items-center justify-center px-8 py-3 bg-green-100 text-green-700 font-semibold rounded-full shadow-lg hover:bg-green-200 transition-all text-lg transform hover:scale-105">
+                            <i data-lucide="message-circle" class="w-5 h-5 mr-2"></i>
+                            Order on WhatsApp
+                        </a>
+                    </div>
+                </div>
+                <!-- Hero Image -->
+                <div class="flex items-center justify-center">
+                    <img src="https://i.ibb.co/YFCgqWWS/075f2a78-6dc3-4325-a078-eb29679c8224.png" alt="Animated Indian Farmer with Fresh Produce" class="rounded-3xl shadow-2xl w-full max-w-lg">
+                </div>
+            </section>
+
+            <!-- Feature Icons Section -->
+            <section class="bg-white py-16">
+                <div class="container mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                    <div class="flex flex-col items-center">
+                        <div class="p-4 bg-green-100 rounded-full">
+                            <i data-lucide="leaf" class="w-10 h-10 text-green-700"></i>
+                        </div>
+                        <h3 class="mt-4 text-xl font-bold">Farm-Fresh</h3>
+                        <p class="mt-1 text-gray-600">Harvested at peak ripeness.</p>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="p-4 bg-green-100 rounded-full">
+                            <i data-lucide="shield-check" class="w-10 h-10 text-green-700"></i>
+                        </div>
+                        <h3 class="mt-4 text-xl font-bold">100% Organic</h3>
+                        <p class="mt-1 text-gray-600">No pesticides or chemicals.</p>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="p-4 bg-green-100 rounded-full">
+                            <i data-lucide="truck" class="w-10 h-10 text-green-700"></i>
+                        </div>
+                        <h3 class="mt-4 text-xl font-bold">Home Delivery</h3>
+                        <p class="mt-1 text-gray-600">Direct to your doorstep.</p>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="p-4 bg-green-100 rounded-full">
+                            <i data-lucide="heart-pulse" class="w-10 h-10 text-green-700"></i>
+                        </div>
+                        <h3 class="mt-4 text-xl font-bold">Health Focused</h3>
+                        <p class="mt-1 text-gray-600">Nourishing your family.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Product Highlights Carousel -->
+            <section class="py-20">
+                <div class="container mx-auto px-4">
+                    <h2 class="text-3xl font-extrabold text-center mb-12">Our Bestsellers</h2>
+                    
+                    <!-- Swiper Carousel -->
+                    <div class="swiper-container product-swiper">
+                        <div class="swiper-wrapper" id="product-carousel-wrapper">
+                            <!-- Product slides will be injected here -->
+                        </div>
+                        <!-- Add Pagination -->
+                        <div class="swiper-pagination"></div>
+                        <!-- Add Navigation -->
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Testimonials Section -->
+            <section class="bg-green-50 py-20">
+                <div class="container mx-auto px-4">
+                    <h2 class="text-3xl font-extrabold text-center mb-12">From Our Happy Customers</h2>
+                    
+                    <!-- Swiper Carousel -->
+                    <div class="swiper-container testimonial-swiper">
+                        <div class="swiper-wrapper" id="testimonial-slider-wrapper">
+                            <!-- Testimonial slides will be injected here -->
+                        </div>
+                        <!-- Add Pagination -->
+                        <div class="swiper-pagination"></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ====================== -->
+        <!--     PRODUCTS PAGE      -->
+        <!-- ====================== -->
+        <div id="page-products" class="page">
+            <div class="container mx-auto px-4 py-16">
+                <h1 class="text-4xl font-extrabold text-center mb-12">Our Farm-Fresh Products</h1>
+                
+                <!-- Responsive Product Grid -->
+                <div id="product-grid" class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-8">
+                    <!-- Product cards will be injected here by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ====================== -->
+        <!--       CART PAGE        -->
+        <!-- ====================== -->
+        <div id="page-cart" class="page">
+            <div class="container mx-auto px-4 py-16">
+                <h1 class="text-4xl font-extrabold text-center mb-12">Your Shopping Cart</h1>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                    
+                    <!-- Cart Items Summary -->
+                    <div class="lg:col-span-2">
+                        <div id="cart-items-container" class="space-y-6">
+                            <!-- Cart items will be injected here -->
+                            <!-- Empty cart message -->
+                            <div id="empty-cart-message" class="text-center p-10 bg-white rounded-2xl shadow-md">
+                                <i data-lucide="shopping-basket" class="w-20 h-20 text-gray-300 mx-auto"></i>
+                                <p class="mt-4 text-xl text-gray-500">Your cart is empty.</p>
+                                <button onclick="showPage('page-products')" class="mt-6 px-6 py-2 bg-green-600 text-white font-semibold rounded-full hover:bg-green-700 transition-all">
+                                    Start Shopping
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Checkout Form & WhatsApp Order -->
+                    <div id="checkout-section" class="lg:col-span-1 hidden">
+                        <div class="bg-white p-8 rounded-2xl shadow-xl sticky top-28">
+                            <h2 class="text-2xl font-bold mb-6">Confirm Your Order</h2>
+                            <form id="checkout-form">
+                                <div class="space-y-4">
+                                    <div>
+                                        <label for="user-name" class="block text-sm font-medium text-gray-700">Full Name</label>
+                                        <input type="text" id="user-name" name="name" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500" required>
+                                    </div>
+                                    <div>
+                                        <label for="user-phone" class="block text-sm font-medium text-gray-700">Phone Number (for WhatsApp)</label>
+                                        <input type="tel" id="user-phone" name="phone" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500" required>
+                                    </div>
+                                    <div>
+                                        <label for="user-address" class="block text-sm font-medium text-gray-700">Delivery Address</label>
+                                        <textarea id="user-address" name="address" rows="3" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500" required></textarea>
+                                    </div>
+                                </div>
+                            </form>
+                            
+                            <!-- WhatsApp Message Preview -->
+                            <div class="mt-6">
+                                <h3 class="font-semibold text-gray-800">WhatsApp Message Preview:</h3>
+                                <div id="whatsapp-preview" class="mt-2 p-4 bg-gray-50 rounded-lg border border-gray-200 text-sm text-gray-600 h-40 overflow-y-auto whitespace-pre-wrap">
+                                    Your order details will appear here...
+                                </div>
+                            </div>
+
+                            <!-- Privacy Notice -->
+                            <p class="mt-4 text-xs text-gray-500">
+                                By clicking 'Confirm & Send', you agree to our <a href="#" class="text-green-600 underline">Privacy Policy</a>. Your order will be sent via WhatsApp.
+                            </p>
+                            
+                            <!-- Confirm Button -->
+                            <button id="send-whatsapp-btn" class="mt-6 w-full flex items-center justify-center px-8 py-3 bg-green-600 text-white font-bold rounded-full shadow-lg hover:bg-green-700 transition-all text-lg transform hover:scale-105">
+                                <i data-lucide="send" class="w-5 h-5 mr-3"></i>
+                                Confirm & Send Order
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 pt-16 pb-8">
+        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
+            <!-- Brand Info -->
+            <div>
+                <h3 class="font-extrabold text-3xl text-white mb-4">Nirog Organic</h3>
+                <p>Pure. Fresh. Healthy.</p>
+                <p class="mt-2">Delivering goodness from our farms in Punjab to your home.</p>
+                <div class="flex space-x-4 mt-6">
+                    <a href="#" class="p-2 bg-gray-700 rounded-full hover:bg-green-600"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+                    <a href="#" class="p-2 bg-gray-700 rounded-full hover:bg-green-600"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                    <a href="#" class="p-2 bg-gray-700 rounded-full hover:bg-green-600"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+                </div>
+            </div>
+            
+            <!-- Quick Links -->
+            <div>
+                <h4 class="text-xl font-bold text-white mb-4">Quick Links</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" onclick="showPage('page-home')" class="hover:text-white">Home</a></li>
+                    <li><a href="#" onclick="showPage('page-products')" class="hover:text-white">All Products</a></li>
+                    <li><a href="#" class="hover:text-white">About Us</a></li>
+                    <li><a href="#" class="hover:text-white">Testimonials</a></li>
+                </ul>
+            </div>
+            
+            <!-- Contact Info -->
+            <div>
+                <h4 class="text-xl font-bold text-white mb-4">Contact Us</h4>
+                <ul class="space-y-2">
+                    <li class="flex items-center"><i data-lucide="map-pin" class="w-5 h-5 mr-2 text-green-400"></i> Punjab Farms, India</li>
+                    <li class="flex items-center"><i data-lucide="phone" class="w-5 h-5 mr-2 text-green-400"></i> +91 12345 67890</li>
+                    <li class="flex items-center"><i data-lucide="mail" class="w-5 h-5 mr-2 text-green-400"></i> orders@nirog.organic</li>
+                </ul>
+            </div>
+            
+            <!-- Delivery Zone -->
+            <div>
+                <h4 class="text-xl font-bold text-white mb-4">Delivery Zones</h4>
+                <p>Currently delivering across Mumbai, Delhi NCR, and Bangalore.</p>
+                <img src="https://placehold.co/300x150/333333/659D32?text=Map+Icon" alt="Delivery Map" class="mt-4 rounded-lg opacity-70">
+            </div>
+        </div>
+        <div class="container mx-auto px-4 mt-12 border-t border-gray-700 pt-8 text-center text-sm">
+            <p>&copy; 2025 Nirog Organic. All Rights Reserved.</p>
+            <p class="mt-1"><a href="#" class="hover:text-white underline">Privacy Policy</a> &bull; <a href="#" class="hover:text-white underline">Terms of Service</a></p>
+        </div>
+    </footer>
+
+    <!-- Custom Modal (replaces alert()) -->
+    <div id="custom-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div id="modal-icon-container" class="mb-6">
+                <!-- Icon will be injected here -->
+            </div>
+            <h2 id="modal-title" class="text-2xl font-bold text-gray-900 mb-3">Modal Title</h2>
+            <p id="modal-message" class="text-gray-600 mb-8">Modal message goes here.</p>
+            <button id="modal-close-btn" class="w-full px-6 py-3 bg-green-600 text-white font-semibold rounded-full hover:bg-green-700 transition-all">
+                Got it
+            </button>
+        </div>
+    </div>
+
+
+    <!-- JavaScript Logic -->
+    <script>
+        // --- DATABASE & STATE ---
+        
+        // Product Database (simulates admin backend)
+        const products = [
+            {
+                id: 'p1',
+                name: '100% Pure Mustard Oil',
+                price: 250,
+                unit: '1L Bottle',
+                img: 'https://placehold.co/400x300/FACC15/854D0E?text=Hyperrealistic+Mustard+Oil',
+                description: 'Cold-pressed from the finest mustard seeds, our oil is pungent, pure, and perfect for healthy Indian cooking.',
+                isBestSeller: true
+            },
+            {
+                id: 'p2',
+                name: 'Organic Multi-Grain Flour',
+                price: 180,
+                unit: '1kg Bag',
+                img: 'https://placehold.co/400x300/D1BFA7/6D4C41?text=Multi-Grain+Flour+Sack',
+                description: 'A nutritious blend of 7 organic grains including wheat, ragi, and jowar. Makes soft and healthy rotis.',
+                isBestSeller: false
+            },
+            {
+                id: 'p3',
+                name: 'Lokwan Wheat Grains',
+                price: 120,
+                unit: '1kg Bag',
+                img: 'https://placehold.co/400x300/F5E6CA/B99976?text=Golden+Wheat+Grains',
+                description: 'Sun-dried, premium Lokwan wheat from our Punjab farms. Rich in fiber and nutrients.',
+                isBestSeller: true
+            },
+            {
+                id: 'p4',
+                name: 'Virgin Coconut Oil',
+                price: 350,
+                unit: '500ml Jar',
+                img: 'https://placehold.co/400x300/E0F2FE/0284C7?text=Virgin+Coconut+Oil',
+                description: '100% pure, cold-pressed virgin coconut oil. Excellent for cooking, skin, and hair.',
+                isBestSeller: true
+            },
+            {
+                id: 'p5',
+                name: 'Farm-Fresh Turmeric',
+                price: 90,
+                unit: '250g Pack',
+                img: 'https://placehold.co/400x300/F59E0B/9A3412?text=Turmeric+Powder',
+                description: 'High-curcumin turmeric powder, ground fresh from whole, organic turmeric roots.',
+                isBestSeller: false
+            },
+            {
+                id: 'p6',
+                name: 'Organic Jaggery Powder',
+                price: 150,
+                unit: '500g Pack',
+                img: 'https://placehold.co/400x300/B45309/FDE68A?text=Jaggery+Powder',
+                description: 'A healthy, unrefined sweetener made from pure, organic sugarcane juice. Rich in minerals.',
+                isBestSeller: false
+            }
+        ];
+
+        // Testimonial Data
+        const testimonials = [
+            {
+                quote: "The mustard oil is just like my grandmother used to make! The purity and taste are unmatched. So glad I found Nirog Organic.",
+                name: "Priya S., Mumbai",
+                avatar: "https://placehold.co/80x80/FFFFFF/333333?text=P"
+            },
+            {
+                quote: "My kids love the rotis from the multi-grain flour. It's soft and so healthy. Plus, the delivery is always on time. Highly recommend!",
+                name: "Rahul V., Delhi",
+                avatar: "https://placehold.co/80x80/FFFFFF/333333?text=R"
+            },
+            {
+                quote: "I use the coconut oil for everything! Cooking, for my baby's massage... it's 100% pure. Thank you for this amazing product.",
+                name: "Aisha K., Bangalore",
+                avatar: "https://placehold.co/80x80/FFFFFF/333333?text=A"
+            },
+            {
+                quote: "The Lokwan wheat is fantastic. We've switched completely. You can taste the freshness in every bite.",
+                name: "Sandeep G., Pune",
+                avatar: "https://placehold.co/80x80/FFFFFF/333333?text=S"
+            }
+        ];
+
+        // Cart State (saved in session storage)
+        let cart = JSON.parse(sessionStorage.getItem('nirogCart')) || {};
+        let currentPage = 'page-home';
+
+        // --- DOM ELEMENTS ---
+        const pages = document.querySelectorAll('.page');
+        const productGrid = document.getElementById('product-grid');
+        const productCarouselWrapper = document.getElementById('product-carousel-wrapper');
+        const testimonialSliderWrapper = document.getElementById('testimonial-slider-wrapper');
+        const cartItemsContainer = document.getElementById('cart-items-container');
+        const emptyCartMessage = document.getElementById('empty-cart-message');
+        const checkoutSection = document.getElementById('checkout-section');
+        const cartCountBadge = document.getElementById('cart-count-badge');
+        const whatsappPreview = document.getElementById('whatsapp-preview');
+        const checkoutForm = document.getElementById('checkout-form');
+        const sendWhatsappBtn = document.getElementById('send-whatsapp-btn');
+        // Modal DOM Elements
+        const customModal = document.getElementById('custom-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalMessage = document.getElementById('modal-message');
+        const modalCloseBtn = document.getElementById('modal-close-btn');
+        const modalIconContainer = document.getElementById('modal-icon-container');
+        
+        // --- NAVIGATION ---
+        
+        function showPage(pageId) {
+            if (pageId === currentPage) return;
+
+            const newPage = document.getElementById(pageId);
+            const oldPage = document.getElementById(currentPage);
+
+            if (oldPage) {
+                oldPage.classList.add('is-exiting');
+                setTimeout(() => {
+                    oldPage.classList.remove('active', 'is-exiting');
+                    newPage.classList.add('active');
+                    currentPage = pageId;
+                    
+                    // Scroll to top
+                    window.scrollTo(0, 0);
+            
+                    // Re-render cart if showing cart page
+                    if(pageId === 'page-cart') {
+                        renderCart();
+                    }
+                }, 500); // Match fadeOut animation duration
+            } else {
+                newPage.classList.add('active');
+                currentPage = pageId;
+            }
+        }
+
+        // --- RENDER FUNCTIONS ---
+
+        // Render Product Highlights Carousel (Homepage)
+        function renderHighlightsCarousel() {
+            if (!productCarouselWrapper) return;
+            productCarouselWrapper.innerHTML = '';
+            const highlightProducts = products.filter(p => p.isBestSeller);
+
+            highlightProducts.forEach(product => {
+                productCarouselWrapper.innerHTML += `
+                    <div class="swiper-slide">
+                        <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-2xl m-2">
+                            <img src="${product.img}" alt="${product.name}" class="w-full h-56 object-cover">
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold truncate">${product.name}</h3>
+                                <p class="mt-2 text-gray-600 truncate">${product.description}</p>
+                                <button onclick="showPage('page-products')" class="mt-4 w-full px-4 py-2 bg-green-600 text-white font-semibold rounded-full hover:bg-green-700 transition-all">
+                                    View Details
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // Render Testimonial Slider (Homepage)
+        function renderTestimonialSlider() {
+            if (!testimonialSliderWrapper) return;
+            testimonialSliderWrapper.innerHTML = '';
+
+            testimonials.forEach(item => {
+                testimonialSliderWrapper.innerHTML += `
+                    <div class="swiper-slide">
+                        <div class="testimonial-card text-white p-8 rounded-2xl shadow-xl flex flex-col min-h-[300px] justify-center m-2">
+                            <img src="${item.avatar}" alt="Customer Avatar" class="w-20 h-20 rounded-full border-4 border-white mb-4 self-center">
+                            <p class="text-lg italic text-center text-gray-100 flex-grow">"${item.quote}"</p>
+                            <span class="mt-6 text-xl font-bold text-center text-green-300">${item.name}</span>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // Render all products on the product page
+        function renderProductGrid() {
+            if (!productGrid) return;
+            productGrid.innerHTML = '';
+            products.forEach(product => {
+                const bestSellerBadge = product.isBestSeller ? '<span class="product-badge">Best Seller</span>' : '';
+
+                productGrid.innerHTML += `
+                    <div class="product-card bg-white rounded-2xl shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 flex flex-col group relative">
+                        ${bestSellerBadge}
+                        <div class="product-image-container w-full h-56">
+                            <img src="${product.img}" alt="${product.name}" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <div class="flex-grow">
+                                <h3 class="text-xl font-bold">${product.name}</h3>
+                                <p class="text-sm text-gray-500 mt-1">${product.unit}</p>
+                                <p class="text-2xl font-extrabold text-green-700 mt-2">₹${product.price}</p>
+                                <p class="mt-2 text-gray-600">${product.description}</p>
+                            </div>
+                            <button onclick="addToCart('${product.id}')" class="add-to-cart-btn mt-6 w-full flex items-center justify-center px-4 py-3 bg-green-600 text-white font-semibold rounded-full hover:bg-green-700 transition-all">
+                                <i data-lucide="plus-circle" class="w-5 h-5 mr-2"></i>
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            // Create icons after adding new elements
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        }
+
+        // Render items in the cart
+        function renderCart() {
+            cartItemsContainer.innerHTML = '';
+            let totalAmount = 0;
+            const cartKeys = Object.keys(cart);
+
+            if (cartKeys.length === 0) {
+                emptyCartMessage.classList.remove('hidden');
+                checkoutSection.classList.add('hidden');
+            } else {
+                emptyCartMessage.classList.add('hidden');
+                checkoutSection.classList.remove('hidden');
+
+                cartKeys.forEach(productId => {
+                    const product = products.find(p => p.id === productId);
+                    const quantity = cart[productId];
+                    const subtotal = product.price * quantity;
+                    totalAmount += subtotal;
+
+                    cartItemsContainer.innerHTML += `
+                        <div class="flex items-center bg-white p-4 rounded-2xl shadow-md gap-4">
+                            <img src="${product.img}" alt="${product.name}" class="w-24 h-24 sm:w-32 sm:h-32 object-cover rounded-lg">
+                            <div class="flex-grow">
+                                <h3 class="text-lg sm:text-xl font-bold">${product.name}</h3>
+                                <p class="text-sm text-gray-500">${product.unit}</p>
+                                <p class="text-lg font-bold text-green-700 mt-1">₹${product.price}</p>
+                            </div>
+                            <div class="flex flex-col items-end space-y-2">
+                                <!-- Quantity Selector -->
+                                <div class="flex items-center border border-gray-300 rounded-full">
+                                    <button onclick="updateQuantity('${productId}', ${quantity - 1})" class="px-3 py-1 text-lg font-bold text-gray-600 hover:text-red-500 transition-all ${quantity === 1 ? 'opacity-50 cursor-not-allowed' : ''}" ${quantity === 1 ? 'disabled' : ''}>-</button>
+                                    <input type="number" value="${quantity}" min="1" onchange="updateQuantity('${productId}', this.value)" class="w-12 text-center font-bold border-l border-r border-gray-300 py-1 focus:outline-none">
+                                    <button onclick="updateQuantity('${productId}', ${quantity + 1})" class="px-3 py-1 text-lg font-bold text-gray-600 hover:text-green-500 transition-all">+</button>
+                                </div>
+                                <!-- Subtotal -->
+                                <p class="text-lg font-bold">Total: ₹${subtotal}</p>
+                                <!-- Remove Button -->
+                                <button onclick="removeFromCart('${productId}')" class="text-red-500 hover:text-red-700 text-sm font-medium">
+                                    <i data-lucide="trash-2" class="w-4 h-4 inline-block mr-1"></i>Remove
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                // Add Total Amount
+                cartItemsContainer.innerHTML += `
+                    <div class="text-right mt-8">
+                        <h2 class="text-2xl sm:text-3xl font-extrabold">
+                            Grand Total: <span class="text-green-700">₹${totalAmount}</span>
+                        </h2>
+                    </div>
+                `;
+            }
+            
+            updateCartCount();
+            updateWhatsappPreview();
+            // Re-render icons after updating cart HTML
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        }
+
+        // Update cart count badge
+        function updateCartCount() {
+            const totalItems = Object.values(cart).reduce((sum, qty) => sum + qty, 0);
+            cartCountBadge.textContent = totalItems;
+            
+            // Pulse animation
+            cartCountBadge.classList.add('pulse-cart-animation');
+            setTimeout(() => {
+                cartCountBadge.classList.remove('pulse-cart-animation');
+            }, 500);
+        }
+
+        // --- MODAL ACTIONS (Replaces Alert) ---
+
+        function showModal(title, message, iconType = 'success') {
+            modalTitle.textContent = title;
+            modalMessage.textContent = message;
+
+            let iconHtml = '';
+            if (iconType === 'success') {
+                iconHtml = `<i data-lucide="check-circle" class="w-20 h-20 text-green-500 mx-auto"></i>`;
+            } else if (iconType === 'error') {
+                iconHtml = `<i data-lucide="alert-triangle" class="w-20 h-20 text-red-500 mx-auto"></i>`;
+            } else if (iconType === 'delivery') {
+                iconHtml = `
+                    <div class="w-full h-20 overflow-hidden relative">
+                        <i data-lucide="truck" class="delivery-truck-animation w-20 h-20 text-green-600 absolute left-1/2 -ml-10"></i>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-4">Order on its way!</p>
+                `;
+            }
+            modalIconContainer.innerHTML = iconHtml;
+            
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+
+            customModal.classList.add('active');
+        }
+
+        function hideModal() {
+            customModal.classList.remove('active');
+        }
+
+        function showOrderConfirmationModal() {
+            showModal("Order Sent!", "Your order has been sent via WhatsApp. We will contact you shortly to confirm.", "delivery");
+            
+            // Override close button text and action for this specific modal
+            modalCloseBtn.textContent = "Continue Shopping";
+            
+            // Clear cart and go home after a delay
+            setTimeout(() => {
+                cart = {};
+                saveCart();
+                renderCart();
+                hideModal();
+                showPage('page-home');
+                modalCloseBtn.textContent = "Got it"; // Reset button text
+            }, 4000);
+        }
+
+
+        // --- CART ACTIONS ---
+
+        function saveCart() {
+            sessionStorage.setItem('nirogCart', JSON.stringify(cart));
+        }
+
+        function addToCart(productId) {
+            cart[productId] = (cart[productId] || 0) + 1;
+            saveCart();
+            updateCartCount();
+            
+            // Add visual feedback
+            const product = products.find(p => p.id === productId);
+            showModal("Added to Cart!", `${product.name} has been added to your shopping cart.`, "success");
+        }
+
+        function updateQuantity(productId, quantity) {
+            const newQty = parseInt(quantity);
+            if (newQty <= 0) {
+                removeFromCart(productId);
+            } else {
+                cart[productId] = newQty;
+                saveCart();
+                renderCart();
+            }
+        }
+
+        function removeFromCart(productId) {
+            delete cart[productId];
+            saveCart();
+            renderCart();
+        }
+
+        // --- WHATSAPP LOGIC ---
+        
+        function updateWhatsappPreview() {
+            if (!checkoutSection.classList.contains('hidden')) {
+                const name = document.getElementById('user-name').value || "[Your Name]";
+                const phone = document.getElementById('user-phone').value || "[Your Phone]";
+                const address = document.getElementById('user-address').value || "[Your Address]";
+                
+                let message = "Hi Nirog Organic! I'd like to place an order:\n\n";
+                let totalAmount = 0;
+                
+                Object.keys(cart).forEach(productId => {
+                    const product = products.find(p => p.id === productId);
+                    const quantity = cart[productId];
+                    const subtotal = product.price * quantity;
+                    totalAmount += subtotal;
+                    message += `*${product.name}* (${product.unit})\n`;
+                    message += `  ${quantity} x ₹${product.price} = ₹${subtotal}\n\n`;
+                });
+                
+                message += "----------------------------\n";
+                message += `*Total Amount: ₹${totalAmount}*\n\n`;
+                message += "My Details:\n";
+                message += `*Name:* ${name}\n`;
+                message += `*Phone:* ${phone}\n`;
+                message += `*Address:* ${address}\n\n`;
+                message += "Please confirm my order. Thank you!";
+                
+                whatsappPreview.textContent = message;
+            }
+        }
+        
+        function sendWhatsappOrder() {
+            // Simple Form Validation
+            const name = document.getElementById('user-name').value;
+            const phone = document.getElementById('user-phone').value;
+            const address = document.getElementById('user-address').value;
+
+            if (!name || !phone || !address) {
+                showModal("Missing Details", "Please fill in all the details (Name, Phone, and Address) to place your order.", "error");
+                return;
+            }
+            
+            // Phone number to send to (REPLACE with your business number)
+            const businessPhoneNumber = "911234567890"; // Example: 91 for India, followed by 10 digits
+            
+            const message = whatsappPreview.textContent;
+            const encodedMessage = encodeURIComponent(message);
+            
+            const whatsappURL = `https://wa.me/${businessPhoneNumber}?text=${encodedMessage}`;
+            
+            // Open WhatsApp
+            window.open(whatsappURL, '_blank');
+            
+            // Show confirmation modal (which now handles cart clearing)
+            showOrderConfirmationModal();
+        }
+
+        // --- INITIALIZATION ---
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            // Render all dynamic content
+            renderProductGrid();
+            renderHighlightsCarousel();
+            renderTestimonialSlider();
+            updateCartCount();
+            
+            // Initialize Swipers
+            if (productCarouselWrapper) {
+                new Swiper('.product-swiper', {
+                    loop: true,
+                    slidesPerView: 1,
+                    spaceBetween: 20,
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true,
+                    },
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    },
+                    breakpoints: {
+                        640: {
+                            slidesPerView: 2,
+                        },
+                        1024: {
+                            slidesPerView: 3,
+                        },
+                        1280: {
+                            slidesPerView: 4,
+                        }
+                    }
+                });
+            }
+
+            if (testimonialSliderWrapper) {
+                new Swiper('.testimonial-swiper', {
+                    loop: true,
+                    slidesPerView: 1,
+                    spaceBetween: 20,
+                    autoplay: {
+                        delay: 5000,
+                    },
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true,
+                    },
+                    breakpoints: {
+                        768: {
+                            slidesPerView: 2,
+                        },
+                        1024: {
+                            slidesPerView: 3,
+                        }
+                    }
+                });
+            }
+
+            // Add listeners to checkout form to update preview
+            if (checkoutForm) {
+                checkoutForm.addEventListener('input', updateWhatsappPreview);
+            }
+            
+            // Add listener to send button
+            if (sendWhatsappBtn) {
+                sendWhatsappBtn.addEventListener('click', sendWhatsappOrder);
+            }
+
+            // Add listener to modal close button
+            if (modalCloseBtn) {
+                modalCloseBtn.addEventListener('click', hideModal);
+            }
+            
+            // Initial icon render
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        });
+
+    </script>
+</body>
+</html>
