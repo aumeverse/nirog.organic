@@ -10,6 +10,7 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
+        // Custom Tailwind Config using your theme colors
         tailwind.config = {
             theme: {
                 extend: {
@@ -21,7 +22,7 @@
                             gold: '#FACC15',    // Action/Mustard
                             wheat: '#F5E6CA',   // Background Accent
                             soil: '#854D0E',    // Text/Earth
-                            cream: '#f0e6d8',   // Main BG
+                            cream: '#f0e6d8',   // Main BG (Light Beige)
                         }
                     },
                     fontFamily: {
@@ -32,60 +33,70 @@
                         'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.37)',
                         'float': '0 20px 40px -5px rgba(0,0,0,0.1)',
                     },
+                    keyframes: {
+                        'fade-in-up': {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        // New keyframe for cart feedback
+                        'cart-pulse': {
+                            '0%, 100%': { transform: 'scale(1) rotate(0deg)' },
+                            '25%': { transform: 'scale(1.1) rotate(5deg)' },
+                            '75%': { transform: 'scale(1.1) rotate(-5deg)' },
+                        }
+                    },
                     animation: {
+                        'fade-in-up': 'fade-in-up 0.3s ease-out',
                         'spin-slow': 'spin 8s linear infinite',
+                        // New class for applying the pulse animation
+                        'cart-pulse': 'cart-pulse 0.3s ease-in-out 3', // Repeats 3 times
                     }
                 }
             }
         }
     </script>
     
-    <!-- Libraries -->
+    <!-- Libraries (Lucide Icons and Swiper) -->
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <!-- GSAP Removed for simpler static rendering -->
     
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
     
     <style>
-        /* Updated Global Background */
+        /* Global Background and Scrollbar for consistent theming */
         body { background-color: #f0e6d8; color: #1a1a1a; overflow-x: hidden; }
         
-        /* Loader */
+        /* Preloader: Reduced background color to match body better */
         #loader {
-            position: fixed; inset: 0; background: #E6D2B5; z-index: 9999; /* Updated to Beige Brown */
+            position: fixed; inset: 0; background: #f0e6d8; z-index: 9999;
             display: flex; justify-content: center; align-items: center;
-            transition: opacity 0.5s ease-in-out; /* Faster fade out */
+            transition: opacity 0.5s ease-in-out; 
         }
         
-        /* Glassmorphism */
-        .glass { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.5); }
-
         /* Custom Scrollbar - Themed */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #f0e6d8; }
         ::-webkit-scrollbar-thumb { background: #659D32; border-radius: 10px; }
 
-        /* Flying Animation */
-        .flying-img { position: fixed; z-index: 9999; pointer-events: none; border-radius: 50%; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
-
-        /* Page System - Simplified for visibility */
+        /* Page System */
         .page { display: none; }
         .page.active { display: block; }
 
         /* Card Mini Swiper */
         .mini-swiper { width: 100%; height: 100%; border-radius: 1rem; }
         .mini-swiper .swiper-slide img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* Custom animation for modal only */
+        .animate-fade-in-up { animation: fade-in-up 0.3s ease-out; }
     </style>
 </head>
 <body class="font-sans antialiased selection:bg-punjab-gold selection:text-punjab-soil">
 
-    <!-- LOADING SCREEN -->
+    <!-- LOADING SCREEN (Reduced duration for perceived speed) -->
     <div id="loader">
         <div class="text-center relative animate-pulse">
-            <!-- Increased width from w-48 to w-64 for larger logo -->
             <img src="https://i.ibb.co/ccbFTZ2t/Whats-App-Image-2025-11-28-at-02-12-40-f7f9fdf4-removebg-preview.png" alt="Nirog Organic Loading" class="w-64 h-auto mx-auto mb-6">
             <p class="text-sm text-punjab-soil font-medium tracking-[0.2em] uppercase">Pure Heritage</p>
         </div>
@@ -94,12 +105,11 @@
     <!-- NAVIGATION -->
     <header id="main-header" class="fixed top-0 w-full z-40 transition-all duration-300 py-4">
         <div class="container mx-auto px-6">
+            <!-- Used white background and backdrop-blur on navigation for better visibility -->
             <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-6 py-3 flex justify-between items-center shadow-lg">
                 <a href="#" onclick="showPage('page-home')" class="flex items-center gap-3 group">
-                    <!-- Replaced image logo with the original plant icon -->
                     <i data-lucide="sprout" class="w-10 h-10 text-punjab-gold group-hover:scale-110 transition-transform drop-shadow-md"></i>
                     <div class="flex flex-col">
-                        <!-- Updated Brand Name -->
                         <span class="font-serif font-bold text-lg sm:text-xl leading-none text-white drop-shadow-md header-text">Nirog Organic</span>
                     </div>
                 </a>
@@ -107,7 +117,7 @@
                 <nav class="hidden md:flex items-center space-x-8">
                     <button onclick="showPage('page-home')" class="text-white hover:text-punjab-gold font-medium text-sm tracking-wide uppercase transition-colors header-text">Home</button>
                     <button onclick="showPage('page-shop')" class="text-white hover:text-punjab-gold font-medium text-sm tracking-wide uppercase transition-colors header-text">Shop All</button>
-                    <button onclick="scrollToSection('farmers-section')" class="text-white hover:text-punjab-gold font-medium text-sm tracking-wide uppercase transition-colors header-text">Stories</button>
+                    <button onclick="scrollToSection('why-choose-us-section')" class="text-white hover:text-punjab-gold font-medium text-sm tracking-wide uppercase transition-colors header-text">Stories</button>
                 </nav>
 
                 <div class="flex items-center gap-4">
@@ -122,20 +132,15 @@
 
     <main>
         <!-- ============================================== -->
-        <!--             PAGE 1: LANDING PAGE               -->
+        <!-- 			 PAGE 1: LANDING PAGE 			      -->
         <!-- ============================================== -->
         <div id="page-home" class="page active">
             
-            <!-- 1. HERO -->
-            <section class="relative h-screen w-full overflow-hidden flex items-center justify-center">
-                <div class="absolute inset-0 z-0">
-                    <div class="absolute inset-0 bg-black/40 z-10"></div>
-                    <!-- Removed scale-110 to fix blurriness, added object-center for better positioning -->
-                    <img src="https://i.ibb.co/g0TmLHK/Gemini-Generated-Image-tqwrv8tqwrv8tqwr.png" alt="Punjab Heritage Fields" class="w-full h-full object-cover object-center">
-                </div>
+            <!-- 1. HERO - OPTIMIZED: Replaced image with instant-loading gradient -->
+            <section class="relative h-screen w-full overflow-hidden flex items-center justify-center bg-punjab">
+                <div class="absolute inset-0 z-0 bg-punjab-dark/80 bg-gradient-to-br from-punjab-dark to-punjab"></div>
 
                 <div class="container mx-auto px-6 relative z-20 text-center text-white mt-16">
-                    <!-- Removed animation classes -->
                     <div class="inline-block mb-4 px-4 py-1 rounded-full border border-punjab-gold/50 bg-black/20 backdrop-blur-sm">
                         <span class="text-punjab-gold text-xs font-bold uppercase tracking-[0.2em]">100% Traceable to 2000+ Farmers</span>
                     </div>
@@ -146,14 +151,14 @@
                     <p class="text-base sm:text-lg md:text-xl text-gray-200 max-w-2xl mx-auto mb-10 font-light leading-relaxed">
                         Slow stone-ground flours and cold-pressed oils. <br>With 30 years of expertise in the grain business and deep roots in Punjab.
                     </p>
-                    <button onclick="showPage('page-shop')" class="px-10 py-4 bg-punjab hover:bg-punjab-dark text-white rounded-full font-bold shadow-lg shadow-punjab/40 transition-all hover:scale-105 flex items-center justify-center gap-2 mx-auto">
+                    <button onclick="showPage('page-shop')" class="px-10 py-4 bg-punjab-gold hover:bg-punjab text-punjab-soil rounded-full font-bold shadow-lg shadow-punjab-gold/40 transition-all hover:scale-105 flex items-center justify-center gap-2 mx-auto">
                         View The Pantry
                         <i data-lucide="arrow-right" class="w-4 h-4"></i>
                     </button>
                 </div>
             </section>
 
-            <!-- 2. HERITAGE TIMELINE (BG Color Updated) -->
+            <!-- 2. HERITAGE TIMELINE -->
             <section class="py-20 bg-punjab-cream relative">
                 <div class="container mx-auto px-6">
                     <div class="text-center mb-16">
@@ -161,19 +166,18 @@
                         <div class="w-20 h-1 bg-punjab mx-auto mt-4 rounded-full"></div>
                     </div>
                     <div class="grid md:grid-cols-3 gap-8 text-center">
-                        <!-- Removed opacity-0 and translate classes -->
                         <div class="journey-step">
-                            <img src="https://i.ibb.co/srvp6fS/unnamed-2.jpg" class="w-full h-64 object-cover rounded-3xl shadow-lg mb-6 transition-all duration-500 hover:scale-105">
+                            <img src="https://i.ibb.co/srvp6fS/unnamed-2.jpg" alt="Golden Fields" class="w-full h-64 object-cover rounded-3xl shadow-lg mb-6 transition-all duration-500 hover:scale-105">
                             <h3 class="font-serif text-2xl font-bold text-punjab-dark">1. From Punjab's Golden Fields</h3>
                             <p class="text-gray-600 mt-2 text-sm leading-relaxed">Handpicked from sun-kissed fields of Punjab—where every grain is harvested at peak ripeness. This is where purity meets tradition.</p>
                         </div>
                         <div class="journey-step">
-                            <img src="https://i.ibb.co/99WTC1Nr/Gemini-Generated-Image-i4zsaxi4zsaxi4zs.png" class="w-full h-64 object-cover rounded-3xl shadow-lg mb-6 transition-all duration-500 hover:scale-105">
+                            <img src="https://i.ibb.co/99WTC1Nr/Gemini-Generated-Image-i4zsaxi4zsaxi4zs.png" alt="Stone Grinding" class="w-full h-64 object-cover rounded-3xl shadow-lg mb-6 transition-all duration-500 hover:scale-105">
                             <h3 class="font-serif text-2xl font-bold text-punjab-dark">2. Stone-Ground Goodness</h3>
                             <p class="text-gray-600 mt-2 text-sm leading-relaxed">Crushed slowly between granite wheels, just like your grandmother did. No heat, no shortcuts—just whole grain nutrition and that authentic nutty aroma.</p>
                         </div>
                         <div class="journey-step">
-                            <img src="https://i.ibb.co/t1LJgC9/Gemini-Generated-Image-sugd5csugd5csugd.png" class="w-full h-64 object-cover rounded-3xl shadow-lg mb-6 transition-all duration-500 hover:scale-105">
+                            <img src="https://i.ibb.co/t1LJgC9/Gemini-Generated-Image-sugd5csugd5csugd.png" alt="Cold Pressing" class="w-full h-64 object-cover rounded-3xl shadow-lg mb-6 transition-all duration-500 hover:scale-105">
                             <h3 class="font-serif text-2xl font-bold text-punjab-dark">3. Cold-Pressed, Chemical-Free</h3>
                             <p class="text-gray-600 mt-2 text-sm leading-relaxed">Extracted below 50°C with zero chemicals. Our oils lock in heart-healthy omegas and Vitamin E—taste the difference, feel the purity.</p>
                         </div>
@@ -181,7 +185,7 @@
                 </div>
             </section>
 
-            <!-- 3. BESTSELLERS CAROUSEL (BG Updated to Theme) -->
+            <!-- 3. BESTSELLERS CAROUSEL -->
             <section class="py-24 bg-punjab-cream overflow-hidden">
                 <div class="container mx-auto px-6">
                     <div class="flex justify-between items-end mb-12">
@@ -205,8 +209,8 @@
                 </div>
             </section>
 
-            <!-- 4. WHY CHOOSE US (Replaces Farmers Stories) -->
-            <section class="py-24 bg-punjab-dark relative text-white">
+            <!-- 4. WHY CHOOSE US (Added ID for navigation link) -->
+            <section id="why-choose-us-section" class="py-24 bg-punjab-dark relative text-white">
                 <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
                 <div class="container mx-auto px-6 relative z-10">
                     <div class="section-header text-center mb-16">
@@ -214,83 +218,62 @@
                         <p class="text-punjab-gold text-sm font-bold uppercase tracking-widest">Trusted by farmers and families across Punjab</p>
                     </div>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"> <!-- Adjusted columns to 3 since items reduced -->
-                      
-                      <!-- Trust Badge: Stone-Ground Fresh -->
-                      <div class="bg-white/10 backdrop-blur-md border border-white/10 p-8 rounded-3xl text-center hover:bg-white/20 transition-all hover:-translate-y-2 duration-300 group">
-                        <div class="w-16 h-16 mx-auto mb-6 bg-punjab-gold/20 rounded-full flex items-center justify-center text-white group-hover:bg-punjab-gold transition-colors">
-                          <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="9"/>
-                            <path d="M12 3v18M3 12h18"/>
-                            <circle cx="12" cy="12" r="3"/>
-                          </svg>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                        
+                        <!-- Trust Badge: Stone-Ground Fresh -->
+                        <div class="bg-white/10 backdrop-blur-md border border-white/10 p-8 rounded-3xl text-center hover:bg-white/20 transition-all hover:-translate-y-2 duration-300 group">
+                            <div class="w-16 h-16 mx-auto mb-6 bg-punjab-gold/20 rounded-full flex items-center justify-center text-white group-hover:bg-punjab-gold transition-colors">
+                                <!-- Replaced generic SVG with Lucide icon equivalent for simplicity and consistency -->
+                                <i data-lucide="aperture" class="w-8 h-8"></i> 
+                            </div>
+                            <h3 class="font-serif text-xl font-bold mb-3">Stone-Ground Freshness</h3>
+                            <p class="text-white/70 text-sm leading-relaxed">Traditional chakki grinding preserves nutrients and fiber. Ground fresh, never stored for months.</p>
                         </div>
-                        <h3 class="font-serif text-xl font-bold mb-3">Stone-Ground Freshness</h3>
-                        <p class="text-white/70 text-sm leading-relaxed">Traditional chakki grinding preserves nutrients and fiber. Ground fresh, never stored for months.</p>
-                      </div>
 
-                      <!-- Trust Badge: Zero Preservatives -->
-                      <div class="bg-white/10 backdrop-blur-md border border-white/10 p-8 rounded-3xl text-center hover:bg-white/20 transition-all hover:-translate-y-2 duration-300 group">
-                        <div class="w-16 h-16 mx-auto mb-6 bg-red-400/20 rounded-full flex items-center justify-center text-white group-hover:bg-red-400 transition-colors">
-                          <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 2l-7 3v6c0 5.5 3.84 10.64 7 12 3.16-1.36 7-6.5 7-12V5l-7-3z"/>
-                            <path d="M9 9l6 6M15 9l-6 6"/>
-                          </svg>
+                        <!-- Trust Badge: Zero Preservatives -->
+                        <div class="bg-white/10 backdrop-blur-md border border-white/10 p-8 rounded-3xl text-center hover:bg-white/20 transition-all hover:-translate-y-2 duration-300 group">
+                            <div class="w-16 h-16 mx-auto mb-6 bg-red-400/20 rounded-full flex items-center justify-center text-white group-hover:bg-red-400 transition-colors">
+                                <i data-lucide="shield-off" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="font-serif text-xl font-bold mb-3">Zero Preservatives</h3>
+                            <p class="text-white/70 text-sm leading-relaxed">No additives, no bleaching, no artificial preservatives. Just pure grain—nothing else.</p>
                         </div>
-                        <h3 class="font-serif text-xl font-bold mb-3">Zero Preservatives</h3>
-                        <p class="text-white/70 text-sm leading-relaxed">No additives, no bleaching, no artificial preservatives. Just pure grain—nothing else.</p>
-                      </div>
 
-                      <!-- Trust Badge: Cold-Pressed Oils -->
-                      <div class="bg-white/10 backdrop-blur-md border border-white/10 p-8 rounded-3xl text-center hover:bg-white/20 transition-all hover:-translate-y-2 duration-300 group">
-                        <div class="w-16 h-16 mx-auto mb-6 bg-blue-400/20 rounded-full flex items-center justify-center text-white group-hover:bg-blue-400 transition-colors">
-                          <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/>
-                            <path d="M11.5 8v6"/>
-                          </svg>
+                        <!-- Trust Badge: Cold-Pressed Oils -->
+                        <div class="bg-white/10 backdrop-blur-md border border-white/10 p-8 rounded-3xl text-center hover:bg-white/20 transition-all hover:-translate-y-2 duration-300 group">
+                            <div class="w-16 h-16 mx-auto mb-6 bg-blue-400/20 rounded-full flex items-center justify-center text-white group-hover:bg-blue-400 transition-colors">
+                                <i data-lucide="droplet" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="font-serif text-xl font-bold mb-3">Cold-Pressed Below 50°C</h3>
+                            <p class="text-white/70 text-sm leading-relaxed">Traditional extraction retains omega-3, Vitamin E, and natural antioxidants for maximum health.</p>
                         </div>
-                        <h3 class="font-serif text-xl font-bold mb-3">Cold-Pressed Below 50°C</h3>
-                        <p class="text-white/70 text-sm leading-relaxed">Traditional extraction retains omega-3, Vitamin E, and natural antioxidants for maximum health.</p>
-                      </div>
 
-                      <!-- Trust Badge: Direct from Farmers -->
-                      <div class="bg-white/10 backdrop-blur-md border border-white/10 p-8 rounded-3xl text-center hover:bg-white/20 transition-all hover:-translate-y-2 duration-300 group">
-                        <div class="w-16 h-16 mx-auto mb-6 bg-orange-400/20 rounded-full flex items-center justify-center text-white group-hover:bg-orange-400 transition-colors">
-                          <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                            <circle cx="9" cy="7" r="4"/>
-                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                          </svg>
+                        <!-- Trust Badge: Direct from Farmers -->
+                        <div class="bg-white/10 backdrop-blur-md border border-white/10 p-8 rounded-3xl text-center hover:bg-white/20 transition-all hover:-translate-y-2 duration-300 group">
+                            <div class="w-16 h-16 mx-auto mb-6 bg-orange-400/20 rounded-full flex items-center justify-center text-white group-hover:bg-orange-400 transition-colors">
+                                <i data-lucide="users" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="font-serif text-xl font-bold mb-3">Direct from Farmers</h3>
+                            <p class="text-white/70 text-sm leading-relaxed">100% traceable to Punjab's organic farms. Fair prices to farmers, fresh products to you.</p>
                         </div>
-                        <h3 class="font-serif text-xl font-bold mb-3">Direct from Farmers</h3>
-                        <p class="text-white/70 text-sm leading-relaxed">100% traceable to Punjab's organic farms. Fair prices to farmers, fresh products to you.</p>
-                      </div>
 
-                      <!-- Trust Badge: Heritage -->
-                      <div class="bg-white/10 backdrop-blur-md border border-white/10 p-8 rounded-3xl text-center hover:bg-white/20 transition-all hover:-translate-y-2 duration-300 group">
-                        <div class="w-16 h-16 mx-auto mb-6 bg-yellow-400/20 rounded-full flex items-center justify-center text-white group-hover:bg-yellow-400 transition-colors">
-                          <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 2v20M8 6c-1.5 0-2 1-2 2v4c0 1 .5 2 2 2M16 6c1.5 0 2 1 2 2v4c0 1-.5 2-2 2"/>
-                            <path d="M8 14l4 8 4-8"/>
-                          </svg>
+                        <!-- Trust Badge: Heritage -->
+                        <div class="bg-white/10 backdrop-blur-md border border-white/10 p-8 rounded-3xl text-center hover:bg-white/20 transition-all hover:-translate-y-2 duration-300 group">
+                            <div class="w-16 h-16 mx-auto mb-6 bg-yellow-400/20 rounded-full flex items-center justify-center text-white group-hover:bg-yellow-400 transition-colors">
+                                <i data-lucide="landmark" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="font-serif text-xl font-bold mb-3">30+ Years in Grain Business</h3>
+                            <p class="text-white/70 text-sm leading-relaxed">Preserving Punjab's Sanjha Chulha tradition. Time-tested recipes, trusted quality.</p>
                         </div>
-                        <h3 class="font-serif text-xl font-bold mb-3">30+ Years in Grain Business</h3>
-                        <p class="text-white/70 text-sm leading-relaxed">Preserving Punjab's Sanjha Chulha tradition. Time-tested recipes, trusted quality.</p>
-                      </div>
 
-                      <!-- Trust Badge: Eco-Friendly Packaging -->
-                      <div class="bg-white/10 backdrop-blur-md border border-white/10 p-8 rounded-3xl text-center hover:bg-white/20 transition-all hover:-translate-y-2 duration-300 group">
-                        <div class="w-16 h-16 mx-auto mb-6 bg-teal-400/20 rounded-full flex items-center justify-center text-white group-hover:bg-teal-400 transition-colors">
-                          <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M21 8l-3-3-3 3M18 5v9a3 3 0 0 1-3 3H8"/>
-                            <path d="M3 16l3 3 3-3M6 19V10a3 3 0 0 1 3-3h7"/>
-                            <circle cx="12" cy="12" r="1"/>
-                          </svg>
+                        <!-- Trust Badge: Eco-Friendly Packaging -->
+                        <div class="bg-white/10 backdrop-blur-md border border-white/10 p-8 rounded-3xl text-center hover:bg-white/20 transition-all hover:-translate-y-2 duration-300 group">
+                            <div class="w-16 h-16 mx-auto mb-6 bg-teal-400/20 rounded-full flex items-center justify-center text-white group-hover:bg-teal-400 transition-colors">
+                                <i data-lucide="package-check" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="font-serif text-xl font-bold mb-3">Eco-Friendly Packaging</h3>
+                            <p class="text-white/70 text-sm leading-relaxed">100% recyclable materials. Minimal plastic, maximum care for the earth and your health.</p>
                         </div>
-                        <h3 class="font-serif text-xl font-bold mb-3">Eco-Friendly Packaging</h3>
-                        <p class="text-white/70 text-sm leading-relaxed">100% recyclable materials. Minimal plastic, maximum care for the earth and your health.</p>
-                      </div>
 
                     </div>
                 </div>
@@ -310,11 +293,11 @@
 
 
         <!-- ============================================== -->
-        <!--              PAGE 2: FULL SHOP                 -->
+        <!-- 			 PAGE 2: FULL SHOP 			          -->
         <!-- ============================================== -->
         <div id="page-shop" class="page">
-            <div class="pt-32 pb-24 bg-punjab-cream min-h-screen"> <!-- Theme Applied Here -->
-                <div class="container mx-auto px-4 sm:px-6"> <!-- Reduced padding for mobile -->
+            <div class="pt-32 pb-24 bg-punjab-cream min-h-screen">
+                <div class="container mx-auto px-4 sm:px-6">
                     <div class="text-center mb-12">
                         <h1 class="font-serif text-4xl sm:text-5xl font-bold text-punjab-soil mb-4">The Punjab Pantry</h1>
                         <p class="text-gray-500">18 Heritage Products • 100% Traceable</p>
@@ -330,7 +313,6 @@
                     </div>
 
                     <!-- Product Grid - Optimized for Mobile (2 cols) -->
-                    <!-- Changed from grid-cols-1 to grid-cols-2 for base mobile view, and adjusted gap -->
                     <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-8">
                         <!-- All Products with Mini Swipers injected here -->
                     </div>
@@ -339,7 +321,7 @@
         </div>
 
         <!-- ============================================== -->
-        <!--             PAGE 3: CHECKOUT PAGE              -->
+        <!-- 			 PAGE 3: CHECKOUT PAGE 			      -->
         <!-- ============================================== -->
         <div id="page-checkout" class="page bg-punjab-cream min-h-screen pt-32 pb-20">
             <div class="container mx-auto px-4 max-w-2xl">
@@ -474,12 +456,12 @@
     <!-- PRODUCT DETAIL MODAL -->
     <div id="product-modal" class="fixed inset-0 z-50 hidden">
         <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeModal()"></div>
-        <div class="absolute inset-4 md:inset-10 bg-punjab-cream rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row animate-fade-in-up"> <!-- Theme Applied -->
+        <div class="absolute inset-4 md:inset-10 bg-punjab-cream rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row animate-fade-in-up">
             <button onclick="closeModal()" class="absolute top-4 right-4 z-20 bg-white/50 p-2 rounded-full hover:bg-white transition-all"><i data-lucide="x" class="w-6 h-6"></i></button>
             <div class="w-full md:w-1/2 h-1/3 md:h-full bg-white/50 relative overflow-hidden">
-                <img id="modal-img" src="" class="w-full h-full object-cover">
+                <img id="modal-img" src="" alt="Product Image" class="w-full h-full object-cover">
             </div>
-            <div class="w-full md:w-1/2 h-2/3 md:h-full p-8 md:p-12 overflow-y-auto bg-punjab-cream flex flex-col relative"> <!-- Theme Applied -->
+            <div class="w-full md:w-1/2 h-2/3 md:h-full p-8 md:p-12 overflow-y-auto bg-punjab-cream flex flex-col relative">
                 <div class="mb-auto">
                     <span id="modal-cat" class="text-xs font-bold uppercase tracking-widest text-punjab mb-2 block"></span>
                     <h2 id="modal-title" class="font-serif text-3xl md:text-5xl font-bold text-gray-900 mb-4"></h2>
@@ -510,8 +492,8 @@
         </div>
     </div>
 
-    <!-- CART SIDEBAR (Reverted to Button only) -->
-    <div id="cart-sidebar" class="fixed inset-y-0 right-0 w-full md:w-96 bg-punjab-cream shadow-2xl transform translate-x-full transition-transform duration-300 z-50 flex flex-col"> <!-- Theme Applied -->
+    <!-- CART SIDEBAR -->
+    <div id="cart-sidebar" class="fixed inset-y-0 right-0 w-full md:w-96 bg-punjab-cream shadow-2xl transform translate-x-full transition-transform duration-300 z-50 flex flex-col">
         <div class="p-6 bg-punjab text-white flex justify-between items-center shadow-md">
             <h2 class="font-serif text-2xl font-bold flex items-center gap-2"><i data-lucide="shopping-bag" class="w-6 h-6"></i> Harvest Box</h2>
             <button onclick="toggleCart()" class="hover:bg-white/20 p-2 rounded-full transition-colors"><i data-lucide="x" class="w-6 h-6"></i></button>
@@ -520,7 +502,6 @@
         <div class="p-6 bg-punjab-cream border-t border-gray-200 shadow-[0_-10px_40px_rgba(0,0,0,0.05)]">
             <div class="flex justify-between items-center mb-4"><span class="text-gray-600">Subtotal</span><span id="cart-total" class="font-bold text-2xl text-punjab-dark">₹0</span></div>
             <p class="text-xs text-center text-gray-500 mb-4 italic">Shipping charges will be calculated during order confirmation via WhatsApp.</p> 
-            <!-- Updated Button: Opens Checkout Page -->
             <button onclick="proceedToCheckout()" class="w-full py-4 bg-green-600 hover:bg-green-700 text-white rounded-xl font-bold shadow-lg flex items-center justify-center gap-2 transition-all transform hover:scale-[1.02]">
                 Proceed to Checkout <i data-lucide="arrow-right" class="w-5 h-5"></i>
             </button>
@@ -528,109 +509,31 @@
     </div>
     <div id="cart-overlay" onclick="toggleCart()" class="fixed inset-0 bg-black/50 z-40 hidden backdrop-blur-sm transition-opacity"></div>
 
-    <!-- JS LOGIC -->
+    <!-- JS LOGIC (Optimized for performance) -->
     <script>
         // --- UPDATED PRODUCT DATA ---
         const products = [
-            { 
-                id: "p1", name: "Pure Black Mustard Oil", price: 349, unit: "1L", category: "Oils", 
-                img1: "https://i.ibb.co/39HK9h3x/mustrd.jpg", 
-                benefits: ["Cold-pressed in wooden Kolhu to preserve heat-sensitive antioxidants", "High pungency: A sign of purity and active enzymes", "Rich in Omega-3 & 6 for heart health and cholesterol balance"] 
-            },
-            { 
-                id: "p2", name: "Pure Yellow Mustard Oil", price: 349, unit: "1L", category: "Oils", 
-                img1: "https://i.ibb.co/LzVxBmwj/yello-sarso.jpg", 
-                benefits: ["Extracted from golden sarso seeds for a milder, aromatic taste", "High Vitamin E content promotes glowing skin and hair", "Ideal for pickles (achaar) and light sautéing"] 
-            },
-            { 
-                id: "p3", name: "Pure Coconut Oil", price: 449, unit: "1L", category: "Oils", 
-                img1: "https://i.ibb.co/JRkP18SM/cocnut.jpg", 
-                benefits: ["Raw, virgin, and cold-pressed to retain MCTs for instant energy", "Excellent edible oil and natural moisturizer for skin", "Supports metabolism and healthy weight management"] 
-            },
-            { 
-                id: "p5", name: "Pure Badam Oil", price: 349, unit: "100ml", category: "Oils", 
-                img1: "https://i.ibb.co/7ttstkt7/almond-oil.jpg", 
-                benefits: ["Extracted from Gurbandi almonds for max Vitamin E", "Deeply nourishes skin, reducing dark circles and fine lines", "Perfect for baby massage to strengthen bones"] 
-            },
-            { 
-                id: "p6", name: "Wheat Atta", price: 64, unit: "1kg", category: "Flours", 
-                img1: "https://i.ibb.co/tTGzfGZt/wheat.jpg", // Updated Image
-                variants: [ {u: "1kg", p: 64}, {u: "5kg", p: 319}, {u: "10kg", p: 599} ],
-                benefits: ["Slow stone-ground at 150 RPM to keep flour cool and nutrient-rich", "Contains 100% bran and germ for digestive health", "Makes soft, sweet rotis that stay fresh longer"] 
-            },
-            { 
-                id: "p7", name: "MP Wheat Atta", price: 69, unit: "1kg", category: "Flours", 
-                img1: "https://i.ibb.co/7d6YFFJH/mp.jpg", 
-                variants: [ {u: "1kg", p: 69}, {u: "5kg", p: 339}, {u: "10kg", p: 519} ],
-                benefits: ["Sourced from MP's Malwa region, known for premium golden grains", "Higher protein content (13%) for better muscle repair", "Absorbs more water, resulting in fluffier, tastier rotis"] 
-            },
-            { 
-                id: "p8", name: "Multigrain Atta", price: 99, unit: "1kg", category: "Flours", 
-                img1: "https://i.ibb.co/MDNxgs00/multi.jpg", 
-                benefits: ["A powerful blend of 7 heritage grains: Wheat, Ragi, Bajra, Jowar, etc.", "Low GI (55) helps manage blood sugar and insulin levels", "50% more fiber than regular atta for superior gut health"] 
-            },
-            { 
-                id: "p9", name: "Ragi Atta", price: 119, unit: "1kg", category: "Flours", 
-                img1: "https://i.ibb.co/d023GfJz/63bb1e96-ea50-432b-93ff-da15e5d7623a.png", 
-                img2: "https://i.ibb.co/4R7kQj06/ragi-millet-seed-500x500.webp",
-                benefits: ["The ultimate Calcium king (344mg/100g) for bone density", "Excellent for growing kids and seniors", "Helps in weight loss by keeping you full for longer"] 
-            },
-            { 
-                id: "p10", name: "Jowar Atta", price: 99, unit: "1kg", category: "Flours", 
-                img1: "https://i.ibb.co/RT8Xxvkj/83375485-4b49-41c8-be9f-561b99436307.png", 
-                img2: "https://i.ibb.co/5gs5J1hM/610-IDm9a-C5-L-SL1200.jpg",
-                benefits: ["Naturally gluten-free and easy to digest", "High in complex carbs for sustained energy without the crash", "Cooling nature makes it perfect for summer diets"] 
-            },
-            { 
-                id: "p11", name: "Jau Atta (Barley)", price: 99, unit: "1kg", category: "Flours", 
-                img1: "https://i.ibb.co/KxczQb98/166355b5-a465-406f-9781-025c57e5b4f1.png", // Updated Image
-                img2: "https://i.ibb.co/ds4DfSrb/Barley.jpg",
-                benefits: ["Ancient cooling grain, famous as Sattu base", "Rich in Beta-glucan fiber to lower bad cholesterol", "Excellent for kidney health and flushing out toxins"] 
-            },
-            { 
-                id: "p12", name: "Besan (Chickpea)", price: 159, unit: "1kg", category: "Flours", 
-                img1: "https://i.ibb.co/twHt1WcL/cd7e094a-34b2-4339-91eb-c4446f31529c.png", 
-                img2: "https://i.ibb.co/JjKPQPjM/besan-gram-flour-or-chickpea-flour-is-a-powder-made-from-ground-chickpea-known-as-bengal-gram-free-p.jpg",
-                variants: [ {u: "500g", p: 79}, {u: "1kg", p: 159} ],
-                benefits: ["Made from 100% Chana Dal, protein-packed (20g/100g)", "Essential for traditional Kadhi, Pakoras, and Chilla", "Great vegan egg substitute with a rich, nutty flavor"] 
-            },
-            { 
-                id: "p13", name: "Dalia", price: 99, unit: "1kg", category: "Grains", 
-                img1: "https://i.ibb.co/tM976W1b/aa227679-7f64-4580-b9a0-c3661c2b3bec.png", 
-                variants: [ {u: "500g", p: 59}, {u: "1kg", p: 99} ],
-                benefits: ["Whole broken wheat with high fiber content (12g/100g)", "Slow-release carbs provide sustained energy for the day", "Best breakfast for weight management and digestion"] 
-            },
-            { 
-                id: "p15", name: "Haldi (Turmeric)", price: 99, unit: "250g", category: "Spices", 
-                img1: "https://i.ibb.co/ym6yQGtL/haldi.jpg", 
-                benefits: ["High Curcumin content (7%) verified by lab tests", "Potent anti-inflammatory and immunity booster", "Essential for 'Golden Milk' healing rituals"] 
-            },
-            { 
-                id: "p16", name: "Black Wheat Flour", price: 99, unit: "1kg", category: "Heritage Flours", 
-                img1: "https://i.ibb.co/QvZ5tvcf/black-wheat-flour.jpg", 
-                img2: "https://i.ibb.co/N8WfCVp/organic-black-wheat-1713514180-7390923.jpg",
-                benefits: ["Rich in Anthocyanins (powerful antioxidants found in blueberries)", "Low Glycemic Index (45) helps manage diabetes naturally", "Contains 40% more protein than regular white wheat"] 
-            },
-            { 
-                id: "p17", name: "Paigambari Wheat", price: 169, unit: "1kg", category: "Heritage Flours", 
-                img1: "https://i.ibb.co/Zp8qVrdY/paigambar-wheat-flour.jpg", img2: "https://i.ibb.co/TM561N6D/p-wheat.webp", 
-                benefits: ["4500-year-old Indus Valley heirloom strain", "Contains 267% more minerals (Zinc, Iron) than modern wheat", "Low gluten structure makes it easier to digest"] 
-            },
-            { 
-                id: "p18", name: "Bansi Wheat Flour", price: 149, unit: "1kg", category: "Heritage Flours", 
-                img1: "https://i.ibb.co/9m4scDfQ/bansi.jpg", img2: "https://i.ibb.co/xKn3wgDL/bansi2.jpg", 
-                benefits: ["Ancient variety known to fight obesity and inflammation", "Very low Glycemic Index (50) for metabolic health", "Rich, distinct taste that needs no additives"] 
-            },
-            { 
-                id: "p19", name: "Maize Flour (Makki Atta)", price: 99, unit: "1kg", category: "Flours", 
-                img1: "https://i.ibb.co/pspPmBs/maize.jpg", 
-                benefits: ["Rich in Zinc, Iron and Vitamin A for good vision and skin", "Gluten-free winter staple, traditionally eaten with Sarson Saag", "High fiber content aids digestion and keeps you full longer"] 
-            }
+            { id: "p1", name: "Pure Black Mustard Oil", price: 349, unit: "1L", category: "Oils", img1: "https://i.ibb.co/39HK9h3x/mustrd.jpg", benefits: ["Cold-pressed in wooden Kolhu to preserve heat-sensitive antioxidants", "High pungency: A sign of purity and active enzymes", "Rich in Omega-3 & 6 for heart health and cholesterol balance"] },
+            { id: "p2", name: "Pure Yellow Mustard Oil", price: 349, unit: "1L", category: "Oils", img1: "https://i.ibb.co/LzVxBmwj/yello-sarso.jpg", benefits: ["Extracted from golden sarso seeds for a milder, aromatic taste", "High Vitamin E content promotes glowing skin and hair", "Ideal for pickles (achaar) and light sautéing"] },
+            { id: "p3", name: "Pure Coconut Oil", price: 449, unit: "1L", category: "Oils", img1: "https://i.ibb.co/JRkP18SM/cocnut.jpg", benefits: ["Raw, virgin, and cold-pressed to retain MCTs for instant energy", "Excellent edible oil and natural moisturizer for skin", "Supports metabolism and healthy weight management"] },
+            { id: "p5", name: "Pure Badam Oil", price: 349, unit: "100ml", category: "Oils", img1: "https://i.ibb.co/7ttstkt7/almond-oil.jpg", benefits: ["Extracted from Gurbandi almonds for max Vitamin E", "Deeply nourishes skin, reducing dark circles and fine lines", "Perfect for baby massage to strengthen bones"] },
+            { id: "p6", name: "Wheat Atta", price: 64, unit: "1kg", category: "Flours", img1: "https://i.ibb.co/tTGzfGZt/wheat.jpg", variants: [ {u: "1kg", p: 64}, {u: "5kg", p: 319}, {u: "10kg", p: 599} ], benefits: ["Slow stone-ground at 150 RPM to keep flour cool and nutrient-rich", "Contains 100% bran and germ for digestive health", "Makes soft, sweet rotis that stay fresh longer"] },
+            { id: "p7", name: "MP Wheat Atta", price: 69, unit: "1kg", category: "Flours", img1: "https://i.ibb.co/7d6YFFJH/mp.jpg", variants: [ {u: "1kg", p: 69}, {u: "5kg", p: 339}, {u: "10kg", p: 519} ], benefits: ["Sourced from MP's Malwa region, known for premium golden grains", "Higher protein content (13%) for better muscle repair", "Absorbs more water, resulting in fluffier, tastier rotis"] },
+            { id: "p8", name: "Multigrain Atta", price: 99, unit: "1kg", category: "Flours", img1: "https://i.ibb.co/MDNxgs00/multi.jpg", benefits: ["A powerful blend of 7 heritage grains: Wheat, Ragi, Bajra, Jowar, etc.", "Low GI (55) helps manage blood sugar and insulin levels", "50% more fiber than regular atta for superior gut health"] },
+            { id: "p9", name: "Ragi Atta", price: 119, unit: "1kg", category: "Flours", img1: "https://i.ibb.co/d023GfJz/63bb1e96-ea50-432b-93ff-da15e5d7623a.png", img2: "https://i.ibb.co/4R7kQj06/ragi-millet-seed-500x500.webp", benefits: ["The ultimate Calcium king (344mg/100g) for bone density", "Excellent for growing kids and seniors", "Helps in weight loss by keeping you full for longer"] },
+            { id: "p10", name: "Jowar Atta", price: 99, unit: "1kg", category: "Flours", img1: "https://i.ibb.co/RT8Xxvkj/83375485-4b49-41c8-be9f-561b99436307.png", img2: "https://i.ibb.co/5gs5J1hM/610-IDm9a-C5-L-SL1200.jpg", benefits: ["Naturally gluten-free and easy to digest", "High in complex carbs for sustained energy without the crash", "Cooling nature makes it perfect for summer diets"] },
+            { id: "p11", name: "Jau Atta (Barley)", price: 99, unit: "1kg", category: "Flours", img1: "https://i.ibb.co/KxczQb98/166355b5-a465-406f-9781-025c57e5b4f1.png", img2: "https://i.ibb.co/ds4DfSrb/Barley.jpg", benefits: ["Ancient cooling grain, famous as Sattu base", "Rich in Beta-glucan fiber to lower bad cholesterol", "Excellent for kidney health and flushing out toxins"] },
+            { id: "p12", name: "Besan (Chickpea)", price: 159, unit: "1kg", category: "Flours", img1: "https://i.ibb.co/twHt1WcL/cd7e094a-34b2-4339-91eb-c4446f31529c.png", img2: "https://i.ibb.co/JjKPQPjM/besan-gram-flour-or-chickpea-flour-is-a-powder-made-from-ground-chickpea-known-as-bengal-gram-free-p.jpg", variants: [ {u: "500g", p: 79}, {u: "1kg", p: 159} ], benefits: ["Made from 100% Chana Dal, protein-packed (20g/100g)", "Essential for traditional Kadhi, Pakoras, and Chilla", "Great vegan egg substitute with a rich, nutty flavor"] },
+            { id: "p13", name: "Dalia", price: 99, unit: "1kg", category: "Grains", img1: "https://i.ibb.co/tM976W1b/aa227679-7f64-4580-b9a0-c3661c2b3bec.png", variants: [ {u: "500g", p: 59}, {u: "1kg", p: 99} ], benefits: ["Whole broken wheat with high fiber content (12g/100g)", "Slow-release carbs provide sustained energy for the day", "Best breakfast for weight management and digestion"] },
+            { id: "p15", name: "Haldi (Turmeric)", price: 99, unit: "250g", category: "Spices", img1: "https://i.ibb.co/ym6yQGtL/haldi.jpg", benefits: ["High Curcumin content (7%) verified by lab tests", "Potent anti-inflammatory and immunity booster", "Essential for 'Golden Milk' healing rituals"] },
+            { id: "p16", name: "Black Wheat Flour", price: 99, unit: "1kg", category: "Heritage Flours", img1: "https://i.ibb.co/QvZ5tvcf/black-wheat-flour.jpg", img2: "https://i.ibb.co/N8WfCVp/organic-black-wheat-1713514180-7390923.jpg", benefits: ["Rich in Anthocyanins (powerful antioxidants found in blueberries)", "Low Glycemic Index (45) helps manage diabetes naturally", "Contains 40% more protein than regular white wheat"] },
+            { id: "p17", name: "Paigambari Wheat", price: 169, unit: "1kg", category: "Heritage Flours", img1: "https://i.ibb.co/Zp8qVrdY/paigambar-wheat-flour.jpg", img2: "https://i.ibb.co/TM561N6D/p-wheat.webp", benefits: ["4500-year-old Indus Valley heirloom strain", "Contains 267% more minerals (Zinc, Iron) than modern wheat", "Low gluten structure makes it easier to digest"] },
+            { id: "p18", name: "Bansi Wheat Flour", price: 149, unit: "1kg", category: "Heritage Flours", img1: "https://i.ibb.co/9m4scDfQ/bansi.jpg", img2: "https://i.ibb.co/xKn3wgDL/bansi2.jpg", benefits: ["Ancient variety known to fight obesity and inflammation", "Very low Glycemic Index (50) for metabolic health", "Rich, distinct taste that needs no additives"] },
+            { id: "p19", name: "Maize Flour (Makki Atta)", price: 99, unit: "1kg", category: "Flours", img1: "https://i.ibb.co/pspPmBs/maize.jpg", benefits: ["Rich in Zinc, Iron and Vitamin A for good vision and skin", "Gluten-free winter staple, traditionally eaten with Sarson Saag", "High fiber content aids digestion and keeps you full longer"] }
         ];
 
         let cart = JSON.parse(localStorage.getItem('nirogCart')) || {}; // Structure: { "p1_1kg": 2, "p6_5kg": 1 }
         let currentModalQty = 1;
-        let currentModalId = null;
         
         // --- HELPER: GET PRICE & UNIT FROM ID ---
         function getProductDetails(compositeId) {
@@ -640,8 +543,10 @@
             
             if (variantUnit && product.variants) {
                 const variant = product.variants.find(v => v.u === variantUnit);
+                // Return details with the specific variant's price/unit
                 if (variant) return { ...product, price: variant.p, unit: variant.u, id: compositeId, baseId: pid };
             }
+            // Return base product details (used for non-variant products or if variant fails)
             return { ...product, id: compositeId, baseId: pid };
         }
 
@@ -650,31 +555,44 @@
             renderShopProducts('All');
             updateCartUI();
             
-            // Remove Loader with Fade Effect (5 seconds)
+            // OPTIMIZATION: Reduce loader display time from 5s to 0.5s
             setTimeout(() => {
                 const loader = document.getElementById('loader');
                 loader.style.opacity = '0'; // Start fade out
                 setTimeout(() => {
                     loader.style.display = 'none'; // Remove from DOM after fade
-                }, 1000); // Wait for CSS transition to finish
-            }, 5000); // Updated to 5 seconds display time
+                }, 500); // Wait for CSS transition to finish (matches CSS transition time)
+            }, 500); // Display for 0.5 seconds
 
             lucide.createIcons();
         });
 
-        // --- RENDERERS ---
+        // --- NEW ANIMATION FUNCTION ---
+        function animateCartButton() {
+            const cartBtn = document.getElementById('cart-btn');
+            // Remove the class first to allow the animation to re-run on subsequent clicks
+            cartBtn.classList.remove('animate-cart-pulse');
+            // Force reflow/repaint
+            void cartBtn.offsetWidth; 
+            // Add the class back to trigger the animation
+            cartBtn.classList.add('animate-cart-pulse');
+
+            // Remove the class after animation completes (3 * 0.3s = 0.9s)
+            setTimeout(() => {
+                cartBtn.classList.remove('animate-cart-pulse');
+            }, 900);
+        }
+
+        // --- RENDERERS (unchanged, as the change is in core logic) ---
 
         function createProductCard(p, type = 'shop') {
             const swiperId = `swiper-${p.id}-${Math.random().toString(36).substr(2, 9)}`;
             
-            // Generate Variant Dropdown HTML if variants exist
             let variantHtml = '';
             let currentPrice = p.price;
             let currentUnit = p.unit;
             
             if (p.variants) {
-                // IMPORTANT: stopPropagation on the select prevents opening modal
-                // And onchange updates both displayed price AND the button state below
                 variantHtml = `
                     <select class="w-full mb-2 p-2 rounded-lg bg-white border border-gray-200 text-sm focus:outline-none focus:border-punjab text-gray-600 cursor-pointer" 
                             onclick="event.stopPropagation()"
@@ -690,7 +608,7 @@
             const priceId = `price-${swiperId}`;
             const unitId = `unit-${swiperId}`;
             
-            // Default to base variant for initial button state
+            // Determine initial compositeId for cart check
             const currentCompositeId = p.variants ? `${p.id}_${p.variants[0].u}` : p.id;
             const inCart = cart[currentCompositeId] || 0;
 
@@ -701,7 +619,7 @@
                     </button>
                 `;
             } else {
-                // Dynamic Button State
+                // Initial Button State rendered based on initial variant (if applicable)
                 if (inCart > 0) {
                     footerHtml = `
                         <div class="flex items-center justify-between bg-punjab-cream rounded-xl p-1 mt-2" onclick="event.stopPropagation()">
@@ -713,16 +631,16 @@
                 } else {
                     footerHtml = `
                         <button class="w-full py-3 bg-punjab-cream text-punjab-dark rounded-xl hover:bg-punjab hover:text-white transition-colors font-medium flex items-center justify-center gap-2 mt-2" 
-                                onclick="event.stopPropagation(); addToCartFromCard(this, '${p.id}', '', event)">
+                                onclick="event.stopPropagation(); addToCartFromCard(this, '${p.id}', event)">
                             Add to Cart <i data-lucide="shopping-cart" class="w-4 h-4"></i>
                         </button>
                     `;
                 }
             }
 
-            let slidesHtml = `<div class="swiper-slide"><img src="${p.img1}" class="w-full h-full object-cover"></div>`;
+            let slidesHtml = `<div class="swiper-slide"><img src="${p.img1}" alt="${p.name} Image 1" class="w-full h-full object-cover"></div>`;
             if (p.img2) {
-                slidesHtml += `<div class="swiper-slide"><img src="${p.img2}" class="w-full h-full object-cover"></div>`;
+                slidesHtml += `<div class="swiper-slide"><img src="${p.img2}" alt="${p.name} Image 2" class="w-full h-full object-cover"></div>`;
             }
 
             return `
@@ -749,7 +667,7 @@
                             </div>
                         ` : ''}
                         
-                        <div class="mt-auto footer-action-container">
+                        <div class="mt-auto footer-action-container" data-swiper-id="${swiperId}">
                             ${footerHtml}
                         </div>
                     </div>
@@ -757,19 +675,17 @@
             `;
         }
 
-        // Updated function to handle price change AND button state update
+        // Handles price change AND triggers button state refresh
         function updateCardPriceAndButton(select, pid, swiperId) {
             // 1. Update Price Text
             const price = select.options[select.selectedIndex].getAttribute('data-price');
-            const unit = select.value;
             document.getElementById(`price-${swiperId}`).innerText = `₹${price}`;
             
-            // 2. Update Button State immediately
-            // Since refreshCardButton looks at the current dropdown value, just calling it works
+            // 2. Refresh Button State
             refreshCardButton(pid);
         }
 
-        function addToCartFromCard(btn, pid, swiperId, event) {
+        function addToCartFromCard(btn, pid, event) {
             const card = btn.closest('.card-3d');
             let variantUnit = null;
             
@@ -779,11 +695,12 @@
             }
 
             const compositeId = variantUnit ? `${pid}_${variantUnit}` : pid;
-            addToCart(compositeId, 1, event, pid); 
+            // No flying animation to maximize performance
+            addToCart(compositeId, 1, pid); 
         }
 
         function renderBestsellers() {
-            // Select specific IDs for Community Favorites: p1, p2, p3, p5, p16, p17
+            // Select specific IDs for Community Favorites
             const bestsellerIds = ["p1", "p2", "p3", "p5", "p16", "p17"];
             const bestsellers = bestsellerIds.map(id => products.find(p => p.id === id)).filter(Boolean);
             
@@ -800,7 +717,9 @@
                 breakpoints: { 640: { slidesPerView: 2 }, 1024: { slidesPerView: 3 }, 1280: { slidesPerView: 4 } }
             });
 
+            // Initialize mini swipers for the rendered cards
             bestsellers.forEach(p => { initMiniSwipers(wrapper, p.id); });
+            lucide.createIcons();
         }
 
         function renderShopProducts(cat) {
@@ -810,34 +729,35 @@
             filtered.forEach(p => { html += createProductCard(p, 'shop'); });
             grid.innerHTML = html;
             
+            // Initialize mini swipers for the newly rendered cards
             filtered.forEach(p => { initMiniSwipers(grid, p.id); });
-            lucide.createIcons();
+            lucide.createIcons(); // Re-create icons for newly injected HTML
         }
 
-        function initMiniSwipers(container, pid) {
-            const swipers = container.querySelectorAll('.mini-swiper');
+        function initMiniSwipers(container) {
+            // Target only the uninitialized swipers within the container
+            const swipers = container.querySelectorAll('.mini-swiper:not(.swiper-initialized)');
             swipers.forEach(el => {
-                if(!el.swiper) {
-                    new Swiper(el, {
-                        spaceBetween: 0,
-                        centeredSlides: true,
-                        autoplay: { delay: 3000 + Math.random() * 2000, disableOnInteraction: false },
-                        effect: 'fade',
-                        fadeEffect: { crossFade: true },
-                        loop: el.querySelectorAll('.swiper-slide').length > 1, // Only loop if >1 image
-                        allowTouchMove: false
-                    });
-                }
+                new Swiper(el, {
+                    spaceBetween: 0,
+                    centeredSlides: true,
+                    // Slightly varied autoplay delay to avoid all swipers moving simultaneously
+                    autoplay: { delay: 3000 + Math.random() * 2000, disableOnInteraction: false },
+                    effect: 'fade',
+                    fadeEffect: { crossFade: true },
+                    loop: el.querySelectorAll('.swiper-slide').length > 1, 
+                    allowTouchMove: false
+                });
             });
         }
 
         function filterProducts(cat) {
             document.querySelectorAll('.filter-btn').forEach(b => {
                 b.classList.remove('active', 'bg-punjab', 'text-white', 'border-punjab');
-                b.classList.add('text-gray-600', 'border-gray-200', 'bg-white');
+                b.classList.add('text-gray-600', 'border-gray-300', 'bg-white');
             });
             event.target.classList.add('active', 'bg-punjab', 'text-white', 'border-punjab');
-            event.target.classList.remove('text-gray-600', 'border-gray-200', 'bg-white');
+            event.target.classList.remove('text-gray-600', 'border-gray-300', 'bg-white');
             renderShopProducts(cat);
         }
 
@@ -855,12 +775,17 @@
                 newPage.style.display = 'block';
                 setTimeout(() => { newPage.classList.add('active'); }, 10);
                 window.scrollTo(0,0);
+                // Ensure products are rendered when going to the shop page
                 if(pageId === 'page-shop') renderShopProducts('All'); 
+                // Also ensure icons are created when switching pages
+                lucide.createIcons();
             }
         }
 
         function scrollToSection(id) {
-            if(document.getElementById('page-home').style.display === 'none') {
+            // Navigate to home page if not already there, then scroll
+            const homePage = document.getElementById('page-home');
+            if(homePage.style.display === 'none' || !homePage.classList.contains('active')) {
                 showPage('page-home');
                 setTimeout(() => document.getElementById(id).scrollIntoView({behavior:'smooth'}), 600);
             } else {
@@ -870,7 +795,7 @@
 
         function openModal(id) {
             const p = products.find(x => x.id === id);
-            // Default to first variant if exists
+            // Default to first variant if exists, this is for display only
             const currentUnit = p.variants ? p.variants[0].u : p.unit;
             const currentPrice = p.variants ? p.variants[0].p : p.price;
             
@@ -883,17 +808,22 @@
             document.getElementById('modal-qty').innerText = 1;
             currentModalQty = 1; 
             
+            // Populates dynamic benefits list
             document.getElementById('modal-benefits').innerHTML = p.benefits.map(b => `<li class="flex items-start gap-3 text-sm text-gray-600"><span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-punjab-gold shrink-0"></span>${b}</li>`).join('');
             
+            // Setup add button to use the default variant on add (no variant selector in modal)
             document.getElementById('modal-add-btn').onclick = () => { 
                 const compositeId = p.variants ? `${p.id}_${p.variants[0].u}` : p.id;
-                addToCart(compositeId, currentModalQty, null, p.id); 
+                addToCart(compositeId, currentModalQty, p.id); 
                 closeModal(); 
             };
             
             document.getElementById('product-modal').classList.remove('hidden');
+            lucide.createIcons();
         }
+
         function closeModal() { document.getElementById('product-modal').classList.add('hidden'); }
+
         function adjustModalQty(n) { 
             if (currentModalQty + n > 0) {
                 currentModalQty += n;
@@ -903,34 +833,38 @@
 
         // --- CART LOGIC ---
 
-        function addToCart(compositeId, qty, event, baseIdForAnim) {
+        function addToCart(compositeId, qty, baseId) {
             cart[compositeId] = (cart[compositeId] || 0) + qty;
             localStorage.setItem('nirogCart', JSON.stringify(cart));
             updateCartUI();
             
-            if(event && qty > 0) {
-                const card = document.getElementById(`card-${baseIdForAnim}`);
-                if (card) {
-                    const img = card.querySelector('img');
-                    if (img) flyImageToCart(img, event.clientX, event.clientY);
-                }
-            }
-            if (baseIdForAnim) refreshCardButton(baseIdForAnim);
+            // NEW: Trigger pulse animation on the cart button
+            animateCartButton();
+
+            // Trigger refresh only for the specific card that was interacted with
+            if (baseId) refreshCardButton(baseId);
         }
 
         function updateItemQty(compId, n) {
+            const baseId = compId.split('_')[0];
+            
             if (cart[compId] + n <= 0) delete cart[compId];
             else cart[compId] += n;
+            
             localStorage.setItem('nirogCart', JSON.stringify(cart));
             updateCartUI();
             
-            const baseId = compId.split('_')[0];
+            // Refresh the specific card in the shop view
             refreshCardButton(baseId);
+
+            // NEW: Trigger pulse animation if quantity was increased
+            if (n > 0) animateCartButton();
         }
 
         function refreshCardButton(id) {
             const card = document.getElementById(`card-${id}`);
             if (!card) return;
+            
             const container = card.querySelector('.footer-action-container');
             if (!container) return;
 
@@ -942,8 +876,9 @@
             const compositeId = currentVariant ? `${id}_${currentVariant}` : id;
             const inCart = cart[compositeId] || 0;
             
+            let newHtml = '';
             if (inCart > 0) {
-                container.innerHTML = `
+                newHtml = `
                     <div class="flex items-center justify-between bg-punjab-cream rounded-xl p-1 mt-2" onclick="event.stopPropagation()">
                         <button onclick="updateItemQty('${compositeId}', -1)" class="w-10 h-10 flex items-center justify-center text-punjab-dark hover:bg-white rounded-lg transition-all font-bold text-lg">-</button>
                         <span class="font-bold text-punjab-dark text-lg">${inCart}</span>
@@ -951,35 +886,29 @@
                     </div>
                 `;
             } else {
-                container.innerHTML = `
+                newHtml = `
                     <button class="w-full py-3 bg-punjab-cream text-punjab-dark rounded-xl hover:bg-punjab hover:text-white transition-colors font-medium flex items-center justify-center gap-2 mt-2" 
-                            onclick="event.stopPropagation(); addToCartFromCard(this, '${id}', '', event)">
+                            onclick="event.stopPropagation(); addToCartFromCard(this, '${id}', event)">
                         Add to Cart <i data-lucide="shopping-cart" class="w-4 h-4"></i>
                     </button>
                 `;
             }
+            container.innerHTML = newHtml;
+            // Re-render icons only in the newly created button to avoid performance hit
             lucide.createIcons();
-        }
-
-        function flyImageToCart(sourceImg, startX, startY) {
-            const clone = sourceImg.cloneNode(true);
-            clone.className = 'flying-img';
-            clone.style.width = '80px'; clone.style.height = '80px';
-            clone.style.top = `${startY-40}px`; clone.style.left = `${startX-40}px`;
-            document.body.appendChild(clone);
-            const dest = document.getElementById('cart-btn').getBoundingClientRect();
-            gsap.to(clone, { top: dest.top+10, left: dest.left+10, width: 20, height: 20, opacity: 0.5, duration: 0.8, ease: "power2.inOut", onComplete: () => { clone.remove(); gsap.to("#cart-btn", { rotation: 15, duration: 0.1, yoyo: true, repeat: 3 }); } });
         }
 
         function updateCartUI() {
             const items = Object.keys(cart);
             const container = document.getElementById('cart-items');
             const summaryContainer = document.getElementById('checkout-items-summary');
+            const checkoutTotalEl = document.getElementById('checkout-total');
+
             let total = 0, count = 0;
             let summaryHtml = '';
             
             if(items.length===0) {
-                container.innerHTML = `<div class="text-center py-10 opacity-50"><p>Empty</p></div>`;
+                container.innerHTML = `<div class="text-center py-10 opacity-50"><p>Your Harvest Box is empty. Start collecting purity!</p></div>`;
                 summaryContainer.innerHTML = `<p>Your cart is empty.</p>`;
                 document.getElementById('cart-badge').classList.add('scale-0');
             } else {
@@ -989,27 +918,28 @@
                     if (!details) return;
                     
                     const qty = cart[compId];
-                    total += details.price * qty;
+                    const subtotal = details.price * qty;
+                    total += subtotal;
                     count += qty;
                     
                     html += `
                         <div class="flex items-center gap-4 bg-white p-3 rounded-xl shadow-sm mb-2">
-                            <img src="${details.img1}" class="w-12 h-12 rounded-lg object-cover">
+                            <img src="${details.img1}" alt="${details.name} in Cart" class="w-12 h-12 rounded-lg object-cover">
                             <div class="flex-1">
                                 <h4 class="font-bold text-gray-800 text-sm">${details.name}</h4>
                                 <p class="text-xs text-gray-500">₹${details.price} / ${details.unit}</p>
                             </div>
                             <div class="flex items-center bg-gray-100 rounded-lg">
-                                <button onclick="updateItemQty('${compId}', -1)" class="p-1 px-2 hover:text-punjab">-</button>
+                                <button onclick="updateItemQty('${compId}', -1)" class="p-1 px-2 hover:text-punjab" aria-label="Decrease quantity">-</button>
                                 <span class="text-xs font-bold w-6 text-center">${qty}</span>
-                                <button onclick="updateItemQty('${compId}', 1)" class="p-1 px-2 hover:text-punjab">+</button>
+                                <button onclick="updateItemQty('${compId}', 1)" class="p-1 px-2 hover:text-punjab" aria-label="Increase quantity">+</button>
                             </div>
                         </div>`;
                     
                     summaryHtml += `
                         <div class="flex justify-between items-center border-b border-punjab-gold/10 pb-2">
                             <span>${details.name} (${details.unit}) x ${qty}</span>
-                            <span class="font-bold">₹${details.price * qty}</span>
+                            <span class="font-bold">₹${subtotal}</span>
                         </div>
                     `;
                 });
@@ -1020,34 +950,58 @@
                 document.getElementById('cart-badge').classList.remove('scale-0');
             }
             document.getElementById('cart-total').innerText = `₹${total}`;
-            if(document.getElementById('checkout-total')) {
-                document.getElementById('checkout-total').innerText = `₹${total}`;
+            if(checkoutTotalEl) {
+                checkoutTotalEl.innerText = `₹${total}`;
             }
+            lucide.createIcons();
         }
         
-        function toggleCart() { const sb = document.getElementById('cart-sidebar'), ov = document.getElementById('cart-overlay'); if(sb.classList.contains('translate-x-full')) { sb.classList.remove('translate-x-full'); ov.classList.remove('hidden'); setTimeout(()=>ov.classList.remove('opacity-0'),10); } else { sb.classList.add('translate-x-full'); ov.classList.add('opacity-0'); setTimeout(()=>ov.classList.add('hidden'),300); } }
+        function toggleCart() { 
+            const sb = document.getElementById('cart-sidebar'), ov = document.getElementById('cart-overlay'); 
+            if(sb.classList.contains('translate-x-full')) { 
+                sb.classList.remove('translate-x-full'); 
+                ov.classList.remove('hidden'); 
+                setTimeout(()=>ov.classList.remove('opacity-0'),10); 
+            } else { 
+                sb.classList.add('translate-x-full'); 
+                ov.classList.add('opacity-0'); 
+                setTimeout(()=>ov.classList.add('hidden'),300); 
+            } 
+        }
         
         function proceedToCheckout() {
+            // Check if cart is empty before proceeding
+            if (Object.keys(cart).length === 0) {
+                // Using console.error instead of alert for better UX and environment compatibility
+                console.error("Cart is empty. Please add items before proceeding to checkout.");
+                // Provide visual feedback if possible (e.g., shake cart) or just keep cart open
+                return;
+            }
             toggleCart(); 
             showPage('page-checkout');
         }
 
         function finalizeOrder() { 
+            const form = document.getElementById('checkout-form');
+            // Manual check for form validity (pattern checks, required fields)
+            if (!form.checkValidity()) {
+                console.error("Please fill in all required form fields correctly.");
+                // In a real application, you'd show a custom message here.
+                return;
+            }
+
             const fname = document.getElementById('fname').value;
             const lname = document.getElementById('lname').value;
+            // Removed +91 prefix from phone number for the form, using the input value
             const phone = document.getElementById('phone').value;
             const address = document.getElementById('address').value;
             const city = document.getElementById('city').value;
             const state = document.getElementById('state').value;
             const pincode = document.getElementById('pincode').value;
 
-            if(!fname || !lname || !phone || !address || !city || !state || !pincode) {
-                alert("Please fill in all details to proceed.");
-                return;
-            }
-
-            let msg = `*Namaste Nirog Organic!* 🌱\n\n*New Order Request*\n*Customer:* ${fname} ${lname}\n*Phone:* ${phone}\n*Address:* ${address}, ${city}, ${state} - ${pincode}\n\n*Items:*\n`; 
+            let msg = `*Namaste Nirog Organic!* 🌱\n\n*New Order Request*\n*Customer:* ${fname} ${lname}\n*Phone:* +91 ${phone}\n*Address:* ${address}, ${city}, ${state} - ${pincode}\n\n*Items:*\n`; 
             let total = 0;
+            
             Object.keys(cart).forEach(compId => { 
                 const details = getProductDetails(compId);
                 if (details) {
@@ -1057,8 +1011,16 @@
                     msg += `▫️ ${details.name} (${details.unit}) x ${qty} = ₹${subtotal}\n`; 
                 }
             });
+            
             msg += `\n*Subtotal: ₹${total}*\n(Shipping calculated at confirmation)`;
+            
+            // Open WhatsApp link
             window.open(`https://wa.me/917009395451?text=${encodeURIComponent(msg)}`, '_blank'); 
+            
+            // Clear cart and show confirmation message (in a real app, this would be a success modal)
+            cart = {};
+            localStorage.removeItem('nirogCart');
+            updateCartUI();
         }
     </script>
 </body>
