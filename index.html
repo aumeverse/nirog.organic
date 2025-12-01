@@ -45,6 +45,15 @@
                         'toast-out': {
                             '0%': { transform: 'translateX(0)', opacity: '1' },
                             '100%': { transform: 'translateX(100%)', opacity: '0' },
+                        },
+                        'product-fade-in': {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        // Keyframe for Header Shine
+                        'header-pan': {
+                            '0%, 100%': { backgroundPosition: '0% 50%' },
+                            '50%': { backgroundPosition: '100% 50%' },
                         }
                     },
                     animation: {
@@ -52,6 +61,9 @@
                         'spin-slow': 'spin 8s linear infinite',
                         'toast-in': 'toast-in 0.3s ease-out forwards',
                         'toast-out': 'toast-out 0.3s ease-in forwards 3s', // Stays for 3s, then fades out
+                        'product-fade-in': 'product-fade-in 0.5s ease-out forwards',
+                        // Applied to the h1 in page-shop
+                        'header-pan-slow': 'header-pan 12s ease-in-out infinite', 
                     }
                 }
             }
@@ -70,8 +82,6 @@
         /* Global Background and Scrollbar for consistent theming */
         body { background-color: #f0e6d8; color: #1a1a1a; overflow-x: hidden; }
         
-        /* REMOVED: #loader CSS as it is no longer used */
-        
         /* Custom Scrollbar - Themed */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #f0e6d8; }
@@ -87,11 +97,23 @@
 
         /* Custom animation for modal only */
         .animate-fade-in-up { animation: fade-in-up 0.3s ease-out; }
+
+        /* New Section CSS for Hero Background */
+        #my-new-section {
+            /* Now handled by inline style in HTML to ensure Z-indexing */
+        }
+
+        /* Gradient for Animated Header Shine */
+        .animated-header {
+            background-image: linear-gradient(to right, #854D0E, #FACC15, #854D0E, #FACC15);
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
     </style>
 </head>
 <body class="font-sans antialiased selection:bg-punjab-gold selection:text-punjab-soil">
-
-    <!-- REMOVED: LOADING SCREEN HTML -->
 
     <!-- NAVIGATION -->
     <header id="main-header" class="fixed top-0 w-full z-40 transition-all duration-300 py-4">
@@ -101,15 +123,16 @@
                 <a href="#" onclick="showPage('page-home')" class="flex items-center gap-3 group">
                     <i data-lucide="sprout" class="w-10 h-10 text-punjab-gold group-hover:scale-110 transition-transform drop-shadow-md"></i>
                     <div class="flex flex-col">
-                        <span class="font-serif font-bold text-lg sm:text-xl leading-none text-white drop-shadow-md header-text">Nirog Organic</span>
+                        <!-- UPDATED: Brand name text color to punjab-soil (black) -->
+                        <span class="font-serif font-bold text-lg sm:text-xl leading-none text-punjab-soil drop-shadow-md header-text">Nirog Organic</span>
                     </div>
                 </a>
 
                 <nav class="hidden md:flex items-center space-x-8">
-                    <button onclick="showPage('page-home')" class="text-white hover:text-punjab-gold font-medium text-sm tracking-wide uppercase transition-colors header-text">Home</button>
-                    <button onclick="showPage('page-shop')" class="text-white hover:text-punjab-gold font-medium text-sm tracking-wide uppercase transition-colors header-text">Shop All</button>
-                    <!-- UPDATED: Changed "Stories" to "Why Us" -->
-                    <button onclick="scrollToSection('why-choose-us-section')" class="text-white hover:text-punjab-gold font-medium text-sm tracking-wide uppercase transition-colors header-text">Why Us</button>
+                    <!-- UPDATED: Navigation link text color to punjab-soil (black) -->
+                    <button onclick="showPage('page-home')" class="text-punjab-soil hover:text-punjab-gold font-medium text-sm tracking-wide uppercase transition-colors header-text">Home</button>
+                    <button onclick="showPage('page-shop')" class="text-punjab-soil hover:text-punjab-gold font-medium text-sm tracking-wide uppercase transition-colors header-text">Shop All</button>
+                    <button onclick="scrollToSection('why-choose-us-section')" class="text-punjab-soil hover:text-punjab-gold font-medium text-sm tracking-wide uppercase transition-colors header-text">Why Us</button>
                 </nav>
 
                 <div class="flex items-center gap-4">
@@ -128,12 +151,17 @@
         <!-- ============================================== -->
         <div id="page-home" class="page active">
             
-            <!-- 1. HERO - OPTIMIZED: Replaced image with instant-loading gradient -->
-            <section class="relative h-screen w-full overflow-hidden flex items-center justify-center bg-punjab">
-                <div class="absolute inset-0 z-0 bg-punjab-dark/80 bg-gradient-to-br from-punjab-dark to-punjab"></div>
+            <!-- 1. HERO - Wheat Field Background with Stronger Overlay for Contrast -->
+            <section id="my-new-section" class="relative h-screen w-full overflow-hidden flex items-center justify-center text-white">
+                <div class="absolute inset-0 z-0">
+                    <!-- Background image/gradient applied via inline style for correct layering -->
+                    <div class="absolute inset-0 z-10" 
+                        style="background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)), 
+                                url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNjUyOXwwfDF8c2VhcmNofDEwfHx3aGVhdCUyMGZpZWelJTIwc3Vuc2V0fGVufDB8fHx8MTcwODY5MjYxN3ww&ixlib=rb-4.0.3&q=80&w=1920') no-repeat center center/cover;">
+                    </div>
+                </div>
 
                 <div class="container mx-auto px-6 relative z-20 text-center text-white mt-16">
-                    <!-- REMOVED: "100% Traceable to 2000+ Farmers" banner -->
                     <h1 class="font-serif text-4xl sm:text-5xl md:text-8xl font-bold mb-6 leading-tight drop-shadow-2xl">
                         Punjab's Living <br>
                         <span class="text-transparent bg-clip-text bg-gradient-to-r from-punjab-gold to-yellow-200 italic">Heritage</span>
@@ -147,7 +175,7 @@
                     </button>
                 </div>
             </section>
-
+            
             <!-- 2. HERITAGE TIMELINE -->
             <section class="py-20 bg-punjab-cream relative">
                 <div class="container mx-auto px-6">
@@ -169,7 +197,7 @@
                         <div class="journey-step">
                             <img src="https://i.ibb.co/t1LJgC9/Gemini-Generated-Image-sugd5csugd5csugd.png" alt="Cold Pressing" class="w-full h-64 object-cover rounded-3xl shadow-lg mb-6 transition-all duration-500 hover:scale-105">
                             <h3 class="font-serif text-2xl font-bold text-punjab-dark">3. Cold-Pressed, Chemical-Free</h3>
-                            <p class="text-gray-600 mt-2 text-sm leading-relaxed">Extracted below 50°C with zero chemicals. Our oils lock in heart-healthy omegas and Vitamin E—taste the difference, feel the purity.</p>
+                            <p class="text-gray-600 mt-2 text-sm leading-relaxed">Extracted below 40°C with zero chemicals. Our oils lock in heart-healthy omegas and Vitamin E—taste the difference, feel the purity.</p>
                         </div>
                     </div>
                 </div>
@@ -234,7 +262,8 @@
                             <div class="w-16 h-16 mx-auto mb-6 bg-blue-400/20 rounded-full flex items-center justify-center text-white group-hover:bg-blue-400 transition-colors">
                                 <i data-lucide="droplet" class="w-8 h-8"></i>
                             </div>
-                            <h3 class="font-serif text-xl font-bold mb-3">Cold-Pressed Below 50°C</h3>
+                            <!-- UPDATED TEXT HERE -->
+                            <h3 class="font-serif text-xl font-bold mb-3">Cold-Pressed Below 40°C</h3>
                             <p class="text-white/70 text-sm leading-relaxed">Traditional extraction retains omega-3, Vitamin E, and natural antioxidants for maximum health.</p>
                         </div>
 
@@ -289,17 +318,19 @@
             <div class="pt-32 pb-24 bg-punjab-cream min-h-screen">
                 <div class="container mx-auto px-4 sm:px-6">
                     <div class="text-center mb-12">
-                        <h1 class="font-serif text-4xl sm:text-5xl font-bold text-punjab-soil mb-4">The Punjab Pantry</h1>
+                        <!-- ADDED: Animation and custom gradient class for shine effect -->
+                        <h1 class="font-serif text-4xl sm:text-5xl font-bold mb-4 animated-header animate-header-pan-slow">The Punjab Pantry</h1>
                         <p class="text-gray-500">18 Heritage Products • 100% Traceable</p>
                     </div>
 
                     <!-- Filters -->
                     <div class="flex flex-wrap justify-center gap-2 mb-12 sticky top-24 z-30 bg-punjab-cream/90 backdrop-blur py-4">
                         <button onclick="filterProducts('All')" class="filter-btn active px-6 py-2 rounded-full border border-punjab bg-punjab text-white transition-all hover:scale-105 shadow-md text-sm sm:text-base">All</button>
-                        <button onclick="filterProducts('Flours')" class="filter-btn px-6 py-2 rounded-full border border-gray-300 text-gray-600 hover:border-punjab hover:text-punjab transition-all bg-white text-sm sm:text-base">Flours</button>
-                        <button onclick="filterProducts('Oils')" class="filter-btn px-6 py-2 rounded-full border border-gray-300 text-gray-600 hover:border-punjab hover:text-punjab transition-all bg-white text-sm sm:text-base">Oils</button>
-                        <button onclick="filterProducts('Heritage Flours')" class="filter-btn px-6 py-2 rounded-full border border-gray-300 text-gray-600 hover:border-punjab hover:text-punjab transition-all bg-white text-sm sm:text-base">Ancients</button>
-                        <button onclick="filterProducts('Spices')" class="filter-btn px-6 py-2 rounded-full border border-gray-300 text-gray-600 hover:border-punjab hover:text-punjab transition-all bg-white text-sm sm:text-base">Spices</button>
+                        <button onclick="filterProducts('Flours')" class="filter-btn px-6 py-2 rounded-full border border-gray-300 text-punjab-dark hover:border-punjab hover:text-punjab transition-all bg-white text-sm sm:text-base">Flours</button>
+                        <button onclick="filterProducts('Oils')" class="filter-btn px-6 py-2 rounded-full border border-gray-300 text-punjab-dark hover:border-punjab hover:text-punjab transition-all bg-white text-sm sm:text-base">Oils</button>
+                        <button onclick="filterProducts('Sweeteners')" class="filter-btn px-6 py-2 rounded-full border border-gray-300 text-punjab-dark hover:border-punjab hover:text-punjab transition-all bg-white text-sm sm:text-base">Sweeteners</button>
+                        <button onclick="filterProducts('Heritage Flours')" class="filter-btn px-6 py-2 rounded-full border border-gray-300 text-punjab-dark hover:border-punjab hover:text-punjab transition-all bg-white text-sm sm:text-base">Ancients</button>
+                        <button onclick="filterProducts('Spices')" class="filter-btn px-6 py-2 rounded-full border border-gray-300 text-punjab-dark hover:border-punjab hover:text-punjab transition-all bg-white text-sm sm:text-base">Spices</button>
                     </div>
 
                     <!-- Product Grid - Optimized for Mobile (2 cols) -->
@@ -462,6 +493,9 @@
                     </div>
                 </div>
                 <div class="border-t border-gray-300 pt-6 mt-6">
+                    <!-- Placeholder for dynamic variant selection dropdown -->
+                    <div id="modal-variant-selector" class="mb-4"></div>
+
                     <div class="flex items-center justify-between mb-6">
                         <div>
                             <span class="text-sm text-gray-500 block">Price</span>
@@ -508,12 +542,49 @@
     <script>
         // --- UPDATED PRODUCT DATA ---
         const products = [
-            { id: "p1", name: "Pure Black Mustard Oil", price: 349, unit: "1L", category: "Oils", img1: "https://i.ibb.co/39HK9h3x/mustrd.jpg", benefits: ["Cold-pressed in wooden Kolhu to preserve heat-sensitive antioxidants", "High pungency: A sign of purity and active enzymes", "Rich in Omega-3 & 6 for heart health and cholesterol balance"] },
-            { id: "p2", name: "Pure Yellow Mustard Oil", price: 349, unit: "1L", category: "Oils", img1: "https://i.ibb.co/LzVxBmwj/yello-sarso.jpg", benefits: ["Extracted from golden sarso seeds for a milder, aromatic taste", "High Vitamin E content promotes glowing skin and hair", "Ideal for pickles (achaar) and light sautéing"] },
+            // Added isBestseller and discount tags
+            { 
+                id: "p1", name: "Pure Black Mustard Oil", price: 349, unit: "1L", category: "Oils", 
+                img1: "https://i.ibb.co/39HK9h3x/mustrd.jpg", 
+                benefits: ["Cold-pressed in wooden Kolhu to preserve heat-sensitive antioxidants", "High pungency: A sign of purity and active enzymes", "Rich in Omega-3 & 6 for heart health and cholesterol balance"],
+                isBestseller: true, discount: 10 
+            },
+            // UPDATED PRICE: Yellow Mustard Oil, added tags
+            { 
+                id: "p2", name: "Pure Yellow Mustard Oil", price: 500, unit: "1L", category: "Oils", 
+                img1: "https://i.ibb.co/LzVxBmwj/yello-sarso.jpg", 
+                benefits: ["Extracted from golden sarso seeds for a milder, aromatic taste", "High Vitamin E content promotes glowing skin and hair", "Ideal for pickles (achaar) and light sautéing"],
+                isBestseller: true, discount: 15
+            },
             { id: "p3", name: "Pure Coconut Oil", price: 449, unit: "1L", category: "Oils", img1: "https://i.ibb.co/JRkP18SM/cocnut.jpg", benefits: ["Raw, virgin, and cold-pressed to retain MCTs for instant energy", "Excellent edible oil and natural moisturizer for skin", "Supports metabolism and healthy weight management"] },
             { id: "p5", name: "Pure Badam Oil", price: 349, unit: "100ml", category: "Oils", img1: "https://i.ibb.co/7ttstkt7/almond-oil.jpg", benefits: ["Extracted from Gurbandi almonds for max Vitamin E", "Deeply nourishes skin, reducing dark circles and fine lines", "Perfect for baby massage to strengthen bones"] },
+            
+            // NEW PRODUCT: Sesame Oil - Image and Name Updated, added tags
+            { 
+                id: "p20", name: "Sesame Oil", price: 650, unit: "1L", category: "Oils", 
+                img1: "https://i.ibb.co/3Y1CL7m7/ssesameoil.jpg",
+                variants: [ {u: "500ml", p: 330}, {u: "1L", p: 650} ],
+                benefits: ["Extracted below 40°C, preserving maximum antioxidants and natural flavor", "Rich in copper and calcium, supporting bone and joint health", "Anti-inflammatory properties aid in managing chronic pain"],
+                isBestseller: true, discount: 12
+            },
+            
+            // NEW PRODUCT: Jaggery - CATEGORY CHANGED TO SWEETENERS, added tags
+            { 
+                id: "p21", name: "Jaggery", price: 200, unit: "1kg", category: "Sweeteners", 
+                img1: "https://i.ibb.co/jPZZ5XMr/jaggery.jpg",
+                benefits: ["Unrefined cane sugar, rich in minerals like iron, magnesium, and potassium", "Excellent natural blood purifier and immune booster", "Acts as a digestive agent, highly recommended after meals"],
+                discount: 17
+            },
+            
             { id: "p6", name: "Wheat Atta", price: 64, unit: "1kg", category: "Flours", img1: "https://i.ibb.co/tTGzfGZt/wheat.jpg", variants: [ {u: "1kg", p: 64}, {u: "5kg", p: 319}, {u: "10kg", p: 599} ], benefits: ["Slow stone-ground at 150 RPM to keep flour cool and nutrient-rich", "Contains 100% bran and germ for digestive health", "Makes soft, sweet rotis that stay fresh longer"] },
-            { id: "p7", name: "MP Wheat Atta", price: 69, unit: "1kg", category: "Flours", img1: "https://i.ibb.co/7d6YFFJH/mp.jpg", variants: [ {u: "1kg", p: 69}, {u: "5kg", p: 339}, {u: "10kg", p: 519} ], benefits: ["Sourced from MP's Malwa region, known for premium golden grains", "Higher protein content (13%) for better muscle repair", "Absorbs more water, resulting in fluffier, tastier rotis"] },
+            // MP Wheat, added tags
+            { 
+                id: "p7", name: "MP Wheat Atta", price: 69, unit: "1kg", category: "Flours", 
+                img1: "https://i.ibb.co/7d6YFFJH/mp.jpg", 
+                variants: [ {u: "1kg", p: 69}, {u: "5kg", p: 339}, {u: "10kg", p: 519} ], 
+                benefits: ["Sourced from MP's Malwa region, known for premium golden grains", "Higher protein content (13%) for better muscle repair", "Absorbs more water, resulting in fluffier, tastier rotis"],
+                isBestseller: true, discount: 10
+            },
             { id: "p8", name: "Multigrain Atta", price: 99, unit: "1kg", category: "Flours", img1: "https://i.ibb.co/MDNxgs00/multi.jpg", benefits: ["A powerful blend of 7 heritage grains: Wheat, Ragi, Bajra, Jowar, etc.", "Low GI (55) helps manage blood sugar and insulin levels", "50% more fiber than regular atta for superior gut health"] },
             { id: "p9", name: "Ragi Atta", price: 119, unit: "1kg", category: "Flours", img1: "https://i.ibb.co/d023GfJz/63bb1e96-ea50-432b-93ff-da15e5d7623a.png", img2: "https://i.ibb.co/4R7kQj06/ragi-millet-seed-500x500.webp", benefits: ["The ultimate Calcium king (344mg/100g) for bone density", "Excellent for growing kids and seniors", "Helps in weight loss by keeping you full for longer"] },
             { id: "p10", name: "Jowar Atta", price: 99, unit: "1kg", category: "Flours", img1: "https://i.ibb.co/RT8Xxvkj/83375485-4b49-41c8-be9f-561b99436307.png", img2: "https://i.ibb.co/5gs5J1hM/610-IDm9a-C5-L-SL1200.jpg", benefits: ["Naturally gluten-free and easy to digest", "High in complex carbs for sustained energy without the crash", "Cooling nature makes it perfect for summer diets"] },
@@ -521,7 +592,13 @@
             { id: "p12", name: "Besan (Chickpea)", price: 159, unit: "1kg", category: "Flours", img1: "https://i.ibb.co/twHt1WcL/cd7e094a-34b2-4339-91eb-c4446f31529c.png", img2: "https://i.ibb.co/JjKPQPjM/besan-gram-flour-or-chickpea-flour-is-a-powder-made-from-ground-chickpea-known-as-bengal-gram-free-p.jpg", variants: [ {u: "500g", p: 79}, {u: "1kg", p: 159} ], benefits: ["Made from 100% Chana Dal, protein-packed (20g/100g)", "Essential for traditional Kadhi, Pakoras, and Chilla", "Great vegan egg substitute with a rich, nutty flavor"] },
             { id: "p13", name: "Dalia", price: 99, unit: "1kg", category: "Grains", img1: "https://i.ibb.co/tM976W1b/aa227679-7f64-4580-b9a0-c3661c2b3bec.png", variants: [ {u: "500g", p: 59}, {u: "1kg", p: 99} ], benefits: ["Whole broken wheat with high fiber content (12g/100g)", "Slow-release carbs provide sustained energy for the day", "Best breakfast for weight management and digestion"] },
             { id: "p15", name: "Haldi (Turmeric)", price: 99, unit: "250g", category: "Spices", img1: "https://i.ibb.co/ym6yQGtL/haldi.jpg", benefits: ["High Curcumin content (7%) verified by lab tests", "Potent anti-inflammatory and immunity booster", "Essential for 'Golden Milk' healing rituals"] },
-            { id: "p16", name: "Black Wheat Flour", price: 99, unit: "1kg", category: "Heritage Flours", img1: "https://i.ibb.co/QvZ5tvcf/black-wheat-flour.jpg", img2: "https://i.ibb.co/N8WfCVp/organic-black-wheat-1713514180-7390923.jpg", benefits: ["Rich in Anthocyanins (powerful antioxidants found in blueberries)", "Low Glycemic Index (45) helps manage diabetes naturally", "Contains 40% more protein than regular white wheat"] },
+            // Black Wheat, added tags
+            { 
+                id: "p16", name: "Black Wheat Flour", price: 99, unit: "1kg", category: "Heritage Flours", 
+                img1: "https://i.ibb.co/QvZ5tvcf/black-wheat-flour.jpg", img2: "https://i.ibb.co/N8WfCVp/organic-black-wheat-1713514180-7390923.jpg", 
+                benefits: ["Rich in Anthocyanins (powerful antioxidants found in blueberries)", "Low Glycemic Index (45) helps manage diabetes naturally", "Contains 40% more protein than regular white wheat"],
+                isBestseller: true, discount: 15
+            },
             { id: "p17", name: "Paigambari Wheat", price: 169, unit: "1kg", category: "Heritage Flours", img1: "https://i.ibb.co/Zp8qVrdY/paigambar-wheat-flour.jpg", img2: "https://i.ibb.co/TM561N6D/p-wheat.webp", benefits: ["4500-year-old Indus Valley heirloom strain", "Contains 267% more minerals (Zinc, Iron) than modern wheat", "Low gluten structure makes it easier to digest"] },
             { id: "p18", name: "Bansi Wheat Flour", price: 149, unit: "1kg", category: "Heritage Flours", img1: "https://i.ibb.co/9m4scDfQ/bansi.jpg", img2: "https://i.ibb.co/xKn3wgDL/bansi2.jpg", benefits: ["Ancient variety known to fight obesity and inflammation", "Very low Glycemic Index (50) for metabolic health", "Rich, distinct taste that needs no additives"] },
             { id: "p19", name: "Maize Flour (Makki Atta)", price: 99, unit: "1kg", category: "Flours", img1: "https://i.ibb.co/pspPmBs/maize.jpg", benefits: ["Rich in Zinc, Iron and Vitamin A for good vision and skin", "Gluten-free winter staple, traditionally eaten with Sarson Saag", "High fiber content aids digestion and keeps you full longer"] }
@@ -541,7 +618,7 @@
                 // Return details with the specific variant's price/unit
                 if (variant) return { ...product, price: variant.p, unit: variant.u, id: compositeId, baseId: pid };
             }
-            // Return base product details (used for non-variant products or if variant fails)
+            // If it doesn't have variants, use the product's base price/unit
             return { ...product, id: compositeId, baseId: pid };
         }
 
@@ -550,13 +627,12 @@
             renderShopProducts('All');
             updateCartUI();
             
-            // REMOVED: Loader fade logic to prevent "invisible website" bug.
             lucide.createIcons();
         });
 
         // --- RENDERERS ---
 
-        function createProductCard(p, type = 'shop') {
+        function createProductCard(p, type = 'shop', index = 0) {
             const swiperId = `swiper-${p.id}-${Math.random().toString(36).substr(2, 9)}`;
             
             let variantHtml = '';
@@ -614,9 +690,24 @@
                 slidesHtml += `<div class="swiper-slide"><img src="${p.img2}" alt="${p.name} Image 2" class="w-full h-full object-cover"></div>`;
             }
 
+            // --- BADGES ---
+            let badgesHtml = '';
+            if (p.isBestseller) {
+                badgesHtml += `<span class="bg-red-500 text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-md">BESTSELLER</span>`;
+            }
+            if (p.discount) {
+                badgesHtml += `<span class="bg-punjab-gold text-punjab-soil text-[10px] font-bold px-3 py-1 rounded-full shadow-md ml-1">-${p.discount}% OFF</span>`;
+            }
+            
+            // Staggered fade-in animation for shop items
+            const animationClass = type === 'shop' 
+                ? `opacity-0 animate-product-fade-in [animation-delay:${index * 75}ms]` 
+                : ''; // FIX: Only apply opacity-0 and animation to shop items
+
             return `
-                <div class="${type === 'bestseller' ? 'swiper-slide' : ''} group bg-white rounded-3xl p-4 shadow-sm hover:shadow-float transition-all duration-300 border border-gray-100 card-3d h-full flex flex-col" id="card-${p.id}">
+                <div class="${type === 'bestseller' ? 'swiper-slide' : ''} group bg-white rounded-3xl p-4 shadow-sm hover:shadow-float transition-all duration-300 border border-gray-100 card-3d h-full flex flex-col ${animationClass}" id="card-${p.id}">
                     <div class="relative aspect-square rounded-2xl overflow-hidden mb-4 bg-punjab-cream">
+                        <div class="absolute top-3 left-3 z-10 flex items-center">${badgesHtml}</div>
                         <div class="swiper mini-swiper ${swiperId}">
                             <div class="swiper-wrapper">${slidesHtml}</div>
                         </div>
@@ -671,7 +762,7 @@
         }
 
         function renderBestsellers() {
-            // Select specific IDs for Community Favorites
+            // Select specific IDs for Community Favorites (ensure they exist after update)
             const bestsellerIds = ["p1", "p2", "p3", "p5", "p16", "p17"];
             const bestsellers = bestsellerIds.map(id => products.find(p => p.id === id)).filter(Boolean);
             
@@ -680,28 +771,37 @@
             bestsellers.forEach(p => { html += createProductCard(p, 'bestseller'); });
             wrapper.innerHTML = html;
             
+            // Initialize the main Swiper instance
             new Swiper('.bestseller-swiper', {
                 slidesPerView: 1, spaceBetween: 30, loop: true,
                 autoplay: { delay: 4000, disableOnInteraction: false },
                 navigation: { nextEl: '.bestseller-next', prevEl: '.bestseller-prev' },
                 pagination: { el: '.swiper-pagination', clickable: true },
-                breakpoints: { 640: { slidesPerView: 2 }, 1024: { slidesPerView: 3 }, 1280: { slidesPerView: 4 } }
+                breakpoints: { 
+                    640: { slidesPerView: 2 }, 
+                    1024: { slidesPerView: 3 }, 
+                    1280: { slidesPerView: 4 } 
+                }
             });
 
-            // Initialize mini swipers for the rendered cards
-            bestsellers.forEach(p => { initMiniSwipers(wrapper, p.id); });
+            // Initialize mini swipers and icons for the rendered cards (Crucial fix for visibility)
+            initMiniSwipers(wrapper);
             lucide.createIcons();
         }
 
         function renderShopProducts(cat) {
             const grid = document.getElementById('product-grid');
-            const filtered = cat === 'All' ? products : products.filter(p => p.category === cat);
+            // Filter by category, now including 'Sweeteners'
+            const filtered = cat === 'All' 
+                ? products 
+                : products.filter(p => p.category === cat);
             let html = '';
-            filtered.forEach(p => { html += createProductCard(p, 'shop'); });
+            // Pass index for staggered animation
+            filtered.forEach((p, index) => { html += createProductCard(p, 'shop', index); });
             grid.innerHTML = html;
             
             // Initialize mini swipers for the newly rendered cards
-            filtered.forEach(p => { initMiniSwipers(grid, p.id); });
+            initMiniSwipers(grid);
             lucide.createIcons(); // Re-create icons for newly injected HTML
         }
 
@@ -723,12 +823,14 @@
         }
 
         function filterProducts(cat) {
+            // Fix: Change non-active text color to prevent disappearance
             document.querySelectorAll('.filter-btn').forEach(b => {
                 b.classList.remove('active', 'bg-punjab', 'text-white', 'border-punjab');
-                b.classList.add('text-gray-600', 'border-gray-300', 'bg-white');
+                // Ensure text is always visible (punjab-dark is black-brown)
+                b.classList.add('text-punjab-dark', 'border-gray-300', 'bg-white');
             });
             event.target.classList.add('active', 'bg-punjab', 'text-white', 'border-punjab');
-            event.target.classList.remove('text-gray-600', 'border-gray-300', 'bg-white');
+            event.target.classList.remove('text-punjab-dark', 'border-gray-300', 'bg-white');
             renderShopProducts(cat);
         }
 
@@ -764,27 +866,62 @@
             }
         }
 
+        function updateModalVariant(select, product) {
+            const selectedUnit = select.value;
+            const variant = product.variants.find(v => v.u === selectedUnit);
+            
+            document.getElementById('modal-price').innerText = `₹${variant.p}`;
+            // For variant products, the unit is implicitly selected via the dropdown, but we display the label
+            document.getElementById('modal-unit').innerText = ''; 
+        }
+
         function openModal(id) {
             const p = products.find(x => x.id === id);
-            // Default to first variant if exists, this is for display only
-            const currentUnit = p.variants ? p.variants[0].u : p.unit;
-            const currentPrice = p.variants ? p.variants[0].p : p.price;
+            
+            // Default to first variant if exists
+            const defaultUnit = p.variants ? p.variants[0].u : p.unit;
+            const defaultPrice = p.variants ? p.variants[0].p : p.price;
             
             document.getElementById('modal-img').src = p.img1;
             document.getElementById('modal-cat').innerText = p.category;
             document.getElementById('modal-title').innerText = p.name;
             document.getElementById('modal-desc').innerText = `Pure ${p.name}, sourced directly from heritage farmers.`;
-            document.getElementById('modal-price').innerText = `₹${currentPrice}`;
-            document.getElementById('modal-unit').innerText = `/ ${currentUnit}`;
+            document.getElementById('modal-price').innerText = `₹${defaultPrice}`;
+            document.getElementById('modal-unit').innerText = p.variants ? '' : `/ ${defaultUnit}`;
             document.getElementById('modal-qty').innerText = 1;
             currentModalQty = 1; 
             
+            const variantSelectorContainer = document.getElementById('modal-variant-selector');
+            variantSelectorContainer.innerHTML = ''; // Clear previous selector
+
+            // Handle Variant Selector for Modal
+            if (p.variants) {
+                const variantHtml = `
+                    <div class="space-y-1">
+                        <label class="text-xs font-bold uppercase text-gray-500">Select Quantity</label>
+                        <select id="modal-variant-select" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-xl focus:outline-none focus:border-punjab focus:ring-1 focus:ring-punjab transition-all">
+                            ${p.variants.map(v => `<option value="${v.u}" data-price="${v.p}">${v.u} (₹${v.p})</option>`).join('')}
+                        </select>
+                    </div>
+                `;
+                variantSelectorContainer.innerHTML = variantHtml;
+                
+                const selectElement = document.getElementById('modal-variant-select');
+                selectElement.onchange = () => updateModalVariant(selectElement, p);
+            }
+
             // Populates dynamic benefits list
             document.getElementById('modal-benefits').innerHTML = p.benefits.map(b => `<li class="flex items-start gap-3 text-sm text-gray-600"><span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-punjab-gold shrink-0"></span>${b}</li>`).join('');
             
-            // Setup add button to use the default variant on add (no variant selector in modal)
+            // Setup add button to correctly read selected variant
             document.getElementById('modal-add-btn').onclick = () => { 
-                const compositeId = p.variants ? `${p.id}_${p.variants[0].u}` : p.id;
+                let selectedUnit;
+                if (p.variants) {
+                    selectedUnit = document.getElementById('modal-variant-select').value;
+                } else {
+                    selectedUnit = p.unit;
+                }
+                const compositeId = p.variants ? `${p.id}_${selectedUnit}` : p.id;
                 addToCart(compositeId, currentModalQty, p.id); 
                 closeModal(); 
             };
@@ -1034,4 +1171,3 @@
     </script>
 </body>
 </html>
-
