@@ -446,7 +446,7 @@
                 <p class="text-white/70 max-w-sm">
                     Reviving the 'Sanjha Chulha' of Punjab. Pure, ethical, and steeped in tradition. 
                     <br><br>
-                    
+                    Village Chhina, Dist. Gurdaspur, Punjab - 143505
                 </p>
                 <div class="mt-6">
                     <a href="https://www.instagram.com/nirog.organic?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="inline-flex items-center gap-2 text-punjab-gold hover:text-white transition-colors font-medium">
@@ -549,39 +549,51 @@
                 benefits: ["Cold-pressed in wooden Kolhu to preserve heat-sensitive antioxidants", "High pungency: A sign of purity and active enzymes", "Rich in Omega-3 & 6 for heart health and cholesterol balance"],
                 isBestseller: true, discount: 10 
             },
-            // UPDATED PRICE: Yellow Mustard Oil, added tags
+            // UPDATED PRICE: Yellow Mustard Oil
             { 
-                id: "p2", name: "Pure Yellow Mustard Oil", price: 500, unit: "1L", category: "Oils", 
+                id: "p2", name: "Pure Yellow Mustard Oil", price: 499, unit: "1L", category: "Oils", 
                 img1: "https://i.ibb.co/LzVxBmwj/yello-sarso.jpg", 
                 benefits: ["Extracted from golden sarso seeds for a milder, aromatic taste", "High Vitamin E content promotes glowing skin and hair", "Ideal for pickles (achaar) and light sautéing"],
                 isBestseller: true, discount: 15
             },
-            { id: "p3", name: "Pure Coconut Oil", price: 449, unit: "1L", category: "Oils", img1: "https://i.ibb.co/JRkP18SM/cocnut.jpg", benefits: ["Raw, virgin, and cold-pressed to retain MCTs for instant energy", "Excellent edible oil and natural moisturizer for skin", "Supports metabolism and healthy weight management"] },
+            // UPDATED PRICES: Pure Coconut Oil variants (Charm Pricing)
+            { 
+                id: "p3", name: "Pure Coconut Oil", price: 799, unit: "1L", category: "Oils", 
+                img1: "https://i.ibb.co/JRkP18SM/cocnut.jpg", 
+                variants: [ {u: "100ml", p: 99}, {u: "500ml", p: 399}, {u: "1L", p: 799} ],
+                benefits: ["Raw, virgin, and cold-pressed to retain MCTs for instant energy", "Excellent edible oil and natural moisturizer for skin", "Supports metabolism and healthy weight management"] 
+            },
             { id: "p5", name: "Pure Badam Oil", price: 349, unit: "100ml", category: "Oils", img1: "https://i.ibb.co/7ttstkt7/almond-oil.jpg", benefits: ["Extracted from Gurbandi almonds for max Vitamin E", "Deeply nourishes skin, reducing dark circles and fine lines", "Perfect for baby massage to strengthen bones"] },
             
-            // NEW PRODUCT: Sesame Oil - Image and Name Updated, added tags
+            // UPDATED PRICES: Sesame Oil variants
             { 
-                id: "p20", name: "Sesame Oil", price: 650, unit: "1L", category: "Oils", 
+                id: "p20", name: "Sesame Oil", price: 649, unit: "1L", category: "Oils", 
                 img1: "https://i.ibb.co/3Y1CL7m7/ssesameoil.jpg",
-                variants: [ {u: "500ml", p: 330}, {u: "1L", p: 650} ],
+                variants: [ {u: "500ml", p: 329}, {u: "1L", p: 649} ],
                 benefits: ["Extracted below 40°C, preserving maximum antioxidants and natural flavor", "Rich in copper and calcium, supporting bone and joint health", "Anti-inflammatory properties aid in managing chronic pain"],
                 isBestseller: true, discount: 12
             },
             
-            // NEW PRODUCT: Jaggery - CATEGORY CHANGED TO SWEETENERS, added tags
+            // UPDATED PRICE: Jaggery
             { 
-                id: "p21", name: "Jaggery", price: 200, unit: "1kg", category: "Sweeteners", 
+                id: "p21", name: "Jaggery", price: 199, unit: "1kg", category: "Sweeteners", 
                 img1: "https://i.ibb.co/jPZZ5XMr/jaggery.jpg",
                 benefits: ["Unrefined cane sugar, rich in minerals like iron, magnesium, and potassium", "Excellent natural blood purifier and immune booster", "Acts as a digestive agent, highly recommended after meals"],
                 discount: 17
             },
             
-            { id: "p6", name: "Wheat Atta", price: 64, unit: "1kg", category: "Flours", img1: "https://i.ibb.co/tTGzfGZt/wheat.jpg", variants: [ {u: "1kg", p: 64}, {u: "5kg", p: 319}, {u: "10kg", p: 599} ], benefits: ["Slow stone-ground at 150 RPM to keep flour cool and nutrient-rich", "Contains 100% bran and germ for digestive health", "Makes soft, sweet rotis that stay fresh longer"] },
-            // MP Wheat, added tags
+            // UPDATED PRICES: Wheat Atta variants
             { 
-                id: "p7", name: "MP Wheat Atta", price: 69, unit: "1kg", category: "Flours", 
+                id: "p6", name: "Wheat Atta", price: 69, unit: "1kg", category: "Flours", 
+                img1: "https://i.ibb.co/tTGzfGZt/wheat.jpg", 
+                variants: [ {u: "1kg", p: 69}, {u: "5kg", p: 339}, {u: "10kg", p: 649} ], 
+                benefits: ["Slow stone-ground at 150 RPM to keep flour cool and nutrient-rich", "Contains 100% bran and germ for digestive health", "Makes soft, sweet rotis that stay fresh longer"] 
+            },
+            // UPDATED PRICES: MP Wheat Atta variants
+            { 
+                id: "p7", name: "MP Wheat Atta", price: 59, unit: "1kg", category: "Flours", 
                 img1: "https://i.ibb.co/7d6YFFJH/mp.jpg", 
-                variants: [ {u: "1kg", p: 69}, {u: "5kg", p: 339}, {u: "10kg", p: 519} ], 
+                variants: [ {u: "1kg", p: 59}, {u: "5kg", p: 289}, {u: "10kg", p: 549} ], 
                 benefits: ["Sourced from MP's Malwa region, known for premium golden grains", "Higher protein content (13%) for better muscle repair", "Absorbs more water, resulting in fluffier, tastier rotis"],
                 isBestseller: true, discount: 10
             },
