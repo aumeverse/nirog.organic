@@ -111,6 +111,11 @@
             background-clip: text;
             color: transparent;
         }
+        
+        /* FIX: Ensure active filter text is legible against green background */
+        .filter-btn.active {
+            color: white !important; /* Forces white text on the active green button */
+        }
     </style>
 </head>
 <body class="font-sans antialiased selection:bg-punjab-gold selection:text-punjab-soil">
@@ -444,9 +449,7 @@
                     <span class="font-serif font-bold text-2xl">Nirog Organic</span>
                 </div>
                 <p class="text-white/70 max-w-sm">
-                    Reviving the 'Sanjha Chulha' of Punjab. Pure, ethical, and steeped in tradition. 
-                    <br><br>
-                    Village Chhina, Dist. Gurdaspur, Punjab - 143505
+                    Reviving the 'Sanjha Chulha' of Punjab. Pure, ethical, and steeped in tradition.
                 </p>
                 <div class="mt-6">
                     <a href="https://www.instagram.com/nirog.organic?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="inline-flex items-center gap-2 text-punjab-gold hover:text-white transition-colors font-medium">
@@ -835,12 +838,13 @@
         }
 
         function filterProducts(cat) {
-            // Fix: Change non-active text color to prevent disappearance
+            // FIX: Ensure non-active buttons switch correctly to text-punjab-dark
             document.querySelectorAll('.filter-btn').forEach(b => {
                 b.classList.remove('active', 'bg-punjab', 'text-white', 'border-punjab');
-                // Ensure text is always visible (punjab-dark is black-brown)
+                // Non-active state: White background, dark text
                 b.classList.add('text-punjab-dark', 'border-gray-300', 'bg-white');
             });
+            // Active state: Green background, white text (fixed by CSS in <style>)
             event.target.classList.add('active', 'bg-punjab', 'text-white', 'border-punjab');
             event.target.classList.remove('text-punjab-dark', 'border-gray-300', 'bg-white');
             renderShopProducts(cat);
