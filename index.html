@@ -172,7 +172,7 @@
                         <span class="text-transparent bg-clip-text bg-gradient-to-r from-punjab-gold to-yellow-200 italic">Heritage</span>
                     </h1>
                     <p class="text-base sm:text-lg md:text-xl text-gray-200 max-w-2xl mx-auto mb-10 font-light leading-relaxed">
-                        Slow stone-ground flours and cold-pressed oils. <br>With 30 years of expertise in the grain business and deep roots in Punjab.
+                        Slow stone-ground flours and woodpressed oils. <br>With 30 years of expertise in the grain business and deep roots in Punjab.
                     </p>
                     <button onclick="showPage('page-shop')" class="px-10 py-4 bg-punjab-gold hover:bg-punjab text-punjab-soil rounded-full font-bold shadow-lg shadow-punjab-gold/40 transition-all hover:scale-105 flex items-center justify-center gap-2 mx-auto">
                         View The Pantry
@@ -201,7 +201,7 @@
                         </div>
                         <div class="journey-step">
                             <img src="https://i.ibb.co/t1LJgC9/Gemini-Generated-Image-sugd5csugd5csugd.png" alt="Cold Pressing" class="w-full h-64 object-cover rounded-3xl shadow-lg mb-6 transition-all duration-500 hover:scale-105">
-                            <h3 class="font-serif text-2xl font-bold text-punjab-dark">3. Cold-Pressed, Chemical-Free</h3>
+                            <h3 class="font-serif text-2xl font-bold text-punjab-dark">3. Woodpressed, Chemical-Free</h3>
                             <p class="text-gray-600 mt-2 text-sm leading-relaxed">Extracted below 40°C with zero chemicals. Our oils lock in heart-healthy omegas and Vitamin E—taste the difference, feel the purity.</p>
                         </div>
                     </div>
@@ -262,13 +262,12 @@
                             <p class="text-white/70 text-sm leading-relaxed">No additives, no bleaching, no artificial preservatives. Just pure grain—nothing else.</p>
                         </div>
 
-                        <!-- Trust Badge: Cold-Pressed Oils -->
+                        <!-- Trust Badge: Woodpressed Oils -->
                         <div class="bg-white/10 backdrop-blur-md border border-white/10 p-8 rounded-3xl text-center hover:bg-white/20 transition-all hover:-translate-y-2 duration-300 group">
                             <div class="w-16 h-16 mx-auto mb-6 bg-blue-400/20 rounded-full flex items-center justify-center text-white group-hover:bg-blue-400 transition-colors">
                                 <i data-lucide="droplet" class="w-8 h-8"></i>
                             </div>
-                            <!-- UPDATED TEXT HERE -->
-                            <h3 class="font-serif text-xl font-bold mb-3">Cold-Pressed Below 40°C</h3>
+                            <h3 class="font-serif text-xl font-bold mb-3">Woodpressed Below 40°C</h3>
                             <p class="text-white/70 text-sm leading-relaxed">Traditional extraction retains omega-3, Vitamin E, and natural antioxidants for maximum health.</p>
                         </div>
 
@@ -307,7 +306,7 @@
             <section class="py-24 bg-punjab-wheat">
                 <div class="container mx-auto px-6 text-center">
                     <h2 class="font-serif text-4xl sm:text-5xl font-bold text-punjab-soil mb-6">Explore the Full Pantry</h2>
-                    <p class="text-xl text-gray-600 mb-10 max-w-2xl mx-auto">From ancient grains to cold-pressed elixirs, discover 18+ heritage products.</p>
+                    <p class="text-xl text-gray-600 mb-10 max-w-2xl mx-auto">From ancient grains to woodpressed elixirs, discover 18+ heritage products.</p>
                     <button onclick="showPage('page-shop')" class="px-12 py-5 bg-punjab hover:bg-punjab-dark text-white rounded-full font-bold text-lg shadow-2xl transition-all hover:scale-105">
                         View All Products
                     </button>
@@ -328,14 +327,20 @@
                         <p class="text-gray-500">18 Heritage Products • 100% Traceable</p>
                     </div>
 
-                    <!-- Filters -->
+                    <!-- Filters (UPDATED ORDER AND LABEL) -->
                     <div class="flex flex-wrap justify-center gap-2 mb-12 sticky top-24 z-30 bg-punjab-cream/90 backdrop-blur py-4">
                         <button onclick="filterProducts('All')" class="filter-btn active px-6 py-2 rounded-full border border-punjab bg-punjab text-white transition-all hover:scale-105 shadow-md text-sm sm:text-base">All</button>
                         <button onclick="filterProducts('Flours')" class="filter-btn px-6 py-2 rounded-full border border-gray-300 text-punjab-dark hover:border-punjab hover:text-punjab transition-all bg-white text-sm sm:text-base">Flours</button>
                         <button onclick="filterProducts('Oils')" class="filter-btn px-6 py-2 rounded-full border border-gray-300 text-punjab-dark hover:border-punjab hover:text-punjab transition-all bg-white text-sm sm:text-base">Oils</button>
-                        <button onclick="filterProducts('Sweeteners')" class="filter-btn px-6 py-2 rounded-full border border-gray-300 text-punjab-dark hover:border-punjab hover:text-punjab transition-all bg-white text-sm sm:text-base">Sweeteners</button>
-                        <button onclick="filterProducts('Heritage Flours')" class="filter-btn px-6 py-2 rounded-full border border-gray-300 text-punjab-dark hover:border-punjab hover:text-punjab transition-all bg-white text-sm sm:text-base">Ancients</button>
+                        
+                        <!-- UPDATED LABEL: "Ancient + Low Gluten" -->
+                        <button onclick="filterProducts('Heritage Flours')" class="filter-btn px-6 py-2 rounded-full border border-gray-300 text-punjab-dark hover:border-punjab hover:text-punjab transition-all bg-white text-sm sm:text-base">Ancient + Low Gluten</button>
+                        
+                        <!-- SPICES (Moved up) -->
                         <button onclick="filterProducts('Spices')" class="filter-btn px-6 py-2 rounded-full border border-gray-300 text-punjab-dark hover:border-punjab hover:text-punjab transition-all bg-white text-sm sm:text-base">Spices</button>
+                        
+                        <!-- SWEETENERS (Moved to the end) -->
+                        <button onclick="filterProducts('Sweeteners')" class="filter-btn px-6 py-2 rounded-full border border-gray-300 text-punjab-dark hover:border-punjab hover:text-punjab transition-all bg-white text-sm sm:text-base">Sweeteners</button>
                     </div>
 
                     <!-- Product Grid - Optimized for Mobile (2 cols) -->
@@ -549,7 +554,7 @@
             { 
                 id: "p1", name: "Pure Black Mustard Oil", price: 349, unit: "1L", category: "Oils", 
                 img1: "https://i.ibb.co/39HK9h3x/mustrd.jpg", 
-                benefits: ["Cold-pressed in wooden Kolhu to preserve heat-sensitive antioxidants", "High pungency: A sign of purity and active enzymes", "Rich in Omega-3 & 6 for heart health and cholesterol balance"],
+                benefits: ["Woodpressed in wooden Kolhu to preserve heat-sensitive antioxidants", "High pungency: A sign of purity and active enzymes", "Rich in Omega-3 & 6 for heart health and cholesterol balance"],
                 isBestseller: true, discount: 10 
             },
             // UPDATED PRICE: Yellow Mustard Oil
@@ -564,7 +569,7 @@
                 id: "p3", name: "Pure Coconut Oil", price: 799, unit: "1L", category: "Oils", 
                 img1: "https://i.ibb.co/JRkP18SM/cocnut.jpg", 
                 variants: [ {u: "100ml", p: 99}, {u: "500ml", p: 399}, {u: "1L", p: 799} ],
-                benefits: ["Raw, virgin, and cold-pressed to retain MCTs for instant energy", "Excellent edible oil and natural moisturizer for skin", "Supports metabolism and healthy weight management"] 
+                benefits: ["Raw, virgin, and woodpressed to retain MCTs for instant energy", "Excellent edible oil and natural moisturizer for skin", "Supports metabolism and healthy weight management"] 
             },
             { id: "p5", name: "Pure Badam Oil", price: 349, unit: "100ml", category: "Oils", img1: "https://i.ibb.co/7ttstkt7/almond-oil.jpg", benefits: ["Extracted from Gurbandi almonds for max Vitamin E", "Deeply nourishes skin, reducing dark circles and fine lines", "Perfect for baby massage to strengthen bones"] },
             
@@ -573,7 +578,7 @@
                 id: "p20", name: "Sesame Oil", price: 649, unit: "1L", category: "Oils", 
                 img1: "https://i.ibb.co/3Y1CL7m7/ssesameoil.jpg",
                 variants: [ {u: "500ml", p: 329}, {u: "1L", p: 649} ],
-                benefits: ["Extracted below 40°C, preserving maximum antioxidants and natural flavor", "Rich in copper and calcium, supporting bone and joint health", "Anti-inflammatory properties aid in managing chronic pain"],
+                benefits: ["Woodpressed below 40°C, preserving maximum antioxidants and natural flavor", "Rich in copper and calcium, supporting bone and joint health", "Anti-inflammatory properties aid in managing chronic pain"],
                 isBestseller: true, discount: 12
             },
             
@@ -1108,7 +1113,6 @@
                 container.innerHTML = html;
                 summaryContainer.innerHTML = summaryHtml;
                 document.getElementById('cart-badge').innerText = count;
-                document.getElementById('cart-badge').classList.remove('scale-0');
             }
             document.getElementById('cart-total').innerText = `₹${total}`;
             if(checkoutTotalEl) {
