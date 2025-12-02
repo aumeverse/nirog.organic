@@ -1069,6 +1069,7 @@
             const container = document.getElementById('cart-items');
             const summaryContainer = document.getElementById('checkout-items-summary');
             const checkoutTotalEl = document.getElementById('checkout-total');
+            const cartBadge = document.getElementById('cart-badge'); // Reference the badge
 
             let total = 0, count = 0;
             let summaryHtml = '';
@@ -1076,7 +1077,7 @@
             if(items.length===0) {
                 container.innerHTML = `<div class="text-center py-10 opacity-50"><p>Your Harvest Box is empty. Start collecting purity!</p></div>`;
                 summaryContainer.innerHTML = `<p>Your cart is empty.</p>`;
-                document.getElementById('cart-badge').classList.add('scale-0');
+                cartBadge.classList.add('scale-0'); // Hide badge
             } else {
                 let html = '';
                 items.forEach(compId => {
@@ -1112,7 +1113,8 @@
                 
                 container.innerHTML = html;
                 summaryContainer.innerHTML = summaryHtml;
-                document.getElementById('cart-badge').innerText = count;
+                cartBadge.innerText = count;
+                cartBadge.classList.remove('scale-0'); // FIX: Show badge if count > 0
             }
             document.getElementById('cart-total').innerText = `₹${total}`;
             if(checkoutTotalEl) {
