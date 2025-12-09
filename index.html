@@ -324,7 +324,8 @@
                     <div class="text-center mb-12">
                         <!-- ADDED: Animation and custom gradient class for shine effect -->
                         <h1 class="font-serif text-4xl sm:text-5xl font-bold mb-4 animated-header animate-header-pan-slow">The Punjab Pantry</h1>
-                        <p class="text-gray-500">18 Heritage Products • 100% Traceable</p>
+                        <!-- UPDATED PRODUCT COUNT -->
+                        <p class="text-gray-500">20 Heritage premium organic Products • 100% Traceable</p>
                     </div>
 
                     <!-- Filters (UPDATED ORDER AND LABEL) -->
@@ -533,7 +534,8 @@
         <div id="cart-items" class="flex-1 overflow-y-auto p-6 space-y-6 bg-white/30"></div>
         <div class="p-6 bg-punjab-cream border-t border-gray-200 shadow-[0_-10px_40px_rgba(0,0,0,0.05)]">
             <div class="flex justify-between items-center mb-4"><span class="text-gray-600">Subtotal</span><span id="cart-total" class="font-bold text-2xl text-punjab-dark">₹0</span></div>
-            <p class="text-xs text-center text-gray-500 mb-4 italic">Shipping charges will be calculated during order confirmation via WhatsApp.</p> 
+            <!-- UPDATED SHIPPING TEXT -->
+            <p class="text-xs text-center text-gray-500 mb-4 italic">Minimal shipping charges would be applied during final payment on WhatsApp after confirming order details.</p> 
             <button onclick="proceedToCheckout()" class="w-full py-4 bg-green-600 hover:bg-green-700 text-white rounded-xl font-bold shadow-lg flex items-center justify-center gap-2 transition-all transform hover:scale-[1.02]">
                 Proceed to Checkout <i data-lucide="arrow-right" class="w-5 h-5"></i>
             </button>
@@ -550,39 +552,47 @@
     <script>
         // --- UPDATED PRODUCT DATA ---
         const products = [
-            // Added isBestseller and discount tags
+            // Black mustard oil: ₹350 -> ₹349 for 1 litre
             { 
                 id: "p1", name: "Pure Black Mustard Oil", price: 349, unit: "1L", category: "Oils", 
                 img1: "https://i.ibb.co/39HK9h3x/mustrd.jpg", 
                 benefits: ["Woodpressed in wooden Kolhu to preserve heat-sensitive antioxidants", "High pungency: A sign of purity and active enzymes", "Rich in Omega-3 & 6 for heart health and cholesterol balance"],
                 isBestseller: true, discount: 10 
             },
-            // UPDATED PRICE: Yellow Mustard Oil
+            // Yellow mustard oil: ₹550 -> ₹549 for 1 litre
             { 
-                id: "p2", name: "Pure Yellow Mustard Oil", price: 499, unit: "1L", category: "Oils", 
+                id: "p2", name: "Pure Yellow Mustard Oil", price: 549, unit: "1L", category: "Oils", 
                 img1: "https://i.ibb.co/LzVxBmwj/yello-sarso.jpg", 
                 benefits: ["Extracted from golden sarso seeds for a milder, aromatic taste", "High Vitamin E content promotes glowing skin and hair", "Ideal for pickles (achaar) and light sautéing"],
                 isBestseller: true, discount: 15
             },
-            // UPDATED PRICES: Pure Coconut Oil variants (Charm Pricing)
+            // Coconut oil: ₹900 -> ₹899 for 1 litre, ₹450 -> ₹449 for 500 ml, ₹100 -> ₹99 for 100 ml
             { 
-                id: "p3", name: "Pure Coconut Oil", price: 799, unit: "1L", category: "Oils", 
+                id: "p3", name: "Pure Coconut Oil", price: 899, unit: "1L", category: "Oils", 
                 img1: "https://i.ibb.co/JRkP18SM/cocnut.jpg", 
-                variants: [ {u: "100ml", p: 99}, {u: "500ml", p: 399}, {u: "1L", p: 799} ],
+                variants: [ {u: "100ml", p: 99}, {u: "500ml", p: 449}, {u: "1L", p: 899} ],
                 benefits: ["Raw, virgin, and woodpressed to retain MCTs for instant energy", "Excellent edible oil and natural moisturizer for skin", "Supports metabolism and healthy weight management"] 
             },
+            // Pure Badam Oil (Keeping as is, as it's not in the update list but already uses charm pricing)
             { id: "p5", name: "Pure Badam Oil", price: 349, unit: "100ml", category: "Oils", img1: "https://i.ibb.co/7ttstkt7/almond-oil.jpg", benefits: ["Extracted from Gurbandi almonds for max Vitamin E", "Deeply nourishes skin, reducing dark circles and fine lines", "Perfect for baby massage to strengthen bones"] },
             
-            // UPDATED PRICES: Sesame Oil variants
+            // Groundnut oil: ₹400 -> ₹399 for 1 litre (Image updated)
             { 
-                id: "p20", name: "Sesame Oil", price: 649, unit: "1L", category: "Oils", 
+                id: "p22", name: "Pure Groundnut Oil", price: 399, unit: "1L", category: "Oils", 
+                img1: "https://i.ibb.co/jZWyRnJK/mumfali.jpg", // UPDATED IMAGE
+                benefits: ["Woodpressed for maximum flavor and nutrition", "High smoking point suitable for deep frying", "Rich in Monounsaturated fats (MUFA) for heart health"],
+            },
+            
+            // White sesame oil: ₹350 -> ₹349 for 500 ml. 1L base price adjusted accordingly.
+            { 
+                id: "p20", name: "Sesame Oil", price: 699, unit: "1L", category: "Oils", 
                 img1: "https://i.ibb.co/3Y1CL7m7/ssesameoil.jpg",
-                variants: [ {u: "500ml", p: 329}, {u: "1L", p: 649} ],
+                variants: [ {u: "500ml", p: 349}, {u: "1L", p: 699} ],
                 benefits: ["Woodpressed below 40°C, preserving maximum antioxidants and natural flavor", "Rich in copper and calcium, supporting bone and joint health", "Anti-inflammatory properties aid in managing chronic pain"],
                 isBestseller: true, discount: 12
             },
             
-            // UPDATED PRICE: Jaggery
+            // Jaggery: ₹199 (No change needed)
             { 
                 id: "p21", name: "Jaggery", price: 199, unit: "1kg", category: "Sweeteners", 
                 img1: "https://i.ibb.co/jPZZ5XMr/jaggery.jpg",
@@ -590,38 +600,48 @@
                 discount: 17
             },
             
-            // UPDATED PRICES: Wheat Atta variants
+            // Organic wheat flour: ₹700 -> ₹699 for 10 kg. 1kg variant adjusted.
             { 
                 id: "p6", name: "Wheat Atta", price: 69, unit: "1kg", category: "Flours", 
                 img1: "https://i.ibb.co/tTGzfGZt/wheat.jpg", 
-                variants: [ {u: "1kg", p: 69}, {u: "5kg", p: 339}, {u: "10kg", p: 649} ], 
+                variants: [ {u: "1kg", p: 69}, {u: "5kg", p: 349}, {u: "10kg", p: 699} ], 
                 benefits: ["Slow stone-ground at 150 RPM to keep flour cool and nutrient-rich", "Contains 100% bran and germ for digestive health", "Makes soft, sweet rotis that stay fresh longer"] 
             },
-            // UPDATED PRICES: MP Wheat Atta variants
+            // MP wheat flour: ₹550 -> ₹549 for 10 kg. 1kg variant adjusted.
             { 
-                id: "p7", name: "MP Wheat Atta", price: 59, unit: "1kg", category: "Flours", 
+                id: "p7", name: "MP Wheat Atta", price: 54, unit: "1kg", category: "Flours", 
                 img1: "https://i.ibb.co/7d6YFFJH/mp.jpg", 
-                variants: [ {u: "1kg", p: 59}, {u: "5kg", p: 289}, {u: "10kg", p: 549} ], 
+                variants: [ {u: "1kg", p: 54}, {u: "5kg", p: 274}, {u: "10kg", p: 549} ], 
                 benefits: ["Sourced from MP's Malwa region, known for premium golden grains", "Higher protein content (13%) for better muscle repair", "Absorbs more water, resulting in fluffier, tastier rotis"],
                 isBestseller: true, discount: 10
             },
-            { id: "p8", name: "Multigrain Atta", price: 99, unit: "1kg", category: "Flours", img1: "https://i.ibb.co/MDNxgs00/multi.jpg", benefits: ["A powerful blend of 7 heritage grains: Wheat, Ragi, Bajra, Jowar, etc.", "Low GI (55) helps manage blood sugar and insulin levels", "50% more fiber than regular atta for superior gut health"] },
-            { id: "p9", name: "Ragi Atta", price: 119, unit: "1kg", category: "Flours", img1: "https://i.ibb.co/d023GfJz/63bb1e96-ea50-432b-93ff-da15e5d7623a.png", img2: "https://i.ibb.co/4R7kQj06/ragi-millet-seed-500x500.webp", benefits: ["The ultimate Calcium king (344mg/100g) for bone density", "Excellent for growing kids and seniors", "Helps in weight loss by keeping you full for longer"] },
-            { id: "p10", name: "Jowar Atta", price: 99, unit: "1kg", category: "Flours", img1: "https://i.ibb.co/RT8Xxvkj/83375485-4b49-41c8-be9f-561b99436307.png", img2: "https://i.ibb.co/5gs5J1hM/610-IDm9a-C5-L-SL1200.jpg", benefits: ["Naturally gluten-free and easy to digest", "High in complex carbs for sustained energy without the crash", "Cooling nature makes it perfect for summer diets"] },
-            { id: "p11", name: "Jau Atta (Barley)", price: 99, unit: "1kg", category: "Flours", img1: "https://i.ibb.co/KxczQb98/166355b5-a465-406f-9781-025c57e5b4f1.png", img2: "https://i.ibb.co/ds4DfSrb/Barley.jpg", benefits: ["Ancient cooling grain, famous as Sattu base", "Rich in Beta-glucan fiber to lower bad cholesterol", "Excellent for kidney health and flushing out toxins"] },
+            // Multigrain atta: ₹120 -> ₹119 per kg
+            { id: "p8", name: "Multigrain Atta", price: 119, unit: "1kg", category: "Flours", img1: "https://i.ibb.co/MDNxgs00/multi.jpg", benefits: ["A powerful blend of 7 heritage grains: Wheat, Ragi, Bajra, Jowar, etc.", "Low GI (55) helps manage blood sugar and insulin levels", "50% more fiber than regular atta for superior gut health"] },
+            // Ragi atta: ₹150 -> ₹149 per kg
+            { id: "p9", name: "Ragi Atta", price: 149, unit: "1kg", category: "Flours", img1: "https://i.ibb.co/d023GfJz/63bb1e96-ea50-432b-93ff-da15e5d7623a.png", img2: "https://i.ibb.co/4R7kQj06/ragi-millet-seed-500x500.webp", benefits: ["The ultimate Calcium king (344mg/100g) for bone density", "Excellent for growing kids and seniors", "Helps in weight loss by keeping you full for longer"] },
+            // Jowar atta: ₹130 -> ₹129 per kg
+            { id: "p10", name: "Jowar Atta", price: 129, unit: "1kg", category: "Flours", img1: "https://i.ibb.co/RT8Xxvkj/83375485-4b49-41c8-be9f-561b99436307.png", img2: "https://i.ibb.co/5gs5J1hM/610-IDm9a-C5-L-SL1200.jpg", benefits: ["Naturally gluten-free and easy to digest", "High in complex carbs for sustained energy without the crash", "Cooling nature makes it perfect for summer diets"] },
+            // Jau atta: ₹130 -> ₹129 per kg
+            { id: "p11", name: "Jau Atta (Barley)", price: 129, unit: "1kg", category: "Flours", img1: "https://i.ibb.co/KxczQb98/166355b5-a465-406f-9781-025c57e5b4f1.png", img2: "https://i.ibb.co/ds4DfSrb/Barley.jpg", benefits: ["Ancient cooling grain, famous as Sattu base", "Rich in Beta-glucan fiber to lower bad cholesterol", "Excellent for kidney health and flushing out toxins"] },
+            // Besan: ₹160 -> ₹159 per kg (500g variant adjusted)
             { id: "p12", name: "Besan (Chickpea)", price: 159, unit: "1kg", category: "Flours", img1: "https://i.ibb.co/twHt1WcL/cd7e094a-34b2-4339-91eb-c4446f31529c.png", img2: "https://i.ibb.co/JjKPQPjM/besan-gram-flour-or-chickpea-flour-is-a-powder-made-from-ground-chickpea-known-as-bengal-gram-free-p.jpg", variants: [ {u: "500g", p: 79}, {u: "1kg", p: 159} ], benefits: ["Made from 100% Chana Dal, protein-packed (20g/100g)", "Essential for traditional Kadhi, Pakoras, and Chilla", "Great vegan egg substitute with a rich, nutty flavor"] },
-            { id: "p13", name: "Dalia", price: 99, unit: "1kg", category: "Grains", img1: "https://i.ibb.co/tM976W1b/aa227679-7f64-4580-b9a0-c3661c2b3bec.png", variants: [ {u: "500g", p: 59}, {u: "1kg", p: 99} ], benefits: ["Whole broken wheat with high fiber content (12g/100g)", "Slow-release carbs provide sustained energy for the day", "Best breakfast for weight management and digestion"] },
+            // Dalia: ₹60 -> ₹59 for 500 gram (1kg variant adjusted)
+            { id: "p13", name: "Dalia", price: 119, unit: "1kg", category: "Grains", img1: "https://i.ibb.co/tM976W1b/aa227679-7f64-4580-b9a0-c3661c2b3bec.png", variants: [ {u: "500g", p: 59}, {u: "1kg", p: 119} ], benefits: ["Whole broken wheat with high fiber content (12g/100g)", "Slow-release carbs provide sustained energy for the day", "Best breakfast for weight management and digestion"] },
+            // Haldi: ₹100 -> ₹99 for 250 gram
             { id: "p15", name: "Haldi (Turmeric)", price: 99, unit: "250g", category: "Spices", img1: "https://i.ibb.co/ym6yQGtL/haldi.jpg", benefits: ["High Curcumin content (7%) verified by lab tests", "Potent anti-inflammatory and immunity booster", "Essential for 'Golden Milk' healing rituals"] },
-            // Black Wheat, added tags
+            // Black wheat flour: ₹130 -> ₹129 per kg
             { 
-                id: "p16", name: "Black Wheat Flour", price: 99, unit: "1kg", category: "Heritage Flours", 
+                id: "p16", name: "Black Wheat Flour", price: 129, unit: "1kg", category: "Heritage Flours", 
                 img1: "https://i.ibb.co/QvZ5tvcf/black-wheat-flour.jpg", img2: "https://i.ibb.co/N8WfCVp/organic-black-wheat-1713514180-7390923.jpg", 
                 benefits: ["Rich in Anthocyanins (powerful antioxidants found in blueberries)", "Low Glycemic Index (45) helps manage diabetes naturally", "Contains 40% more protein than regular white wheat"],
                 isBestseller: true, discount: 15
             },
-            { id: "p17", name: "Paigambari Wheat", price: 169, unit: "1kg", category: "Heritage Flours", img1: "https://i.ibb.co/Zp8qVrdY/paigambar-wheat-flour.jpg", img2: "https://i.ibb.co/TM561N6D/p-wheat.webp", benefits: ["4500-year-old Indus Valley heirloom strain", "Contains 267% more minerals (Zinc, Iron) than modern wheat", "Low gluten structure makes it easier to digest"] },
+            // Paigambri wheat flour: ₹180 -> ₹179 per kg
+            { id: "p17", name: "Paigambari Wheat", price: 179, unit: "1kg", category: "Heritage Flours", img1: "https://i.ibb.co/Zp8qVrdY/paigambar-wheat-flour.jpg", img2: "https://i.ibb.co/TM561N6D/p-wheat.webp", benefits: ["4500-year-old Indus Valley heirloom strain", "Contains 267% more minerals (Zinc, Iron) than modern wheat", "Low gluten structure makes it easier to digest"] },
+            // Bansi wheat flour: ₹150 -> ₹149 per kg
             { id: "p18", name: "Bansi Wheat Flour", price: 149, unit: "1kg", category: "Heritage Flours", img1: "https://i.ibb.co/9m4scDfQ/bansi.jpg", img2: "https://i.ibb.co/xKn3wgDL/bansi2.jpg", benefits: ["Ancient variety known to fight obesity and inflammation", "Very low Glycemic Index (50) for metabolic health", "Rich, distinct taste that needs no additives"] },
-            { id: "p19", name: "Maize Flour (Makki Atta)", price: 99, unit: "1kg", category: "Flours", img1: "https://i.ibb.co/pspPmBs/maize.jpg", benefits: ["Rich in Zinc, Iron and Vitamin A for good vision and skin", "Gluten-free winter staple, traditionally eaten with Sarson Saag", "High fiber content aids digestion and keeps you full longer"] }
+            // Makki atta: ₹110 -> ₹109 per kg
+            { id: "p19", name: "Maize Flour (Makki Atta)", price: 109, unit: "1kg", category: "Flours", img1: "https://i.ibb.co/pspPmBs/maize.jpg", benefits: ["Rich in Zinc, Iron and Vitamin A for good vision and skin", "Gluten-free winter staple, traditionally eaten with Sarson Saag", "High fiber content aids digestion and keeps you full longer"] }
         ];
 
         let cart = JSON.parse(localStorage.getItem('nirogCart')) || {}; // Structure: { "p1_1kg": 2, "p6_5kg": 1 }
@@ -784,7 +804,7 @@
         function renderBestsellers() {
             // Select specific IDs for Community Favorites (ensure they exist after update)
             const bestsellerIds = ["p1", "p2", "p3", "p5", "p16", "p17"];
-            const bestsellers = bestsellerIds.map(id => products.find(p => p.id === id)).filter(Boolean);
+            const bestsellers = products.filter(p => bestsellerIds.includes(p.id) && p.isBestseller); // Filter to only show relevant bestsellers
             
             const wrapper = document.getElementById('bestseller-wrapper');
             let html = '';
@@ -856,7 +876,7 @@
         }
 
         // --- CORE FUNCTIONS ---
-
+        // FIX: Re-implemented showPage and scrollToSection for functional navigation
         function showPage(pageId) {
             document.querySelectorAll('.page').forEach(p => {
                 if (p.id !== pageId) {
@@ -868,22 +888,22 @@
             if (newPage) {
                 newPage.style.display = 'block';
                 setTimeout(() => { newPage.classList.add('active'); }, 10);
-                window.scrollTo(0,0);
-                // Ensure products are rendered when going to the shop page
                 if(pageId === 'page-shop') renderShopProducts('All'); 
-                // Also ensure icons are created when switching pages
                 lucide.createIcons();
             }
         }
 
         function scrollToSection(id) {
-            // Navigate to home page if not already there, then scroll
-            const homePage = document.getElementById('page-home');
-            if(homePage.style.display === 'none' || !homePage.classList.contains('active')) {
-                showPage('page-home');
-                setTimeout(() => document.getElementById(id).scrollIntoView({behavior:'smooth'}), 600);
-            } else {
-                document.getElementById(id).scrollIntoView({behavior:'smooth'});
+            const element = document.getElementById(id);
+            if (element) {
+                // Check if the target is on the current page (page-home)
+                if (element.closest('#page-home')) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                    // If trying to scroll to a section not on the current view (e.g., from Shop to Why Us), navigate first
+                    showPage('page-home');
+                    setTimeout(() => element.scrollIntoView({ behavior: 'smooth' }), 300);
+                }
             }
         }
 
