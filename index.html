@@ -125,7 +125,7 @@
         <div class="container mx-auto px-6">
             <!-- Used white background and backdrop-blur on navigation for better visibility -->
             <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-6 py-3 flex justify-between items-center shadow-lg">
-                <a href="#" onclick="showPage('page-home')" class="flex items-center gap-3 group">
+                <a href="#home" class="flex items-center gap-3 group">
                     <i data-lucide="sprout" class="w-10 h-10 text-punjab-gold group-hover:scale-110 transition-transform drop-shadow-md"></i>
                     <div class="flex flex-col">
                         <!-- UPDATED: Brand name text color to punjab-soil (black) -->
@@ -134,9 +134,9 @@
                 </a>
 
                 <nav class="hidden md:flex items-center space-x-8">
-                    <!-- UPDATED: Navigation link text color to punjab-soil (black) -->
-                    <button onclick="showPage('page-home')" class="text-punjab-soil hover:text-punjab-gold font-medium text-sm tracking-wide uppercase transition-colors header-text">Home</button>
-                    <button onclick="showPage('page-shop')" class="text-punjab-soil hover:text-punjab-gold font-medium text-sm tracking-wide uppercase transition-colors header-text">Shop All</button>
+                    <!-- UPDATED: Navigation link HREFS to use hashes -->
+                    <a href="#home" class="text-punjab-soil hover:text-punjab-gold font-medium text-sm tracking-wide uppercase transition-colors header-text">Home</a>
+                    <a href="#shop" class="text-punjab-soil hover:text-punjab-gold font-medium text-sm tracking-wide uppercase transition-colors header-text">Shop All</a>
                     <button onclick="scrollToSection('why-choose-us-section')" class="text-punjab-soil hover:text-punjab-gold font-medium text-sm tracking-wide uppercase transition-colors header-text">Why Us</button>
                 </nav>
 
@@ -157,7 +157,7 @@
         <div id="page-home" class="page active">
             
             <!-- 1. HERO - Wheat Field Background with Stronger Overlay for Contrast -->
-            <section id="my-new-section" class="relative h-screen w-full overflow-hidden flex items-center justify-center text-white">
+            <section id="hero-section" class="relative h-screen w-full overflow-hidden flex items-center justify-center text-white">
                 <div class="absolute inset-0 z-0">
                     <!-- Background image/gradient applied via inline style for correct layering -->
                     <div class="absolute inset-0 z-10" 
@@ -174,15 +174,16 @@
                     <p class="text-base sm:text-lg md:text-xl text-gray-200 max-w-2xl mx-auto mb-10 font-light leading-relaxed">
                         Slow stone-ground flours and woodpressed oils. <br>With 30 years of expertise in the grain business and deep roots in Punjab.
                     </p>
-                    <button onclick="showPage('page-shop')" class="px-10 py-4 bg-punjab-gold hover:bg-punjab text-punjab-soil rounded-full font-bold shadow-lg shadow-punjab-gold/40 transition-all hover:scale-105 flex items-center justify-center gap-2 mx-auto">
+                    <!-- UPDATED BUTTON to use hash routing -->
+                    <a href="#shop" class="inline-flex px-10 py-4 bg-punjab-gold hover:bg-punjab text-punjab-soil rounded-full font-bold shadow-lg shadow-punjab-gold/40 transition-all hover:scale-105 items-center justify-center gap-2 mx-auto">
                         View The Pantry
                         <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                    </button>
+                    </a>
                 </div>
             </section>
             
             <!-- 2. HERITAGE TIMELINE -->
-            <section class="py-20 bg-punjab-cream relative">
+            <section id="heritage-section" class="py-20 bg-punjab-cream relative">
                 <div class="container mx-auto px-6">
                     <div class="text-center mb-16">
                         <h2 class="font-serif text-3xl sm:text-4xl text-punjab-soil font-bold">The Journey of Purity</h2>
@@ -209,7 +210,7 @@
             </section>
 
             <!-- 3. BESTSELLERS CAROUSEL -->
-            <section class="py-24 bg-punjab-cream overflow-hidden">
+            <section id="bestsellers-section" class="py-24 bg-punjab-cream overflow-hidden">
                 <div class="container mx-auto px-6">
                     <div class="flex justify-between items-end mb-12">
                         <div>
@@ -571,9 +572,9 @@
                 id: "p3", name: "Pure Coconut Oil", price: 899, unit: "1L", category: "Oils", 
                 img1: "https://i.ibb.co/JRkP18SM/cocnut.jpg", 
                 variants: [ {u: "100ml", p: 99}, {u: "500ml", p: 449}, {u: "1L", p: 899} ],
-                benefits: ["Raw, virgin, and woodpressed to retain MCTs for instant energy", "Excellent edible oil and natural moisturizer for skin", "Supports metabolism and healthy weight management"] 
+                benefits: ["Raw, virgin, and woodpressed to retain MCTs for instant energy", "Excellent edible oil and natural moisturizer for skin", "Supports metabolism and healthy weight management"],
+                isBestseller: true // Restoring best-seller status
             },
-            // Pure Badam Oil (Keeping as is, as it's not in the update list but already uses charm pricing)
             { id: "p5", name: "Pure Badam Oil", price: 349, unit: "100ml", category: "Oils", img1: "https://i.ibb.co/7ttstkt7/almond-oil.jpg", benefits: ["Extracted from Gurbandi almonds for max Vitamin E", "Deeply nourishes skin, reducing dark circles and fine lines", "Perfect for baby massage to strengthen bones"] },
             
             // Groundnut oil: ₹400 -> ₹399 for 1 litre (Image updated)
@@ -615,32 +616,24 @@
                 benefits: ["Sourced from MP's Malwa region, known for premium golden grains", "Higher protein content (13%) for better muscle repair", "Absorbs more water, resulting in fluffier, tastier rotis"],
                 isBestseller: true, discount: 10
             },
-            // Multigrain atta: ₹120 -> ₹119 per kg
             { id: "p8", name: "Multigrain Atta", price: 119, unit: "1kg", category: "Flours", img1: "https://i.ibb.co/MDNxgs00/multi.jpg", benefits: ["A powerful blend of 7 heritage grains: Wheat, Ragi, Bajra, Jowar, etc.", "Low GI (55) helps manage blood sugar and insulin levels", "50% more fiber than regular atta for superior gut health"] },
-            // Ragi atta: ₹150 -> ₹149 per kg
             { id: "p9", name: "Ragi Atta", price: 149, unit: "1kg", category: "Flours", img1: "https://i.ibb.co/d023GfJz/63bb1e96-ea50-432b-93ff-da15e5d7623a.png", img2: "https://i.ibb.co/4R7kQj06/ragi-millet-seed-500x500.webp", benefits: ["The ultimate Calcium king (344mg/100g) for bone density", "Excellent for growing kids and seniors", "Helps in weight loss by keeping you full for longer"] },
-            // Jowar atta: ₹130 -> ₹129 per kg
             { id: "p10", name: "Jowar Atta", price: 129, unit: "1kg", category: "Flours", img1: "https://i.ibb.co/RT8Xxvkj/83375485-4b49-41c8-be9f-561b99436307.png", img2: "https://i.ibb.co/5gs5J1hM/610-IDm9a-C5-L-SL1200.jpg", benefits: ["Naturally gluten-free and easy to digest", "High in complex carbs for sustained energy without the crash", "Cooling nature makes it perfect for summer diets"] },
-            // Jau atta: ₹130 -> ₹129 per kg
             { id: "p11", name: "Jau Atta (Barley)", price: 129, unit: "1kg", category: "Flours", img1: "https://i.ibb.co/KxczQb98/166355b5-a465-406f-9781-025c57e5b4f1.png", img2: "https://i.ibb.co/ds4DfSrb/Barley.jpg", benefits: ["Ancient cooling grain, famous as Sattu base", "Rich in Beta-glucan fiber to lower bad cholesterol", "Excellent for kidney health and flushing out toxins"] },
-            // Besan: ₹160 -> ₹159 per kg (500g variant adjusted)
             { id: "p12", name: "Besan (Chickpea)", price: 159, unit: "1kg", category: "Flours", img1: "https://i.ibb.co/twHt1WcL/cd7e094a-34b2-4339-91eb-c4446f31529c.png", img2: "https://i.ibb.co/JjKPQPjM/besan-gram-flour-or-chickpea-flour-is-a-powder-made-from-ground-chickpea-known-as-bengal-gram-free-p.jpg", variants: [ {u: "500g", p: 79}, {u: "1kg", p: 159} ], benefits: ["Made from 100% Chana Dal, protein-packed (20g/100g)", "Essential for traditional Kadhi, Pakoras, and Chilla", "Great vegan egg substitute with a rich, nutty flavor"] },
-            // Dalia: ₹60 -> ₹59 for 500 gram (1kg variant adjusted)
             { id: "p13", name: "Dalia", price: 119, unit: "1kg", category: "Grains", img1: "https://i.ibb.co/tM976W1b/aa227679-7f64-4580-b9a0-c3661c2b3bec.png", variants: [ {u: "500g", p: 59}, {u: "1kg", p: 119} ], benefits: ["Whole broken wheat with high fiber content (12g/100g)", "Slow-release carbs provide sustained energy for the day", "Best breakfast for weight management and digestion"] },
-            // Haldi: ₹100 -> ₹99 for 250 gram
             { id: "p15", name: "Haldi (Turmeric)", price: 99, unit: "250g", category: "Spices", img1: "https://i.ibb.co/ym6yQGtL/haldi.jpg", benefits: ["High Curcumin content (7%) verified by lab tests", "Potent anti-inflammatory and immunity booster", "Essential for 'Golden Milk' healing rituals"] },
-            // Black wheat flour: ₹130 -> ₹129 per kg
+            // Black Wheat, added tags
             { 
                 id: "p16", name: "Black Wheat Flour", price: 129, unit: "1kg", category: "Heritage Flours", 
                 img1: "https://i.ibb.co/QvZ5tvcf/black-wheat-flour.jpg", img2: "https://i.ibb.co/N8WfCVp/organic-black-wheat-1713514180-7390923.jpg", 
                 benefits: ["Rich in Anthocyanins (powerful antioxidants found in blueberries)", "Low Glycemic Index (45) helps manage diabetes naturally", "Contains 40% more protein than regular white wheat"],
                 isBestseller: true, discount: 15
             },
-            // Paigambri wheat flour: ₹180 -> ₹179 per kg
+            // Paigambri wheat flour: ₹179 per kg
             { id: "p17", name: "Paigambari Wheat", price: 179, unit: "1kg", category: "Heritage Flours", img1: "https://i.ibb.co/Zp8qVrdY/paigambar-wheat-flour.jpg", img2: "https://i.ibb.co/TM561N6D/p-wheat.webp", benefits: ["4500-year-old Indus Valley heirloom strain", "Contains 267% more minerals (Zinc, Iron) than modern wheat", "Low gluten structure makes it easier to digest"] },
-            // Bansi wheat flour: ₹150 -> ₹149 per kg
             { id: "p18", name: "Bansi Wheat Flour", price: 149, unit: "1kg", category: "Heritage Flours", img1: "https://i.ibb.co/9m4scDfQ/bansi.jpg", img2: "https://i.ibb.co/xKn3wgDL/bansi2.jpg", benefits: ["Ancient variety known to fight obesity and inflammation", "Very low Glycemic Index (50) for metabolic health", "Rich, distinct taste that needs no additives"] },
-            // Makki atta: ₹110 -> ₹109 per kg
+            // Makki atta: ₹109 per kg
             { id: "p19", name: "Maize Flour (Makki Atta)", price: 109, unit: "1kg", category: "Flours", img1: "https://i.ibb.co/pspPmBs/maize.jpg", benefits: ["Rich in Zinc, Iron and Vitamin A for good vision and skin", "Gluten-free winter staple, traditionally eaten with Sarson Saag", "High fiber content aids digestion and keeps you full longer"] }
         ];
 
@@ -663,13 +656,86 @@
         }
 
         window.addEventListener('DOMContentLoaded', () => {
+            // Initial render based on URL
+            handleHashChange();
+            // Attach hashchange listener for back/forward buttons
+            window.addEventListener('hashchange', handleHashChange);
+
             renderBestsellers();
-            renderShopProducts('All');
+            // renderShopProducts('All'); // Will be called by handleHashChange if hash is #shop
             updateCartUI();
             
             lucide.createIcons();
         });
 
+        // --- CORE NAVIGATION FUNCTIONS (FIXED HASH ROUTING) ---
+
+        function handleHashChange() {
+            // 1. Get the pure hash (e.g., "shop", "checkout", "why-us-section")
+            let hash = window.location.hash.replace('#', '');
+            
+            // 2. Default to 'home' if empty
+            if (!hash) hash = 'home';
+
+            // 3. Define the Mapping: Hash -> Page ID
+            let targetPageId = 'page-home'; // Default
+            
+            if (hash === 'shop') targetPageId = 'page-shop';
+            if (hash === 'checkout') targetPageId = 'page-checkout';
+            if (hash === 'home') targetPageId = 'page-home';
+            
+            // Special Case: Anchors inside the home page
+            if (hash === 'why-choose-us-section' || hash === 'heritage-section' || hash === 'bestsellers-section') {
+                targetPageId = 'page-home'; // Always show home page for internal anchors
+            }
+
+            // 4. Hide All Pages & Show Target
+            document.querySelectorAll('.page').forEach(p => {
+                p.style.display = 'none';
+                p.classList.remove('active');
+            });
+
+            const targetPage = document.getElementById(targetPageId);
+            if (targetPage) {
+                targetPage.style.display = 'block';
+                targetPage.classList.add('active');
+                
+                // If Shop, render products immediately to prevent "lag"/empty state
+                if (targetPageId === 'page-shop') {
+                    // Slight timeout ensures DOM is ready before rendering heavy grid
+                    setTimeout(() => renderShopProducts('All'), 10);
+                }
+                
+                // If anchored section, scroll to it smoothly after page is visible
+                if (targetPageId === 'page-home' && hash !== 'home' && hash !== '') {
+                    setTimeout(() => {
+                        const section = document.getElementById(hash);
+                        if (section) {
+                            // Only scroll if the hash targets an internal anchor ID
+                            section.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    }, 100);
+                } else if (targetPageId !== 'page-home') {
+                    // For switching between main pages (shop/checkout), reset scroll to top
+                    window.scrollTo(0, 0);
+                }
+            }
+            
+            lucide.createIcons();
+        }
+
+        // Simplified function to update hash for navigation
+        function showPage(pageId) {
+             const hashName = pageId === 'page-home' ? '' : `#${pageId.replace('page-', '')}`;
+             window.location.hash = hashName;
+        }
+
+        // Updated scrolling to use hash routing
+        function scrollToSection(id) {
+            // Change hash to the section ID. This will trigger handleHashChange.
+            window.location.hash = `#${id}`;
+        }
+        
         // --- RENDERERS ---
 
         function createProductCard(p, type = 'shop', index = 0) {
@@ -802,8 +868,8 @@
         }
 
         function renderBestsellers() {
-            // Select specific IDs for Community Favorites (ensure they exist after update)
-            const bestsellerIds = ["p1", "p2", "p3", "p5", "p16", "p17"];
+            // Select specific IDs for Community Favorites (Restored all previous bestsellers)
+            const bestsellerIds = ["p1", "p2", "p3", "p5", "p7", "p16", "p20"];
             const bestsellers = products.filter(p => bestsellerIds.includes(p.id) && p.isBestseller); // Filter to only show relevant bestsellers
             
             const wrapper = document.getElementById('bestseller-wrapper');
@@ -875,111 +941,74 @@
             renderShopProducts(cat);
         }
 
-        // --- CORE FUNCTIONS ---
-        // FIX: Re-implemented showPage and scrollToSection for functional navigation
-        function showPage(pageId) {
+        // --- CORE NAVIGATION LOGIC (FIXED HASH ROUTING) ---
+
+        function handleHashChange() {
+            // 1. Get the pure hash (e.g., "shop", "checkout", "why-us-section")
+            let hash = window.location.hash.replace('#', '');
+            
+            // 2. Default to 'home' if empty
+            if (!hash) hash = 'home';
+
+            // 3. Define the Mapping: Hash -> Page ID
+            let targetPageId = 'page-home'; // Default
+            
+            if (hash === 'shop') targetPageId = 'page-shop';
+            if (hash === 'checkout') targetPageId = 'page-checkout';
+            if (hash === 'home') targetPageId = 'page-home';
+            
+            // Special Case: Anchors inside the home page
+            if (hash === 'why-choose-us-section' || hash === 'heritage-section' || hash === 'bestsellers-section') {
+                targetPageId = 'page-home'; // Always show home page for internal anchors
+            }
+
+            // 4. Hide All Pages & Show Target
             document.querySelectorAll('.page').forEach(p => {
-                if (p.id !== pageId) {
-                    p.classList.remove('active');
-                    p.style.display = 'none';
-                }
+                p.style.display = 'none';
+                p.classList.remove('active');
             });
-            const newPage = document.getElementById(pageId);
-            if (newPage) {
-                newPage.style.display = 'block';
-                setTimeout(() => { newPage.classList.add('active'); }, 10);
-                if(pageId === 'page-shop') renderShopProducts('All'); 
-                lucide.createIcons();
-            }
-        }
 
-        function scrollToSection(id) {
-            const element = document.getElementById(id);
-            if (element) {
-                // Check if the target is on the current page (page-home)
-                if (element.closest('#page-home')) {
-                    element.scrollIntoView({ behavior: 'smooth' });
-                } else {
-                    // If trying to scroll to a section not on the current view (e.g., from Shop to Why Us), navigate first
-                    showPage('page-home');
-                    setTimeout(() => element.scrollIntoView({ behavior: 'smooth' }), 300);
-                }
-            }
-        }
-
-        function updateModalVariant(select, product) {
-            const selectedUnit = select.value;
-            const variant = product.variants.find(v => v.u === selectedUnit);
-            
-            document.getElementById('modal-price').innerText = `₹${variant.p}`;
-            // For variant products, the unit is implicitly selected via the dropdown, but we display the label
-            document.getElementById('modal-unit').innerText = ''; 
-        }
-
-        function openModal(id) {
-            const p = products.find(x => x.id === id);
-            
-            // Default to first variant if exists
-            const defaultUnit = p.variants ? p.variants[0].u : p.unit;
-            const defaultPrice = p.variants ? p.variants[0].p : p.price;
-            
-            document.getElementById('modal-img').src = p.img1;
-            document.getElementById('modal-cat').innerText = p.category;
-            document.getElementById('modal-title').innerText = p.name;
-            document.getElementById('modal-desc').innerText = `Pure ${p.name}, sourced directly from heritage farmers.`;
-            document.getElementById('modal-price').innerText = `₹${defaultPrice}`;
-            document.getElementById('modal-unit').innerText = p.variants ? '' : `/ ${defaultUnit}`;
-            document.getElementById('modal-qty').innerText = 1;
-            currentModalQty = 1; 
-            
-            const variantSelectorContainer = document.getElementById('modal-variant-selector');
-            variantSelectorContainer.innerHTML = ''; // Clear previous selector
-
-            // Handle Variant Selector for Modal
-            if (p.variants) {
-                const variantHtml = `
-                    <div class="space-y-1">
-                        <label class="text-xs font-bold uppercase text-gray-500">Select Quantity</label>
-                        <select id="modal-variant-select" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-xl focus:outline-none focus:border-punjab focus:ring-1 focus:ring-punjab transition-all">
-                            ${p.variants.map(v => `<option value="${v.u}" data-price="${v.p}">${v.u} (₹${v.p})</option>`).join('')}
-                        </select>
-                    </div>
-                `;
-                variantSelectorContainer.innerHTML = variantHtml;
+            const targetPage = document.getElementById(targetPageId);
+            if (targetPage) {
+                targetPage.style.display = 'block';
+                targetPage.classList.add('active');
                 
-                const selectElement = document.getElementById('modal-variant-select');
-                selectElement.onchange = () => updateModalVariant(selectElement, p);
-            }
-
-            // Populates dynamic benefits list
-            document.getElementById('modal-benefits').innerHTML = p.benefits.map(b => `<li class="flex items-start gap-3 text-sm text-gray-600"><span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-punjab-gold shrink-0"></span>${b}</li>`).join('');
-            
-            // Setup add button to correctly read selected variant
-            document.getElementById('modal-add-btn').onclick = () => { 
-                let selectedUnit;
-                if (p.variants) {
-                    selectedUnit = document.getElementById('modal-variant-select').value;
-                } else {
-                    selectedUnit = p.unit;
+                // If Shop, render products immediately to prevent "lag"/empty state
+                if (targetPageId === 'page-shop') {
+                    // Slight timeout ensures DOM is ready before rendering heavy grid
+                    setTimeout(() => renderShopProducts('All'), 10);
                 }
-                const compositeId = p.variants ? `${p.id}_${selectedUnit}` : p.id;
-                addToCart(compositeId, currentModalQty, p.id); 
-                closeModal(); 
-            };
+                
+                // If anchored section, scroll to it smoothly after page is visible
+                if (targetPageId === 'page-home' && hash !== 'home' && hash !== '') {
+                    setTimeout(() => {
+                        const section = document.getElementById(hash);
+                        if (section) {
+                            // Only scroll if the hash targets an internal anchor ID
+                            section.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    }, 100);
+                } else if (targetPageId !== 'page-home') {
+                    // For switching between main pages (shop/checkout), reset scroll to top
+                    window.scrollTo(0, 0);
+                }
+            }
             
-            document.getElementById('product-modal').classList.remove('hidden');
             lucide.createIcons();
         }
 
-        function closeModal() { document.getElementById('product-modal').classList.add('hidden'); }
-
-        function adjustModalQty(n) { 
-            if (currentModalQty + n > 0) {
-                currentModalQty += n;
-                document.getElementById('modal-qty').innerText = currentModalQty;
-            }
+        // Simplified function to update hash for navigation
+        function showPage(pageId) {
+             const hashName = pageId === 'page-home' ? '' : `#${pageId.replace('page-', '')}`;
+             window.location.hash = hashName;
         }
 
+        // Updated scrolling to use hash routing
+        function scrollToSection(id) {
+            // Change hash to the section ID. This will trigger handleHashChange.
+            window.location.hash = `#${id}`;
+        }
+        
         // --- CART LOGIC ---
 
         function addToCart(compositeId, qty, baseId) {
@@ -1163,8 +1192,10 @@
                 showToast("Your Harvest Box is empty!");
                 return;
             }
+            // FIX: Hide cart before navigating to checkout hash
             toggleCart(); 
-            showPage('page-checkout');
+            // Navigate to checkout page by setting hash
+            window.location.hash = '#checkout'; // FIXED: use simple hash #checkout
         }
 
         function finalizeOrder() { 
