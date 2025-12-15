@@ -348,15 +348,13 @@
 
                     <!-- Product Grid - Optimized for Mobile (2 cols) -->
                     <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-8">
-                        <!-- All Products with Mini Swipers injected here -->
+                        <!-- All Products Injected Here -->
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- ============================================== -->
-        <!-- 			 PAGE 3: CHECKOUT PAGE 			      -->
-        <!-- ============================================== -->
+        <!-- PAGE 3: CHECKOUT PAGE -->
         <div id="page-checkout" class="page bg-punjab-cream min-h-screen pt-32 pb-20">
             <div class="container mx-auto px-4 max-w-2xl">
                 
@@ -513,11 +511,7 @@
                             <span id="modal-price" class="text-3xl font-bold text-punjab-dark"></span>
                             <span id="modal-unit" class="text-sm text-gray-400 ml-1"></span>
                         </div>
-                        <div class="flex items-center bg-white rounded-full px-4 py-2">
-                            <button onclick="adjustModalQty(-1)" class="text-xl font-bold text-gray-500 hover:text-punjab">-</button>
-                            <span id="modal-qty" class="mx-4 font-bold text-lg">1</span>
-                            <button onclick="adjustModalQty(1)" class="text-xl font-bold text-gray-500 hover:text-punjab">+</button>
-                        </div>
+                        <div id="modal-qty-container"></div>
                     </div>
                     <button id="modal-add-btn" class="w-full py-4 bg-punjab hover:bg-punjab-dark text-white rounded-xl font-bold shadow-lg shadow-punjab/30 transition-all transform hover:scale-[1.02] flex items-center justify-center gap-2">
                         Add to Harvest Box <i data-lucide="shopping-bag" class="w-5 h-5"></i>
@@ -536,7 +530,6 @@
         <div id="cart-items" class="flex-1 overflow-y-auto p-6 space-y-6 bg-white/30"></div>
         <div class="p-6 bg-punjab-cream border-t border-gray-200 shadow-[0_-10px_40px_rgba(0,0,0,0.05)]">
             <div class="flex justify-between items-center mb-4"><span class="text-gray-600">Subtotal</span><span id="cart-total" class="font-bold text-2xl text-punjab-dark">₹0</span></div>
-            <!-- UPDATED SHIPPING TEXT -->
             <p class="text-xs text-center text-gray-500 mb-4 italic">Minimal shipping charges would be applied during final payment on WhatsApp after confirming order details.</p> 
             <button onclick="proceedToCheckout()" class="w-full py-4 bg-green-600 hover:bg-green-700 text-white rounded-xl font-bold shadow-lg flex items-center justify-center gap-2 transition-all transform hover:scale-[1.02]">
                 Proceed to Checkout <i data-lucide="arrow-right" class="w-5 h-5"></i>
@@ -677,11 +670,15 @@
             const isOverlay = (hash === 'cart' || hash === 'product-view');
 
             if (isOverlay) {
+                // Show Overlay, Keep Main Page
                 if (hash === 'cart') openCartOverlay();
+                // Note: 'product-view' is handled via openModal, but if user refreshes on #product-view, we might want to close it or default to shop. For simplicity, we just won't hide the main page.
             } else {
+                // Close Overlays
                 closeCartOverlay();
-                closeModal(false); 
+                closeModal(false); // don't go back history here
 
+                // 2. Determine Target Main Page
                 let targetPageId = 'page-home';
                 if (hash === 'shop') targetPageId = 'page-shop';
                 if (hash === 'checkout') targetPageId = 'page-checkout';
@@ -692,6 +689,7 @@
 
                 currentMainPage = targetPageId;
 
+                // 3. Switch Main Page
                 document.querySelectorAll('.page').forEach(p => {
                     if (p.id === targetPageId) {
                         p.style.display = 'block';
@@ -703,6 +701,7 @@
                     }
                 });
 
+                // 4. Handle Scroll Anchors
                 if (targetPageId === 'page-home' && hash !== 'home') {
                     setTimeout(() => {
                         const section = document.getElementById(hash);
@@ -719,21 +718,24 @@
 
         // --- MODAL LOGIC ---
         function openModal(id) {
+            // Push history state so back button works
             if (window.location.hash !== '#product-view') {
                 history.pushState(null, null, '#product-view');
             }
 
             const p = products.find(x => x.id === id);
+            // Ensure fallback for images if missing (although fixed in array)
+            const imgUrl = p.img1 || 'https://placehold.co/600x400/F0E6D8/854D0E?text=Product';
+
             const defaultUnit = p.variants ? p.variants[0].u : p.unit;
             const defaultPrice = p.variants ? p.variants[0].p : p.price;
             
-            document.getElementById('modal-img').src = p.img1;
+            document.getElementById('modal-img').src = imgUrl;
             document.getElementById('modal-cat').innerText = p.category;
             document.getElementById('modal-title').innerText = p.name;
             document.getElementById('modal-desc').innerText = `Pure ${p.name}, sourced directly from heritage farmers.`;
             document.getElementById('modal-price').innerText = `₹${defaultPrice}`;
             document.getElementById('modal-unit').innerText = p.variants ? '' : `/ ${defaultUnit}`;
-            document.getElementById('modal-qty').innerText = 1;
             currentModalQty = 1; 
             
             const variantSelectorContainer = document.getElementById('modal-variant-selector');
@@ -751,11 +753,43 @@
                 document.getElementById('modal-variant-select').onchange = (e) => updateModalVariant(e.target, p);
             }
 
+            // Custom Quantity Logic for Modal
+            const modalQtyContainer = document.getElementById('modal-qty-container');
+            // Hide custom quantity for Oils and Turmeric(p15)
+            const isCustomQty = p.category !== 'Oils' && p.id !== 'p15';
+
+            if (isCustomQty) {
+                // Show Custom Input with KG label
+                modalQtyContainer.innerHTML = `
+                <div class="flex items-center h-12 border border-gray-300 rounded-xl overflow-hidden">
+                    <input type="number" min="1" value="1" id="modal-custom-qty" class="w-20 h-full p-2 text-center text-gray-700 text-lg outline-none font-bold" onchange="currentModalQty = parseInt(this.value) || 1">
+                    <span class="bg-gray-100 px-4 h-full flex items-center text-sm font-bold text-gray-600 border-l border-gray-300">KG</span>
+                </div>`;
+            } else {
+                // Show Standard Stepper for items without custom quantity (Oils/Turmeric) or just simple add
+                // Actually for Oils we just add 1 unit at a time, or simple display.
+                // Let's use simple stepper for consistency but without KG label
+                 modalQtyContainer.innerHTML = `
+                <div class="flex items-center bg-white rounded-full px-4 py-2 border border-gray-200">
+                    <button onclick="adjustModalQty(-1)" class="text-xl font-bold text-gray-500 hover:text-punjab px-2">-</button>
+                    <span id="modal-qty" class="mx-4 font-bold text-lg">1</span>
+                    <button onclick="adjustModalQty(1)" class="text-xl font-bold text-gray-500 hover:text-punjab px-2">+</button>
+                </div>`;
+            }
+
             document.getElementById('modal-benefits').innerHTML = p.benefits.map(b => `<li class="flex items-start gap-3 text-sm text-gray-600"><span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-punjab-gold shrink-0"></span>${b}</li>`).join('');
             
             document.getElementById('modal-add-btn').onclick = () => { 
                 let selectedUnit = p.unit;
+                // If variant selected, use that unit
                 if (p.variants) selectedUnit = document.getElementById('modal-variant-select').value;
+                
+                // If Custom Qty enabled, read from input
+                if (isCustomQty) {
+                     const val = parseInt(document.getElementById('modal-custom-qty').value);
+                     if (val > 0) currentModalQty = val;
+                }
+
                 const compositeId = p.variants ? `${p.id}_${selectedUnit}` : p.id;
                 addToCart(compositeId, currentModalQty, p.id); 
                 history.back(); // Close modal
@@ -778,7 +812,9 @@
         function adjustModalQty(n) { 
             if (currentModalQty + n > 0) {
                 currentModalQty += n;
-                document.getElementById('modal-qty').innerText = currentModalQty;
+                // Only update text if stepper is present
+                const display = document.getElementById('modal-qty');
+                if (display) display.innerText = currentModalQty;
             }
         }
 
@@ -810,7 +846,7 @@
             if (sb.classList.contains('translate-x-full')) {
                 openCartOverlay();
             } else {
-                history.back(); 
+                history.back(); // Will trigger hashchange -> closeCartOverlay
             }
         }
         
@@ -1038,6 +1074,50 @@
             history.back();
             // Then navigate to checkout
             setTimeout(() => window.location.hash = '#checkout', 50);
+        }
+
+        function finalizeOrder() { 
+            const form = document.getElementById('checkout-form');
+            // Manual check for form validity (pattern checks, required fields)
+            if (!form.checkValidity()) {
+                console.error("Please fill in all required form fields correctly.");
+                showToast("Please fill in all details!");
+                return;
+            }
+
+            const fname = document.getElementById('fname').value;
+            const lname = document.getElementById('lname').value;
+            // Removed +91 prefix from phone number for the form, using the input value
+            const phone = document.getElementById('phone').value;
+            const address = document.getElementById('address').value;
+            const city = document.getElementById('city').value;
+            const state = document.getElementById('state').value;
+            const pincode = document.getElementById('pincode').value;
+
+            let msg = `*Namaste Nirog Organic!* 🌱\n\n*New Order Request*\n*Customer:* ${fname} ${lname}\n*Phone:* +91 ${phone}\n*Address:* ${address}, ${city}, ${state} - ${pincode}\n\n*Items:*\n`; 
+            let total = 0;
+            
+            Object.keys(cart).forEach(compId => { 
+                const details = getProductDetails(compId);
+                if (details) {
+                    const qty = cart[compId]; 
+                    const subtotal = details.price * qty;
+                    total += subtotal; 
+                    msg += `▫️ ${details.name} (${details.unit}) x ${qty} = ₹${subtotal}\n`; 
+                }
+            });
+            
+            msg += `\n*Subtotal: ₹${total}*\n(Shipping calculated at confirmation)`;
+            
+            // Open WhatsApp link
+            window.open(`https://wa.me/917009395451?text=${encodeURIComponent(msg)}`, '_blank'); 
+            
+            // Clear cart and show confirmation message 
+            cart = {};
+            localStorage.removeItem('nirogCart');
+            updateCartUI();
+            
+            showToast("Order Confirmed! Redirecting to WhatsApp.");
         }
     </script>
 </body>
