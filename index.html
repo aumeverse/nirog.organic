@@ -71,6 +71,9 @@
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     
+    <!-- Razorpay Checkout Script -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
     
     <style>
@@ -127,20 +130,13 @@
                     <div class="absolute inset-0 z-10" style="background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)), url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNjUyOXwwfDF8c2VhcmNofDEwfHx3aGVhdCUyMGZpZWelJTIwc3Vuc2V0fGVufDB8fHx8MTcwODY5MjYxN3ww&ixlib=rb-4.0.3&q=80&w=1920') no-repeat center center/cover;"></div>
                 </div>
                 <div class="container mx-auto px-6 relative z-20 text-center mt-16">
-                    <!-- SALE BANNER HOMEPAGE -->
                     <div class="inline-block mb-6 px-4 py-1.5 rounded-full bg-punjab-gold/90 text-punjab-soil text-xs font-bold uppercase tracking-widest shadow-lg animate-pulse">
                         ✨ 10% OFF Year End & New Year Sale ✨
                     </div>
-
                     <h1 class="font-serif text-4xl sm:text-5xl md:text-8xl font-bold mb-6 leading-tight drop-shadow-2xl">Punjab's Living <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-punjab-gold to-yellow-200 italic">Heritage</span></h1>
                     <p class="text-base sm:text-lg md:text-xl text-gray-200 max-w-2xl mx-auto mb-4 font-light">Slow stone-ground flours and woodpressed oils direct from the source.</p>
-                    
-                    <!-- NEW SHIPPING TEXT -->
                     <p class="text-punjab-gold font-bold text-sm sm:text-base mb-6 tracking-wide animate-bounce">No shipping charges on oils till 14th January 🚚</p>
-
-                    <!-- PREMIUM LINE -->
                     <p class="font-serif italic text-punjab-gold text-lg md:text-xl mb-6 tracking-wide drop-shadow-md">Premium Organic Products</p>
-                    
                     <a href="#shop" class="inline-flex px-10 py-4 bg-punjab-gold hover:bg-punjab text-punjab-soil rounded-full font-bold shadow-lg transition-all hover:scale-105 gap-2">View The Pantry <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
                 </div>
             </section>
@@ -248,12 +244,11 @@
             <div id="shop-top" class="pt-32 pb-24 bg-punjab-cream min-h-screen">
                 <div class="container mx-auto px-4">
                     <div class="text-center mb-12">
-                        <!-- SALE BANNER SHOP PAGE -->
                         <div class="inline-block mb-4 px-4 py-1.5 rounded-full bg-punjab-gold text-punjab-soil text-xs font-bold uppercase tracking-widest shadow-md">
                             ✨ 10% OFF Year End & New Year Sale ✨
                         </div>
                         <h1 class="font-serif text-4xl sm:text-5xl font-bold animated-header animate-header-pan-slow">The Punjab Pantry</h1>
-                        <p class="text-gray-500">20 Premium organic Products • 100% Traceable</p>
+                        <p class="text-gray-500">21 Premium organic Products • 100% Traceable</p>
                     </div>
                     <!-- FILTERS -->
                     <div class="flex flex-wrap justify-center gap-2 mb-12 sticky top-24 z-30 bg-punjab-cream/90 backdrop-blur py-4">
@@ -340,8 +335,7 @@
                                     <span>Estimated Shipping</span>
                                     <span id="checkout-shipping">₹0</span>
                                 </div>
-                                <p class="text-[10px] text-gray-500 italic mt-1 leading-tight">Final shipping charges will be confirmed after address verification. They are not added to the amount payable on this page.</p>
-                                
+                                <p class="text-[10px] text-gray-500 italic mt-1 leading-tight">Final shipping charges will be confirmed after address verification.</p>
                                 <div class="flex justify-between font-bold text-xl pt-4 border-t border-punjab-gold/20 mt-2">
                                     <span class="text-gray-800">Amount Payable Now</span>
                                     <span id="checkout-total-display" class="text-punjab-dark">₹0</span>
@@ -350,7 +344,7 @@
                         </div>
 
                         <button type="submit" id="checkout-submit-btn" class="w-full py-4 bg-green-600 hover:bg-green-700 text-white rounded-xl font-bold shadow-lg transition-all transform hover:scale-[1.02] flex items-center justify-center gap-2">
-                            Order on WhatsApp <i data-lucide="message-circle" class="w-4 h-4"></i>
+                            Proceed to Secure Payment <i data-lucide="lock" class="w-4 h-4"></i>
                         </button>
                     </form>
                 </div>
@@ -366,7 +360,7 @@
     <div id="cart-sidebar" class="fixed inset-y-0 right-0 w-full md:w-96 bg-punjab-cream shadow-2xl transform translate-x-full transition-transform duration-300 z-50 flex flex-col">
         <div class="p-6 bg-punjab text-white flex justify-between items-center shadow-md">
             <h2 class="font-serif text-2xl font-bold">Harvest Box</h2>
-            <button onclick="closeCart()" class="hover:bg-white/20 p-2 rounded-full transition-colors"><i data-lucide="x" class="w-6 h-6"></i></button>
+            <button onclick="closeCart()"><i data-lucide="x" class="w-6 h-6"></i></button>
         </div>
         <div id="cart-items" class="flex-1 overflow-y-auto p-6 space-y-4"></div>
         <div class="p-6 border-t border-punjab-gold/20 bg-punjab-cream">
@@ -416,27 +410,27 @@
                     <i data-lucide="sprout" class="w-6 h-6 text-punjab-gold"></i>
                     <span class="font-serif font-bold text-2xl">Nirog Organic</span>
                 </div>
-                <p class="text-white/70 max-w-sm">
+                <p class="text-white max-w-sm opacity-90">
                     Reviving the 'Sanjha Chulha' of Punjab. Pure, ethical, and steeped in tradition.
                 </p>
                 <div class="mt-6">
-                    <a href="https://www.instagram.com/nirog.organic?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="inline-flex items-center gap-2 text-punjab-gold hover:text-white transition-colors font-medium">
+                    <a href="https://www.instagram.com/nirog.organic?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="inline-flex items-center gap-2 text-punjab-gold hover:text-white transition-colors font-bold">
                         <i data-lucide="instagram" class="w-5 h-5"></i> Follow us on Instagram
                     </a>
                 </div>
             </div>
             <div>
                 <h4 class="font-serif font-bold text-lg mb-6 text-punjab-gold">Links</h4>
-                <ul class="space-y-2 text-sm text-white/70">
-                    <li><a href="#home" class="hover:text-white">Home</a></li>
-                    <li><a href="#shop" class="hover:text-white">Shop All</a></li>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#home" class="text-white hover:text-punjab-gold transition-colors font-bold">Home</a></li>
+                    <li><a href="#shop" class="text-white hover:text-punjab-gold transition-colors font-bold">Shop All</a></li>
                 </ul>
             </div>
             <div>
                 <h4 class="font-serif font-bold text-lg mb-6 text-punjab-gold">Legal</h4>
-                <ul class="space-y-2 text-sm text-white/70">
-                    <li><a href="#" class="hover:text-white">Privacy Policy</a></li>
-                    <li><a href="#" class="hover:text-white">Terms & Conditions</a></li>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#" class="text-white hover:text-punjab-gold transition-colors font-bold">Privacy Policy</a></li>
+                    <li><a href="#" class="text-white hover:text-punjab-gold transition-colors font-bold">Terms & Conditions</a></li>
                 </ul>
             </div>
         </div>
@@ -464,23 +458,19 @@
 
     <!-- FLOATING WHATSAPP -->
     <div class="fixed bottom-4 right-4 md:bottom-5 md:right-5 z-50 flex flex-col items-end gap-2 group">
-        <!-- Tooltip -->
         <a href="https://wa.me/917009395451" target="_blank" id="wa-tooltip" class="bg-white text-gray-800 text-xs font-bold py-2 px-3 rounded-lg shadow-xl transform transition-all duration-500 opacity-0 translate-y-4 mb-1 relative border border-gray-100 hover:bg-gray-50" style="display: none;">
             Got questions? Chat with us 👋
             <div class="absolute -bottom-1.5 right-6 w-3 h-3 bg-white border-b border-r border-gray-100 transform rotate-45"></div>
         </a>
-        
-        <!-- Button -->
         <a href="https://wa.me/917009395451" target="_blank" id="wa-button" class="bg-[#25D366] text-white p-3 rounded-full shadow-lg hover:scale-110 transition-transform flex items-center justify-center w-14 h-14" aria-label="Chat on WhatsApp">
-            <svg viewBox="0 0 24 24" fill="white" class="w-8 h-8">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
-            </svg>
+            <svg viewBox="0 0 24 24" fill="white" class="w-8 h-8"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
         </a>
     </div>
 
     <div id="toast-container" class="fixed top-24 right-0 z-50 p-4 max-w-xs"></div>
 
     <script>
+        // Define products array at the top of the script block to ensure it's defined before function calls
         const products = [
             { id: "p1", name: "Pure Black Mustard Oil", price: 349, unit: "1L", category: "Oils", img1: "https://i.ibb.co/39HK9h3x/mustrd.jpg", variants: [ {u: "1L", p: 349}, {u: "5L", p: 1649} ], benefits: ["Woodpressed", "Omega-3 Rich"], isBestseller: true },
             { id: "p2", name: "Pure Yellow Mustard Oil", price: 459, unit: "1L", category: "Oils", img1: "https://i.ibb.co/LzVxBmwj/yello-sarso.jpg", variants: [ {u: "1L", p: 459}, {u: "5L", p: 2549} ], benefits: ["Golden Sarso Seeds", "Vitamin E"], isBestseller: true },
@@ -501,7 +491,8 @@
             { id: "p10", name: "Jowar Atta", price: 129, unit: "1kg", category: "Flours", img1: "https://i.ibb.co/RT8Xxvkj/83375485-4b49-41c8-be9f-561b99436307.png", benefits: ["Gluten-Free"] },
             { id: "p11", name: "Jau Atta", price: 129, unit: "1kg", category: "Flours", img1: "https://i.ibb.co/KxczQb98/166355b5-a465-406f-9781-025c57e5b4f1.png", benefits: ["Cooling Grain"] },
             { id: "p12", name: "Besan", price: 159, unit: "1kg", category: "Flours", img1: "https://i.ibb.co/twHt1WcL/cd7e094a-34b2-4339-91eb-c4446f31529c.png", benefits: ["100% Chana Dal"] },
-            { id: "p13", name: "Dalia", price: 119, unit: "1kg", category: "Grains", img1: "https://i.ibb.co/tM976W1b/aa227679-7f64-4580-b9a0-c3661c2b3bec.png", benefits: ["High Fiber"] }
+            { id: "p13", name: "Dalia", price: 119, unit: "1kg", category: "Grains", img1: "https://i.ibb.co/tM976W1b/aa227679-7f64-4580-b9a0-c3661c2b3bec.png", benefits: ["High Fiber"] },
+            { id: "nirogcard", name: "Nirog Card", price: 1, unit: "1pc", category: "Gift Cards", img1: "https://i.ibb.co/99WTC1Nr/Gemini-Generated-Image-i4zsaxi4zsaxi4zs.png", benefits: ["Exclusive Heritage Membership", "Support Punjab Farmers"], isBestseller: true }
         ];
 
         let cart = {};
@@ -522,14 +513,11 @@
             setTimeout(() => { toast.classList.add('animate-toast-out'); setTimeout(() => toast.remove(), 300); }, 2500);
         }
 
-        // --- SHIPPING HELPER FUNCTIONS ---
-
         function parseWeightInKg(unitStr) {
             if(!unitStr) return 0;
             const str = unitStr.toLowerCase();
-            // Important: Check 'ml' before 'l' to prevent misinterpretation
             if (str.includes('ml')) return (parseFloat(str) || 0) / 1000;
-            if (str.includes('l')) return parseFloat(str) || 0; // Treat 1L as 1kg
+            if (str.includes('l')) return parseFloat(str) || 0; 
             if (str.includes('kg')) return parseFloat(str) || 0;
             if (str.includes('gm') || str.endsWith('g')) return (parseFloat(str) || 0) / 1000;
             return 0;
@@ -552,7 +540,6 @@
             return 0;
         }
 
-        // --- UI FUNCTIONS ---
         function openCart() {
             const sidebar = document.getElementById('cart-sidebar');
             const overlay = document.getElementById('cart-overlay');
@@ -576,6 +563,11 @@
                     closeCart();
                 }
             }
+        }
+
+        function scrollToSection(id) { 
+            const el = document.getElementById(id);
+            if(el) el.scrollIntoView({ behavior: 'smooth' }); 
         }
 
         function createCard(p, type = 'shop') {
@@ -674,7 +666,7 @@
                 
                 const sub = price * qty;
                 
-                if (p.category !== 'Oils') {
+                if (p.category !== 'Oils' && p.id !== 'nirogcard') {
                     totalWeight += parseWeightInKg(variantUnit) * qty;
                 }
                 
@@ -705,8 +697,8 @@
             if(subEl) subEl.innerText = `₹${subtotal}`;
             if(shipEl) shipEl.innerText = shippingDisplay;
             if(totalEl) totalEl.innerText = `₹${totalPayable}`; 
-            if(summaryContainer) summaryContainer.innerHTML = summary;
             
+            if(summaryContainer) summaryContainer.innerHTML = summary;
             lucide.createIcons();
         }
 
@@ -714,8 +706,6 @@
             const p = products.find(x => x.id === pid);
             const qtyInput = document.getElementById(`qty-input-${pid}`);
             const qty = qtyInput ? parseInt(qtyInput.value) : 1;
-            
-            // Check for variant selector
             const variantSelect = document.getElementById(`variant-select-${pid}`);
             let cid = p.id;
             if (variantSelect) {
@@ -723,7 +713,6 @@
             } else if (p.variants && p.variants.length > 0) {
                  cid = `${p.id}_${p.variants[0].u}`;
             }
-            
             addToCart(cid, qty);
         }
 
@@ -733,7 +722,6 @@
             updateCartUI();
             showToast("Added to Harvest Box!");
             openCart();
-            
             const h = window.location.hash.replace('#', '') || 'home';
             if(h === 'shop') renderShopProducts('All');
         }
@@ -742,7 +730,6 @@
             if (cart[cid] + n <= 0) delete cart[cid]; else cart[cid] += n;
             localStorage.setItem('nirogCart', JSON.stringify(cart));
             updateCartUI();
-            
             const h = window.location.hash.replace('#', '') || 'home';
             if(h === 'shop') renderShopProducts('All');
             if(h === 'home') renderBestsellers();
@@ -751,30 +738,22 @@
         function openModal(id) {
             const p = products.find(x => x.id === id);
             if (!p) return;
-            
             const imgEl = document.getElementById('modal-img');
             if(imgEl) imgEl.src = p.img1;
-            
             const titleEl = document.getElementById('modal-title');
             if(titleEl) titleEl.innerText = p.name;
-            
             const catEl = document.getElementById('modal-cat');
             if(catEl) catEl.innerText = p.category;
-            
             const descEl = document.getElementById('modal-desc');
             if(descEl) descEl.innerText = `Pure heritage quality directly from Punjab's farms.`;
-            
             let currentPrice = p.price;
              if (p.variants && p.variants.length > 0) {
                 currentPrice = p.variants[0].p;
             }
-            
             const priceEl = document.getElementById('modal-price');
             if(priceEl) priceEl.innerText = `₹${currentPrice}`;
-            
             const benefitsEl = document.getElementById('modal-benefits');
             if(benefitsEl) benefitsEl.innerHTML = p.benefits.map(b => `<li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3 text-punjab"></i> ${b}</li>`).join('');
-            
             const variantContainer = document.getElementById('modal-variant-selector');
             if (variantContainer) {
                 variantContainer.innerHTML = '';
@@ -782,13 +761,11 @@
                     variantContainer.innerHTML = `<label class="text-xs font-bold uppercase text-gray-500 mb-2 block">Choose Variant</label><select id="mv-sel" class="w-full p-3 bg-white border rounded-xl" onchange="document.getElementById('modal-price').innerText='₹'+this.options[this.selectedIndex].dataset.price">${p.variants.map(v=>`<option value="${v.u}" data-price="${v.p}">${v.u} (₹${v.p})</option>`).join('')}</select>`;
                 }
             }
-
             const qtyContainer = document.getElementById('modal-qty-container');
             if(qtyContainer) {
                 qtyContainer.innerHTML = `<div class="flex items-center bg-white rounded-full border px-4 py-2"><button onclick="currentModalQty=Math.max(1,currentModalQty-1);document.getElementById('mqt').innerText=currentModalQty" class="text-punjab hover:bg-gray-100 p-1 rounded-full">-</button><span id="mqt" class="mx-4 font-bold">1</span><button onclick="currentModalQty++;document.getElementById('mqt').innerText=currentModalQty" class="text-punjab hover:bg-gray-100 p-1 rounded-full">+</button></div>`;
             }
             currentModalQty = 1;
-
             const addBtn = document.getElementById('modal-add-btn');
             if(addBtn) {
                 addBtn.onclick = () => {
@@ -799,12 +776,10 @@
                     } else if (p.variants && p.variants.length > 0) {
                          cid = `${p.id}_${p.variants[0].u}`;
                     }
-                    
                     addToCart(cid, currentModalQty);
                     closeModal();
                 };
             }
-
             const modal = document.getElementById('product-modal');
             if(modal) {
                 modal.classList.remove('hidden');
@@ -829,6 +804,8 @@
         async function finalizeOrder() {
             const form = document.getElementById('checkout-form');
             const submitBtn = document.getElementById('checkout-submit-btn');
+            const backendBase = "https://razorpay-backend-production-3067.up.railway.app";
+            const RAZORPAY_KEY_ID = 'rzp_live_RzHXnwD3deQkL7';
 
             if (!form.checkValidity()) {
                 showToast('Please fill in all details correctly!');
@@ -857,97 +834,130 @@
                 if (p) {
                     const qty = cart[cid];
                     const variantUnit = parts[1] || p.unit;
-                    
                     let price = p.price;
                     if (parts[1] && p.variants) {
                          const v = p.variants.find(v => v.u === parts[1]);
                          if(v) price = v.p;
                     }
-                    
                     subtotal += price * qty;
-                    
-                    if (p.category !== 'Oils') {
+                    if (p.category !== 'Oils' && p.id !== 'nirogcard') {
                         totalWeight += parseWeightInKg(variantUnit) * qty;
                     }
-
                     const variantLabel = parts[1] ? ` (${parts[1]})` : "";
                     return `${p.name}${variantLabel} x ${qty}`;
                 }
                 return "";
             }).filter(s => s !== "");
 
-            // Pre-join products string for WhatsApp
-            const productsString = productDetailsArr.join('%0A'); 
-
-            // Calculate Final Payable Amount (Subtotal + Shipping)
+            const productsStr = productDetailsArr.join(', ');
             const shippingCost = calculateShipping(totalWeight, state);
             const totalPayable = subtotal + shippingCost;
 
             const originalBtnText = submitBtn.innerHTML;
             submitBtn.disabled = true;
-            submitBtn.innerText = "Opening WhatsApp...";
+            submitBtn.innerText = "Securing Order...";
 
-            // Construct WhatsApp Message
-            const message = `Hello Nirog Organic, I would like to place an order.%0A%0A*Name:* ${firstName} ${lastName}%0A*Phone:* ${phone}%0A*Address:* ${address}, ${city}, ${pincode}, ${state}%0A%0A*Order Details:*%0A${productsString}%0A%0A*Total Amount:* ₹${totalPayable} (including shipping)`;
-            
-            const whatsappUrl = `https://wa.me/917009395451?text=${message}`;
-            
-            // Clear cart logic
-            cart = {};
-            localStorage.removeItem('nirogCart');
-            updateCartUI();
-            
-            // Open WhatsApp
-            window.open(whatsappUrl, '_blank');
-            
-            // Reset UI
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = originalBtnText;
-            
-            // Redirect Home after delay
-            setTimeout(() => {
-                window.location.hash = 'home';
-            }, 1000);
-        }
+            const clientOrderId = `ORDER_${Date.now()}`;
 
-        // WhatsApp Tooltip Logic
-        const waTooltip = document.getElementById('wa-tooltip');
-        const waButton = document.getElementById('wa-button');
+            try {
+                // STEP 1: n8n PRE-PAYMENT WEBHOOK
+                await fetch("https://primary-production-fd532.up.railway.app/webhook/nirog-pre-payment", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        client_order_id: clientOrderId,
+                        name: `${firstName} ${lastName}`,
+                        phone: phone,
+                        products: productsStr,
+                        address: `${address}, ${city}, ${pincode}, ${state}`,
+                        amount: totalPayable,
+                        status: "PENDING"
+                    })
+                });
 
-        function showTooltip() {
-            if(waTooltip) {
-                waTooltip.style.display = 'block';
-                setTimeout(() => {
-                    waTooltip.classList.remove('opacity-0', 'translate-y-4');
-                }, 10);
+                // STEP 2: CREATE RAZORPAY ORDER ON BACKEND
+                const response = await fetch(`${backendBase}/create-order`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        amount: totalPayable,
+                        name: `${firstName} ${lastName}`,
+                        phone: phone,
+                        address: `${address}, ${city}, ${pincode}, ${state}`,
+                        products: productsStr
+                    })
+                });
+
+                if (response.ok) {
+                    const orderData = await response.json();
+                    showToast("Order secured. Opening Payment...");
+                    
+                    const options = {
+                        key: RAZORPAY_KEY_ID,
+                        amount: totalPayable * 100, // paise consistency
+                        currency: "INR",
+                        name: "Nirog Organic",
+                        description: "Organic Heritage Order",
+                        order_id: orderData.id, // STEP 3: USE ORDER_ID FROM BACKEND
+                        prefill: { name: `${firstName} ${lastName}`, contact: phone },
+                        theme: { color: "#659D32" },
+                        handler: async function (razorResponse) {
+                            submitBtn.innerText = "Verifying Payment...";
+                            
+                            try {
+                                // STEP 4: VERIFY PAYMENT SIGNATURE ON BACKEND
+                                const verifyResponse = await fetch(`${backendBase}/verify-payment`, {
+                                    method: "POST",
+                                    headers: { "Content-Type": "application/json" },
+                                    body: JSON.stringify({
+                                        client_order_id: clientOrderId,
+                                        razorpay_order_id: razorResponse.razorpay_order_id,
+                                        razorpay_payment_id: razorResponse.razorpay_payment_id,
+                                        razorpay_signature: razorResponse.razorpay_signature,
+                                        name: `${firstName} ${lastName}`,
+                                        phone: phone,
+                                        address: `${address}, ${city}, ${pincode}, ${state}`,
+                                        products: productsStr,
+                                        amount: totalPayable
+                                    })
+                                });
+
+                                if (verifyResponse.ok) {
+                                    cart = {};
+                                    localStorage.removeItem('nirogCart');
+                                    updateCartUI();
+                                    window.location.hash = 'home';
+                                    document.getElementById('success-modal').classList.remove('hidden');
+                                } else {
+                                    throw new Error("Verification failed");
+                                }
+                            } catch (e) {
+                                console.error("Post-payment verification failed", e);
+                                showToast("Verification error. Please contact support.");
+                            }
+                        },
+                        modal: {
+                            ondismiss: function() {
+                                submitBtn.disabled = false;
+                                submitBtn.innerHTML = originalBtnText;
+                                showToast("Payment gateway closed.");
+                            }
+                        }
+                    };
+
+                    const rzp = new Razorpay(options);
+                    rzp.open();
+
+                } else {
+                    throw new Error("Order creation failed");
+                }
+
+            } catch (error) {
+                console.error(error);
+                showToast('Unable to secure order. Please try again.');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnText;
             }
-        }
-
-        function hideTooltip() {
-            if(waTooltip) {
-                waTooltip.classList.add('opacity-0', 'translate-y-4');
-                setTimeout(() => {
-                    waTooltip.style.display = 'none';
-                }, 500);
-            }
-        }
-
-        if (!sessionStorage.getItem('whatsappHintShown')) {
-            setTimeout(() => {
-                showTooltip();
-                sessionStorage.setItem('whatsappHintShown', 'true');
-                setTimeout(hideTooltip, 8000); 
-            }, 3000); 
-        }
-
-        if(waButton) {
-            waButton.addEventListener('mouseenter', showTooltip);
-            waButton.addEventListener('mouseleave', hideTooltip);
-            waButton.addEventListener('touchstart', showTooltip);
-        }
-        if(waTooltip) {
-            waTooltip.addEventListener('mouseenter', showTooltip);
-            waTooltip.addEventListener('mouseleave', hideTooltip);
         }
 
         function renderBestsellers() {
@@ -982,11 +992,6 @@
             renderShopProducts(cat);
             const shopTop = document.getElementById('shop-top');
             if(shopTop) shopTop.scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function scrollToSection(id) { 
-            const el = document.getElementById(id);
-            if(el) el.scrollIntoView({ behavior: 'smooth' }); 
         }
 
         function handleHash() {
