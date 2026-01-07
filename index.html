@@ -335,7 +335,7 @@
                                     <span>Estimated Shipping</span>
                                     <span id="checkout-shipping">₹0</span>
                                 </div>
-                                <p class="text-[10px] text-gray-500 italic mt-1 leading-tight">Final shipping charges will be confirmed after address verification.</p>
+                                <p class="text-[10px] text-gray-500 italic mt-1 leading-tight">Final shipping charges will be confirmed after address verification. They are not added to the amount payable on this page.</p>
                                 <div class="flex justify-between font-bold text-xl pt-4 border-t border-punjab-gold/20 mt-2">
                                     <span class="text-gray-800">Amount Payable Now</span>
                                     <span id="checkout-total-display" class="text-punjab-dark">₹0</span>
@@ -352,7 +352,7 @@
         </div>
     </main>
 
-    <!-- SIDEBARS & MODALS (Moved before Footer) -->
+    <!-- SIDEBARS & MODALS -->
     <!-- CART OVERLAY -->
     <div id="cart-overlay" onclick="closeCart()" class="fixed inset-0 bg-black/50 z-40 hidden backdrop-blur-sm transition-opacity"></div>
     
@@ -430,7 +430,7 @@
                 <h4 class="font-serif font-bold text-lg mb-6 text-punjab-gold">Legal</h4>
                 <ul class="space-y-2 text-sm">
                     <li><a href="#" class="text-white hover:text-punjab-gold transition-colors font-bold">Privacy Policy</a></li>
-                    <li><a href="#" class="text-white hover:text-punjab-gold transition-colors font-bold">Terms & Conditions</a></li>
+                    <li><a href="#" class="hover:text-white hover:text-punjab-gold transition-colors font-bold">Terms & Conditions</a></li>
                 </ul>
             </div>
         </div>
@@ -473,12 +473,12 @@
         // Define products array at the top of the script block to ensure it's defined before function calls
         const products = [
             { id: "p1", name: "Pure Black Mustard Oil", price: 349, unit: "1L", category: "Oils", img1: "https://i.ibb.co/39HK9h3x/mustrd.jpg", variants: [ {u: "1L", p: 349}, {u: "5L", p: 1649} ], benefits: ["Woodpressed", "Omega-3 Rich"], isBestseller: true },
-            { id: "p2", name: "Pure Yellow Mustard Oil", price: 459, unit: "1L", category: "Oils", img1: "https://i.ibb.co/LzVxBmwj/yello-sarso.jpg", variants: [ {u: "1L", p: 459}, {u: "5L", p: 2549} ], benefits: ["Golden Sarso Seeds", "Vitamin E"], isBestseller: true },
+            { id: "p2", name: "Pure Yellow Mustard Oil", price: 459, unit: "1L", category: "Oils", img1: "https://i.ibb.co/LzVxBmwj/yello-sarso.jpg", variants: [ {u: "1L", p: 459}, {u: "5L", p: 2249} ], benefits: ["Golden Sarso Seeds", "Vitamin E"], isBestseller: true },
             { id: "p20", name: "Sesame Oil", price: 299, unit: "500ml", category: "Oils", img1: "https://i.ibb.co/3Y1CL7m7/ssesameoil.jpg", variants: [{u: "500ml", p: 299}, {u: "1L", p: 579}], benefits: ["Copper/Calcium"], isBestseller: true },
-            { id: "p3", name: "Pure Coconut Oil", price: 899, unit: "1L", category: "Oils", img1: "https://i.ibb.co/JRkP18SM/cocnut.jpg", variants: [ {u: "100ml", p: 99}, {u: "500ml", p: 449}, {u: "1L", p: 899} ], benefits: ["Virgin/Raw", "Moisturizer"], isBestseller: true },
+            { id: "p3", name: "Pure Coconut Oil", price: 799, unit: "1L", category: "Oils", img1: "https://i.ibb.co/JRkP18SM/cocnut.jpg", variants: [ {u: "100ml", p: 99}, {u: "500ml", p: 399}, {u: "1L", p: 799} ], benefits: ["Virgin/Raw", "Moisturizer"], isBestseller: true },
             { id: "p5", name: "Pure Badam Oil", price: 349, unit: "100ml", category: "Oils", img1: "https://i.ibb.co/7ttstkt7/almond-oil.jpg", benefits: ["Gurbandi Almonds"] },
             { id: "p22", name: "Pure Groundnut Oil", price: 399, unit: "1L", category: "Oils", img1: "https://i.ibb.co/jZWyRnJK/mumfali.jpg", benefits: ["Monounsaturated Fats"] },
-            { id: "p21", name: "Jaggery", price: 199, unit: "1kg", category: "Sweeteners", img1: "https://i.ibb.co/jPZZ5XMr/jaggery.jpg", benefits: ["Unrefined", "Blood Purifier"] },
+            { id: "p21", name: "Jaggery", price: 199, unit: "1kg", category: "Sweeteners", img1: "https://i.ibb.co/jPZZ5XMr/jaggery.jpg", benefits: ["Unrefined", "Blood Purifier"], isOutOfStock: true },
             { id: "p6", name: "Wheat Atta", price: 69, unit: "1kg", category: "Flours", img1: "https://i.ibb.co/tTGzfGZt/wheat.jpg", variants: [ {u: "1kg", p: 69}, {u: "5kg", p: 349}, {u: "10kg", p: 699} ], benefits: ["Stone-ground", "Whole Grain"] },
             { id: "p7", name: "MP Wheat Atta", price: 54, unit: "1kg", category: "Flours", img1: "https://i.ibb.co/7d6YFFJH/mp.jpg", variants: [ {u: "1kg", p: 54}, {u: "5kg", p: 274}, {u: "10kg", p: 549} ], benefits: ["High Protein"], isBestseller: true },
             { id: "p16", name: "Black Wheat Flour", price: 129, unit: "1kg", category: "Heritage Flours", img1: "https://i.ibb.co/QvZ5tvcf/black-wheat-flour.jpg", benefits: ["Anthocyanins", "Low GI"], isBestseller: true },
@@ -584,7 +584,7 @@
             let qtySelectorHtml = '';
             const useKgInput = ['Flours', 'Grains', 'Sweeteners', 'Heritage Flours'].includes(p.category);
             
-            if (type === 'shop' && inCart === 0) {
+            if (type === 'shop' && inCart === 0 && !p.isOutOfStock) {
                 qtySelectorHtml = `
                     <div class="flex items-center justify-between mb-4 px-1" onclick="event.stopPropagation()">
                         <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wide">Select Qty:</span>
@@ -596,7 +596,7 @@
             }
             
             let variantSelectorHtml = '';
-            if (type === 'shop' && p.variants && inCart === 0) {
+            if (type === 'shop' && p.variants && inCart === 0 && !p.isOutOfStock) {
                  variantSelectorHtml = `
                     <div class="mb-2" onclick="event.stopPropagation()">
                         <select id="variant-select-${p.id}" class="w-full p-2 bg-gray-50 border border-gray-200 rounded text-xs font-bold text-gray-700 outline-none" onchange="document.getElementById('price-${p.id}').innerText = '₹' + this.options[this.selectedIndex].dataset.price">
@@ -607,7 +607,9 @@
             }
 
             let footer = '';
-            if (type === 'bestseller') {
+            if (p.isOutOfStock) {
+                footer = `<div class="w-full py-3 bg-gray-200 text-gray-500 rounded-xl font-bold flex items-center justify-center gap-2 mt-2 cursor-not-allowed uppercase text-xs">Out of Stock</div>`;
+            } else if (type === 'bestseller') {
                 footer = `<a href="#shop" class="w-full py-3 bg-punjab-cream text-punjab-dark rounded-xl hover:bg-punjab hover:text-white transition-colors font-medium flex items-center justify-center gap-2 mt-2" onclick="event.stopPropagation()">Explore More <i data-lucide="arrow-right" class="w-4 h-4"></i></a>`;
             } else {
                 footer = inCart > 0 ? 
@@ -623,6 +625,7 @@
                 <div class="${type === 'bestseller' ? 'swiper-slide' : ''} group bg-white rounded-3xl p-4 shadow-sm hover:shadow-float transition-all product-card-wrapper" onclick="openModal('${p.id}')">
                     <div class="relative aspect-square rounded-2xl overflow-hidden mb-4 bg-punjab-cream">
                         ${p.isBestseller ? '<span class="absolute top-2 left-2 z-10 bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-md">BESTSELLER</span>' : ''}
+                        ${p.isOutOfStock ? '<div class="absolute inset-0 bg-white/60 z-10 flex items-center justify-center font-bold text-gray-800 backdrop-blur-[2px]">OUT OF STOCK</div>' : ''}
                         <img src="${p.img1}" class="w-full h-full object-cover transition-transform group-hover:scale-110" onerror="this.src='https://placehold.co/400x400/F0E6D8/854D0E?text=Product'">
                     </div>
                     <div class="px-1 flex flex-col">
@@ -704,6 +707,7 @@
 
         function addToCartFromCard(pid) {
             const p = products.find(x => x.id === pid);
+            if(p.isOutOfStock) return;
             const qtyInput = document.getElementById(`qty-input-${pid}`);
             const qty = qtyInput ? parseInt(qtyInput.value) : 1;
             const variantSelect = document.getElementById(`variant-select-${pid}`);
@@ -754,32 +758,48 @@
             if(priceEl) priceEl.innerText = `₹${currentPrice}`;
             const benefitsEl = document.getElementById('modal-benefits');
             if(benefitsEl) benefitsEl.innerHTML = p.benefits.map(b => `<li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3 text-punjab"></i> ${b}</li>`).join('');
+            
             const variantContainer = document.getElementById('modal-variant-selector');
             if (variantContainer) {
                 variantContainer.innerHTML = '';
-                if (p.variants) {
+                if (p.variants && !p.isOutOfStock) {
                     variantContainer.innerHTML = `<label class="text-xs font-bold uppercase text-gray-500 mb-2 block">Choose Variant</label><select id="mv-sel" class="w-full p-3 bg-white border rounded-xl" onchange="document.getElementById('modal-price').innerText='₹'+this.options[this.selectedIndex].dataset.price">${p.variants.map(v=>`<option value="${v.u}" data-price="${v.p}">${v.u} (₹${v.p})</option>`).join('')}</select>`;
                 }
             }
+            
             const qtyContainer = document.getElementById('modal-qty-container');
-            if(qtyContainer) {
-                qtyContainer.innerHTML = `<div class="flex items-center bg-white rounded-full border px-4 py-2"><button onclick="currentModalQty=Math.max(1,currentModalQty-1);document.getElementById('mqt').innerText=currentModalQty" class="text-punjab hover:bg-gray-100 p-1 rounded-full">-</button><span id="mqt" class="mx-4 font-bold">1</span><button onclick="currentModalQty++;document.getElementById('mqt').innerText=currentModalQty" class="text-punjab hover:bg-gray-100 p-1 rounded-full">+</button></div>`;
-            }
-            currentModalQty = 1;
             const addBtn = document.getElementById('modal-add-btn');
-            if(addBtn) {
-                addBtn.onclick = () => {
-                    const sel = document.getElementById('mv-sel');
-                    let cid = p.id;
-                    if (sel) {
-                        cid = `${p.id}_${sel.value}`;
-                    } else if (p.variants && p.variants.length > 0) {
-                         cid = `${p.id}_${p.variants[0].u}`;
-                    }
-                    addToCart(cid, currentModalQty);
-                    closeModal();
-                };
+            
+            if (p.isOutOfStock) {
+                if(qtyContainer) qtyContainer.innerHTML = '';
+                if(addBtn) {
+                    addBtn.innerText = 'Out of Stock';
+                    addBtn.disabled = true;
+                    addBtn.classList.replace('bg-punjab', 'bg-gray-300');
+                }
+            } else {
+                if(qtyContainer) {
+                    qtyContainer.innerHTML = `<div class="flex items-center bg-white rounded-full border px-4 py-2"><button onclick="currentModalQty=Math.max(1,currentModalQty-1);document.getElementById('mqt').innerText=currentModalQty" class="text-punjab hover:bg-gray-100 p-1 rounded-full">-</button><span id="mqt" class="mx-4 font-bold">1</span><button onclick="currentModalQty++;document.getElementById('mqt').innerText=currentModalQty" class="text-punjab hover:bg-gray-100 p-1 rounded-full">+</button></div>`;
+                }
+                if(addBtn) {
+                    addBtn.innerText = 'Add to Harvest Box';
+                    addBtn.disabled = false;
+                    addBtn.classList.replace('bg-gray-300', 'bg-punjab');
+                    addBtn.onclick = () => {
+                        const sel = document.getElementById('mv-sel');
+                        let cid = p.id;
+                        if (sel) {
+                            cid = `${p.id}_${sel.value}`;
+                        } else if (p.variants && p.variants.length > 0) {
+                             cid = `${p.id}_${p.variants[0].u}`;
+                        }
+                        addToCart(cid, currentModalQty);
+                        closeModal();
+                    };
+                }
             }
+            
+            currentModalQty = 1;
             const modal = document.getElementById('product-modal');
             if(modal) {
                 modal.classList.remove('hidden');
