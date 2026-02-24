@@ -164,6 +164,30 @@
                 </div>
             </section>
 
+            <!-- NIROG STORY SECTION (REEL) -->
+            <section id="about-nirog-section" class="py-24 bg-white border-y border-punjab-wheat/30">
+                <div class="container mx-auto px-6">
+                    <div class="flex flex-col items-center text-center">
+                        <div class="mb-12">
+                            <span class="text-punjab-gold font-bold uppercase tracking-widest text-xs">Our Living Heritage</span>
+                            <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-punjab-soil mt-2 mb-6 leading-tight">Authenticity In Every Single Grain</h2>
+                        </div>
+                        <div class="w-full flex justify-center">
+                            <div class="relative w-full max-w-[360px] aspect-[9/16] rounded-[2.5rem] overflow-hidden shadow-2xl border-8 border-white ring-1 ring-gray-100 bg-gray-50">
+                                <iframe 
+                                    src="https://www.instagram.com/reel/DUV0w0tj8Ib/embed/" 
+                                    class="absolute inset-0 w-full h-full"
+                                    frameborder="0" 
+                                    scrolling="no" 
+                                    allowtransparency="true"
+                                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+                                </iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <!-- 3. BESTSELLERS -->
             <section id="bestsellers-section" class="py-24 bg-punjab-cream overflow-hidden">
                 <div class="container mx-auto px-6">
@@ -345,7 +369,7 @@
         </div>
     </main>
 
-    <!-- SIDEBARS & MODALS (Moved before Footer) -->
+    <!-- SIDEBARS & MODALS -->
     <!-- CART OVERLAY -->
     <div id="cart-overlay" onclick="closeCart()" class="fixed inset-0 bg-black/50 z-40 hidden backdrop-blur-sm transition-opacity"></div>
     
@@ -516,20 +540,21 @@
         }
 
         function calculateShipping(weight, state) {
-            if (weight >= 20 || weight <= 0) return 0;
+            if (weight <= 0) return 0;
             const isPunjab = state === "Punjab";
             if (isPunjab) {
-                if (weight <= 2) return 49;
+                if (weight <= 1) return 49;
                 if (weight <= 5) return 79;
                 if (weight <= 10) return 94;
                 if (weight <= 20) return 149;
+                return 149; // Above 20kg in Punjab
             } else {
-                if (weight <= 2) return 69;
+                if (weight <= 1) return 69;
                 if (weight <= 5) return 89;
                 if (weight <= 10) return 129;
                 if (weight <= 20) return 149;
+                return 169; // Above 20kg outside Punjab
             }
-            return 0;
         }
 
         function openCart() {
@@ -661,7 +686,6 @@
                 
                 const sub = price * qty;
                 
-                // Oils now contribute to shipping charges (weight-based)
                 if (p.id !== 'nirogcard') {
                     totalWeight += parseWeightInKg(variantUnit) * qty;
                 }
@@ -853,7 +877,6 @@
                          if(v) price = v.p;
                     }
                     subtotal += price * qty;
-                    // Inclusion logic for shipping weight
                     if (p.id !== 'nirogcard') {
                         totalWeight += parseWeightInKg(variantUnit) * qty;
                     }
@@ -919,7 +942,6 @@
                             submitBtn.innerText = "Verifying Payment...";
                             
                             try {
-                                // STEP 3: VERIFY PAYMENT SIGNATURE ON BACKEND
                                 const verifyResponse = await fetch(`${backendBase}/verify-payment`, {
                                     method: "POST",
                                     headers: { "Content-Type": "application/json" },
@@ -1000,7 +1022,7 @@
                 b.classList.remove('active', 'bg-punjab', 'text-white');
                 b.classList.add('bg-white', 'text-punjab-dark');
             });
-            const target = event.target;
+            const target = event.currentTarget;
             target.classList.add('active', 'bg-punjab', 'text-white');
             target.classList.remove('bg-white', 'text-punjab-dark');
             renderShopProducts(cat);
