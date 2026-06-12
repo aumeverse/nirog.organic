@@ -52,6 +52,10 @@
                         'header-pan': {
                             '0%, 100%': { backgroundPosition: '0% 50%' },
                             '50%': { backgroundPosition: '100% 50%' },
+                        },
+                        'pop-bounce': {
+                            '0%, 100%': { transform: 'scale(1)' },
+                            '50%': { transform: 'scale(1.2)' },
                         }
                     },
                     animation: {
@@ -61,6 +65,7 @@
                         'toast-out': 'toast-out 0.3s ease-in forwards 1.5s', 
                         'product-fade-in': 'product-fade-in 0.5s ease-out forwards',
                         'header-pan-slow': 'header-pan 12s ease-in-out infinite', 
+                        'pop-bounce': 'pop-bounce 1s ease-in-out infinite',
                     }
                 }
             }
@@ -70,9 +75,6 @@
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    
-    <!-- Razorpay Checkout Script -->
-    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
     
@@ -131,8 +133,8 @@
                 </div>
                 <div class="container mx-auto px-6 relative z-20 text-center mt-16">
                     <h1 class="font-serif text-4xl sm:text-5xl md:text-8xl font-bold mb-6 leading-tight drop-shadow-2xl">Punjab's Living <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-punjab-gold to-yellow-200 italic">Heritage</span></h1>
-                    <p class="text-base sm:text-lg md:text-xl text-gray-200 max-w-2xl mx-auto mb-8 font-light">Slow stone-ground flours and woodpressed oils direct from the source.</p>
-                    <p class="font-serif italic text-punjab-gold text-lg md:text-xl mb-6 tracking-wide drop-shadow-md">Natural and Organic products</p>
+                    <p class="text-base sm:text-lg md:text-xl text-gray-200 max-w-2xl mx-auto mb-4 font-light">Slow stone-ground flours and woodpressed oils direct from the source.</p>
+                    <p class="font-serif italic text-punjab-gold text-lg md:text-xl mb-6 tracking-wide drop-shadow-md">Premium Organic Products</p>
                     <a href="#shop" class="inline-flex px-10 py-4 bg-punjab-gold hover:bg-punjab text-punjab-soil rounded-full font-bold shadow-lg transition-all hover:scale-105 gap-2">View The Pantry <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
                 </div>
             </section>
@@ -164,25 +166,18 @@
                 </div>
             </section>
 
-            <!-- NIROG STORY SECTION (REEL) -->
-            <section id="about-nirog-section" class="py-24 bg-white border-y border-punjab-wheat/30">
+            <!-- ABOUT NIROG REEL SECTION -->
+            <section id="about-reel-section" class="py-12 bg-punjab-cream">
                 <div class="container mx-auto px-6">
-                    <div class="flex flex-col items-center text-center">
-                        <div class="mb-12">
-                            <span class="text-punjab-gold font-bold uppercase tracking-widest text-xs">Our Living Heritage</span>
-                            <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-punjab-soil mt-2 mb-6 leading-tight">Authenticity In Every Single Grain</h2>
-                        </div>
-                        <div class="w-full flex justify-center">
-                            <div class="relative w-full max-w-[360px] aspect-[9/16] rounded-[2.5rem] overflow-hidden shadow-2xl border-8 border-white ring-1 ring-gray-100 bg-gray-50">
-                                <iframe 
-                                    src="https://www.instagram.com/reel/DUV0w0tj8Ib/embed/" 
-                                    class="absolute inset-0 w-full h-full"
-                                    frameborder="0" 
-                                    scrolling="no" 
-                                    allowtransparency="true"
-                                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
-                                </iframe>
-                            </div>
+                    <div class="text-center mb-10">
+                        <span class="text-punjab-gold font-bold uppercase tracking-widest text-xs">Our Story</span>
+                        <h2 class="font-serif text-3xl sm:text-4xl font-bold text-punjab-soil mt-2">About Nirog Organic</h2>
+                        <div class="w-20 h-1 bg-punjab mx-auto mt-4 rounded-full"></div>
+                    </div>
+                    <div class="flex justify-center">
+                        <div class="w-full max-w-[340px] h-[600px] rounded-3xl overflow-hidden shadow-2xl bg-white border border-gray-100 relative">
+                            <!-- Updated iframe as requested without sandbox attribute to allow instagram to load naturally -->
+                            <iframe id="ig-iframe" src="https://www.instagram.com/reel/DUV0w0tj8Ib/embed/" class="w-full h-[600px] absolute top-[-2px] left-0 border-none outline-none" frameborder="0" scrolling="no" allowtransparency="true" allow="autoplay; encrypted-media; picture-in-picture"></iframe>
                         </div>
                     </div>
                 </div>
@@ -265,7 +260,7 @@
                 <div class="container mx-auto px-4">
                     <div class="text-center mb-12">
                         <h1 class="font-serif text-4xl sm:text-5xl font-bold animated-header animate-header-pan-slow">The Punjab Pantry</h1>
-                        <p class="text-gray-500">Natural and organic products • 100% Traceable</p>
+                        <p class="text-gray-500">21 Premium organic Products • 100% Traceable</p>
                     </div>
                     <!-- FILTERS -->
                     <div class="flex flex-wrap justify-center gap-2 mb-12 sticky top-24 z-30 bg-punjab-cream/90 backdrop-blur py-4">
@@ -297,9 +292,13 @@
                         <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
                             <i data-lucide="user" class="w-5 h-5 text-punjab-gold"></i> Personal Details
                         </h3>
-                        <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div class="grid grid-cols-2 gap-4 mb-4">
                             <input type="text" id="fname" placeholder="First Name" required class="w-full p-3 bg-gray-50 rounded-xl outline-none border focus:border-punjab transition-all">
                             <input type="text" id="lname" placeholder="Last Name" required class="w-full p-3 bg-gray-50 rounded-xl outline-none border focus:border-punjab transition-all">
+                        </div>
+                        <div class="mb-4">
+                            <!-- Added email field required for the webhook -->
+                            <input type="email" id="email" placeholder="Email Address" required class="w-full p-3 bg-gray-50 rounded-xl outline-none border focus:border-punjab transition-all">
                         </div>
                         <div class="relative mb-8">
                             <input type="tel" id="phone" placeholder="Phone Number (10 digits)" required pattern="[0-9]{10}" class="w-full p-3 bg-gray-50 rounded-xl outline-none border focus:border-punjab transition-all">
@@ -360,8 +359,9 @@
                             </div>
                         </div>
 
-                        <button type="submit" id="checkout-submit-btn" class="w-full py-4 bg-green-600 hover:bg-green-700 text-white rounded-xl font-bold shadow-lg transition-all transform hover:scale-[1.02] flex items-center justify-center gap-2">
-                            Proceed to Secure Payment <i data-lucide="lock" class="w-4 h-4"></i>
+                        <!-- Updated button to WhatsApp checkout -->
+                        <button type="submit" id="checkout-submit-btn" class="w-full py-4 bg-[#25D366] hover:bg-green-600 text-white rounded-xl font-bold shadow-lg transition-all transform hover:scale-[1.02] flex items-center justify-center gap-2">
+                            Confirm order via WhatsApp <i data-lucide="message-circle" class="w-5 h-5"></i>
                         </button>
                     </form>
                 </div>
@@ -476,7 +476,7 @@
     <!-- FLOATING WHATSAPP -->
     <div class="fixed bottom-4 right-4 md:bottom-5 md:right-5 z-50 flex flex-col items-end gap-2 group">
         <a href="https://wa.me/917009395451" target="_blank" id="wa-tooltip" class="bg-white text-gray-800 text-xs font-bold py-2 px-3 rounded-lg shadow-xl transform transition-all duration-500 opacity-0 translate-y-4 mb-1 relative border border-gray-100 hover:bg-gray-50" style="display: none;">
-            Got questions? Chat with us 👋
+            Let's connect 👋
             <div class="absolute -bottom-1.5 right-6 w-3 h-3 bg-white border-b border-r border-gray-100 transform rotate-45"></div>
         </a>
         <a href="https://wa.me/917009395451" target="_blank" id="wa-button" class="bg-[#25D366] text-white p-3 rounded-full shadow-lg hover:scale-110 transition-transform flex items-center justify-center w-14 h-14" aria-label="Chat on WhatsApp">
@@ -499,7 +499,7 @@
             { id: "p7", name: "MP Wheat Atta", price: 54, unit: "1kg", category: "Flours", img1: "https://i.ibb.co/7d6YFFJH/mp.jpg", variants: [ {u: "1kg", p: 54}, {u: "5kg", p: 274}, {u: "10kg", p: 549} ], benefits: ["High Protein"], isBestseller: true },
             { id: "p16", name: "Black Wheat Flour", price: 129, unit: "1kg", category: "Heritage Flours", img1: "https://i.ibb.co/QvZ5tvcf/black-wheat-flour.jpg", benefits: ["Anthocyanins", "Low GI"], isBestseller: true },
             { id: "p17", name: "Paigambari Wheat", price: 179, unit: "1kg", category: "Heritage Flours", img1: "https://i.ibb.co/Zp8qVrdY/paigambar-wheat-flour.jpg", benefits: ["Heirloom Strain", "Low Gluten"] },
-            { id: "p15", name: "Haldi (Turmeric)", price: 99, unit: "250g", category: "Spices", img1: "https://i.ibb.co/ym6yQGtL/haldi.jpg", benefits: ["7% Curcumin"] },
+            { id: "p15", name: "Haldi (Turmeric)", price: 180, unit: "200g", category: "Spices", img1: "https://i.ibb.co/ym6yQGtL/haldi.jpg", variants: [{u: "200g", p: 180}, {u: "1kg", p: 700}], benefits: ["7% Curcumin"] },
             { id: "p18", name: "Bansi Wheat", price: 149, unit: "1kg", category: "Heritage Flours", img1: "https://i.ibb.co/9m4scDfQ/bansi.jpg", benefits: ["Ancient Variety"] },
             { id: "p19", name: "Makki Atta", price: 89, unit: "1kg", category: "Flours", img1: "https://i.ibb.co/pspPmBs/maize.jpg", benefits: ["Zinc/Iron"] },
             { id: "p8", name: "Multigrain Atta", price: 119, unit: "1kg", category: "Flours", img1: "https://i.ibb.co/MDNxgs00/multi.jpg", benefits: ["7 Grain Blend"] },
@@ -507,7 +507,7 @@
             { id: "p10", name: "Jowar Atta", price: 129, unit: "1kg", category: "Flours", img1: "https://i.ibb.co/RT8Xxvkj/83375485-4b49-41c8-be9f-561b99436307.png", benefits: ["Gluten-Free"] },
             { id: "p11", name: "Jau Atta", price: 129, unit: "1kg", category: "Flours", img1: "https://i.ibb.co/KxczQb98/166355b5-a465-406f-9781-025c57e5b4f1.png", benefits: ["Cooling Grain"] },
             { id: "p12", name: "Besan", price: 159, unit: "1kg", category: "Flours", img1: "https://i.ibb.co/twHt1WcL/cd7e094a-34b2-4339-91eb-c4446f31529c.png", benefits: ["100% Chana Dal"] },
-            { id: "p13", name: "Dalia", price: 119, unit: "1kg", category: "Grains", img1: "https://i.ibb.co/tM976W1b/aa227679-7f64-4580-b9a0-c3661c2b3bec.png", benefits: ["High Fiber"] },
+            { id: "p13", name: "Organic Black Wheat Dalia", price: 80, unit: "500g", category: "Grains", img1: "https://i.ibb.co/tM976W1b/aa227679-7f64-4580-b9a0-c3661c2b3bec.png", variants: [{u: "500g", p: 80}, {u: "1kg", p: 150}], benefits: ["High Fiber"] },
             { id: "nirogcard", name: "Nirog Card", price: 1, unit: "1pc", category: "Gift Cards", img1: "https://i.ibb.co/99WTC1Nr/Gemini-Generated-Image-i4zsaxi4zsaxi4zs.png", benefits: ["Exclusive Heritage Membership", "Support Punjab Farmers"], isBestseller: true }
         ];
 
@@ -547,13 +547,13 @@
                 if (weight <= 5) return 79;
                 if (weight <= 10) return 94;
                 if (weight <= 20) return 149;
-                return 149; // Above 20kg in Punjab
+                return 149; // Above 20kg
             } else {
                 if (weight <= 1) return 69;
                 if (weight <= 5) return 89;
                 if (weight <= 10) return 129;
                 if (weight <= 20) return 149;
-                return 169; // Above 20kg outside Punjab
+                return 169; // Above 20kg
             }
         }
 
@@ -698,7 +698,7 @@
 
             const shippingCost = calculateShipping(totalWeight, selectedState);
             const totalPayable = subtotal + shippingCost;
-            const shippingDisplay = (shippingCost === 0 && totalWeight >= 20) ? "FREE" : `₹${shippingCost}`;
+            const shippingDisplay = `₹${shippingCost}`;
 
             if(container) container.innerHTML = html || '<p class="text-center opacity-50 py-10">Harvest Box is empty</p>';
             if(badge) {
@@ -841,8 +841,6 @@
         async function finalizeOrder() {
             const form = document.getElementById('checkout-form');
             const submitBtn = document.getElementById('checkout-submit-btn');
-            const backendBase = "https://razorpay-backend-production-3067.up.railway.app";
-            const RAZORPAY_KEY_ID = 'rzp_live_RzHXnwD3deQkL7';
 
             if (!form.checkValidity()) {
                 showToast('Please fill in all details correctly!');
@@ -851,6 +849,7 @@
 
             const firstName = document.getElementById('fname').value;
             const lastName = document.getElementById('lname').value;
+            const email = document.getElementById('email').value; 
             const phone = document.getElementById('phone').value;
             const address = document.getElementById('address').value;
             const city = document.getElementById('city').value;
@@ -892,108 +891,102 @@
 
             const originalBtnText = submitBtn.innerHTML;
             submitBtn.disabled = true;
-            submitBtn.innerText = "Securing Order...";
+            submitBtn.innerText = "Redirecting to WhatsApp...";
 
             const clientOrderId = `ORDER_${Date.now()}`;
 
+            let rawWaText = `*New Order from Nirog Organic*\n\n`;
+            rawWaText += `*Customer:* ${firstName} ${lastName}\n`;
+            rawWaText += `*Phone:* ${phone}\n`;
+            rawWaText += `*Email:* ${email}\n`;
+            rawWaText += `*Address:* ${address}, ${city}, ${pincode}, ${state}\n\n`;
+            rawWaText += `*Products:*\n`;
+            productDetailsArr.forEach(item => { rawWaText += `- ${item}\n`; });
+            rawWaText += `\n*Subtotal:* ₹${subtotal}\n`;
+            rawWaText += `*Shipping:* ₹${shippingCost}\n`;
+            rawWaText += `*Total Payable: ₹${totalPayable}*`;
+
+            const waUrl = `https://wa.me/917009395451?text=${encodeURIComponent(rawWaText)}`;
+
             try {
-                // STEP 1: n8n PRE-PAYMENT WEBHOOK
-                await fetch("https://primary-production-fd532.up.railway.app/webhook/nirog-pre-payment", {
+                // N8N PRE-PAYMENT WEBHOOK
+                fetch("https://primary-production-fd532.up.railway.app/webhook/nirog-pre-payment", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         client_order_id: clientOrderId,
                         name: `${firstName} ${lastName}`,
+                        email: email,
                         phone: phone,
                         products: productsStr,
                         address: `${address}, ${city}, ${pincode}, ${state}`,
                         amount: totalPayable,
-                        status: "PENDING"
+                        status: "WHATSAPP_REDIRECT"
                     })
-                });
-
-                // STEP 2: CREATE RAZORPAY ORDER ON BACKEND
-                const response = await fetch(`${backendBase}/create-order`, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        amount: totalPayable,
-                        name: `${firstName} ${lastName}`,
-                        phone: phone,
-                        address: `${address}, ${city}, ${pincode}, ${state}`,
-                        products: productsStr
-                    })
-                });
-
-                if (response.ok) {
-                    const orderData = await response.json();
-                    showToast("Order secured. Opening Payment...");
-                    
-                    const options = {
-                        key: RAZORPAY_KEY_ID,
-                        amount: totalPayable * 100, 
-                        currency: "INR",
-                        name: "Nirog Organic",
-                        description: "Organic Heritage Order",
-                        order_id: orderData.id, 
-                        prefill: { name: `${firstName} ${lastName}`, contact: phone },
-                        theme: { color: "#659D32" },
-                        handler: async function (razorResponse) {
-                            submitBtn.innerText = "Verifying Payment...";
-                            
-                            try {
-                                const verifyResponse = await fetch(`${backendBase}/verify-payment`, {
-                                    method: "POST",
-                                    headers: { "Content-Type": "application/json" },
-                                    body: JSON.stringify({
-                                        client_order_id: clientOrderId,
-                                        razorpay_order_id: razorResponse.razorpay_order_id,
-                                        razorpay_payment_id: razorResponse.razorpay_payment_id,
-                                        razorpay_signature: razorResponse.razorpay_signature,
-                                        name: `${firstName} ${lastName}`,
-                                        phone: phone,
-                                        address: `${address}, ${city}, ${pincode}, ${state}`,
-                                        products: productsStr,
-                                        amount: totalPayable
-                                    })
-                                });
-
-                                if (verifyResponse.ok) {
-                                    cart = {};
-                                    localStorage.removeItem('nirogCart');
-                                    updateCartUI();
-                                    window.location.hash = 'home';
-                                    document.getElementById('success-modal').classList.remove('hidden');
-                                } else {
-                                    throw new Error("Verification failed");
-                                }
-                            } catch (e) {
-                                console.error("Post-payment verification failed", e);
-                                showToast("Verification error. Please contact support.");
-                            }
-                        },
-                        modal: {
-                            ondismiss: function() {
-                                submitBtn.disabled = false;
-                                submitBtn.innerHTML = originalBtnText;
-                                showToast("Payment gateway closed.");
-                            }
-                        }
-                    };
-
-                    const rzp = new Razorpay(options);
-                    rzp.open();
-
-                } else {
-                    throw new Error("Order creation failed");
-                }
-
+                }).catch(e => console.error("Webhook logging failed", e));
+                
+                // Clear cart
+                cart = {};
+                localStorage.removeItem('nirogCart');
+                updateCartUI();
+                
+                // Redirect user to WhatsApp
+                window.open(waUrl, '_blank');
+                
+                // Show success modal to user
+                window.location.hash = 'home';
+                document.getElementById('success-modal').classList.remove('hidden');
+                
             } catch (error) {
                 console.error(error);
-                showToast('Unable to secure order. Please try again.');
+                showToast('Unable to process order. Please try again.');
+            } finally {
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = originalBtnText;
             }
+        }
+
+        const waTooltip = document.getElementById('wa-tooltip');
+        const waButton = document.getElementById('wa-button');
+
+        function showTooltip() {
+            if(waTooltip) {
+                waTooltip.style.display = 'block';
+                setTimeout(() => {
+                    waTooltip.classList.remove('opacity-0', 'translate-y-4');
+                }, 10);
+            }
+        }
+
+        function hideTooltip() {
+            if(waTooltip) {
+                waTooltip.classList.add('opacity-0', 'translate-y-4');
+                setTimeout(() => {
+                    waTooltip.style.display = 'none';
+                }, 500);
+            }
+        }
+
+        if (!sessionStorage.getItem('whatsappHintShown')) {
+            setTimeout(() => {
+                showTooltip();
+                if(waButton) waButton.classList.add('animate-pop-bounce');
+                sessionStorage.setItem('whatsappHintShown', 'true');
+                setTimeout(() => {
+                    hideTooltip();
+                    if(waButton) waButton.classList.remove('animate-pop-bounce');
+                }, 6000); 
+            }, 12000); 
+        }
+
+        if(waButton) {
+            waButton.addEventListener('mouseenter', showTooltip);
+            waButton.addEventListener('mouseleave', hideTooltip);
+            waButton.addEventListener('touchstart', showTooltip);
+        }
+        if(waTooltip) {
+            waTooltip.addEventListener('mouseenter', showTooltip);
+            waTooltip.addEventListener('mouseleave', hideTooltip);
         }
 
         function renderBestsellers() {
@@ -1022,7 +1015,7 @@
                 b.classList.remove('active', 'bg-punjab', 'text-white');
                 b.classList.add('bg-white', 'text-punjab-dark');
             });
-            const target = event.currentTarget;
+            const target = event.target;
             target.classList.add('active', 'bg-punjab', 'text-white');
             target.classList.remove('bg-white', 'text-punjab-dark');
             renderShopProducts(cat);
